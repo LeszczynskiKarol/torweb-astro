@@ -1,0 +1,335 @@
+---
+const projects = [
+  {
+    title: 'Smart-Copy.AI',
+    category: 'Platforma SaaS / AI',
+    description: 'Zaawansowana platforma AI do generowania treści marketingowych z multi-agent architecture. Teksty do 150 stron.',
+    image: '/projects/smart-copy.jpg',
+    tech: ['React 18', 'TypeScript', 'Fastify', 'Claude AI', 'Stripe'],
+    results: [
+      { label: 'Max stron', value: '150' },
+      { label: 'Języki', value: '8' },
+    ],
+    url: 'https://smart-copy.ai',
+    featured: false
+  },
+  {
+    title: 'MaturaPolski.pl',
+    category: 'Platforma SaaS / EdTech',
+    description: 'Innowacyjna platforma AI do przygotowania do matury z języka polskiego. Ocena wypracowań przez Claude AI.',
+    image: '/projects/maturapolski.jpg',
+    tech: ['React', 'TypeScript', 'Fastify', 'Claude AI', 'Stripe'],
+    results: [
+      { label: 'Aktywni uczniowie', value: '500+' },
+      { label: 'Pytań w bazie', value: '1000+' },
+    ],
+    url: 'https://maturapolski.pl',
+    featured: false
+  },
+  {
+    title: 'Smart-Edu.AI',
+    category: 'Platforma SaaS / EdTech',
+    description: 'Platforma AI do generowania prac naukowych z wykorzystaniem Claude AI. 2000+ aktywnych użytkowników.',
+    image: '/projects/smartedu.jpg',
+    tech: ['Next.js', 'Node.js', 'MongoDB', 'Claude AI'],
+    results: [
+      { label: 'Użytkownicy', value: '2000+' },
+      { label: 'Wygenerowanych prac', value: '10k+' },
+    ],
+    url: 'https://smart-edu.ai',
+    featured: false
+  },
+  {
+    title: 'Nadamel.pl',
+    category: 'Strona firmowa',
+    description: 'Nowoczesna strona dla firmy stolarskiej z mega menu, 8 podstronami usługowymi i pełną optymalizacją SEO.',
+    image: '/projects/nadamel.jpg',
+    tech: ['Astro', 'TypeScript', 'Tailwind', 'AWS CDN'],
+    results: [
+      { label: 'Lighthouse', value: '98/100' },
+      { label: 'Podstron', value: '8' },
+    ],
+    url: 'https://nadamel.pl',
+    featured: false
+  },
+  {
+    title: 'GrandKuchnie.pl',
+    category: 'Strona firmowa',
+    description: 'Elegancka strona dla producenta mebli kuchennych z rozbudowanym portfolio realizacji i systemem CMS.',
+    image: '/projects/grandkuchnie.jpg',
+    tech: ['Next.js', 'Prisma', 'TypeScript', 'Tailwind'],
+    results: [
+      { label: 'PageSpeed', value: '95+' },
+      { label: 'Pozycja Google', value: 'Top 3' },
+    ],
+    url: 'https://grandkuchnie.pl',
+    featured: false
+  },
+  {
+    title: 'Silniki-Elektryczne.com.pl',
+    category: 'E-commerce',
+    description: 'Migracja z WooCommerce na dedykowane rozwiązanie. Pełna automatyzacja z Allegro i InPost. +40% sprzedaży.',
+    image: '/projects/stojan.jpg',
+    tech: ['TypeScript', 'Node.js', 'PostgreSQL', 'Allegro API'],
+    results: [
+      { label: 'Wzrost sprzedaży', value: '+40%' },
+      { label: 'PageSpeed', value: '92' },
+    ],
+    url: 'https://www.silniki-elektryczne.com.pl',
+    featured: false
+  },
+  {
+    title: 'Zeszyty ćwiczeń',
+    category: 'Publishing / EdTech',
+    description: '11 profesjonalnych zeszytów ćwiczeń w LaTeX/Quarto dla wydawnictwa edukacyjnego. 1500+ stron.',
+    image: '/projects/zeszyty.jpg',
+    tech: ['Quarto', 'LaTeX', 'Python', 'TikZ'],
+    results: [
+      { label: 'Publikacji', value: '11' },
+      { label: 'Stron', value: '1500+' },
+    ],
+    url: '#',
+    featured: false
+  },
+  {
+    title: 'Meble-Bydgoszcz.pl',
+    category: 'Strona firmowa',
+    description: 'Kompleksowa strona dla firmy meblowej z integracją Google Places API i serverless Lambda.',
+    image: '/projects/meble-bydgoszcz.jpg',
+    tech: ['Astro', 'AWS Lambda', 'CloudFront', 'Google API'],
+    results: [
+      { label: 'PageSpeed', value: '98' },
+      { label: 'Czas ładowania', value: '<1s' },
+    ],
+    url: 'https://meble-bydgoszcz.pl',
+    featured: false
+  },
+  {
+    title: 'Project-Design.pl',
+    category: 'Portfolio / Wnętrza',
+    description: 'Elegancka strona portfolio dla studia projektowania wnętrz w Toruniu. Minimalistyczny design premium.',
+    image: '/projects/project-design.jpg',
+    tech: ['Astro', 'Cloudinary', 'AWS CDN', 'TypeScript'],
+    results: [
+      { label: 'Lighthouse', value: '98/100' },
+      { label: 'Accessibility', value: '100' },
+    ],
+    url: 'https://project-design.pl',
+    featured: false
+  },
+  {
+    title: 'eCopywriting.pl',
+    category: 'Platforma SaaS',
+    description: 'Platforma do bezkontakowego zamawiania tekstów copywriterskich z automatycznymi wycenami i Socket.io.',
+    image: '/projects/ecopywriting.jpg',
+    tech: ['Next.js', 'MongoDB', 'Socket.io', 'Stripe'],
+    results: [
+      { label: 'Automatyzacja', value: '100%' },
+      { label: 'Czas realizacji', value: '24h' },
+    ],
+    url: 'https://ecopywriting.pl',
+    featured: false
+  },
+  {
+    title: 'MagisterkaOnline.com.pl',
+    category: 'Content / EdTech',
+    description: 'Kompleksowy portal edukacyjny z 30+ poradnikami o pisaniu pracy magisterskiej i metodologii.',
+    image: '/projects/magisterkaonline.jpg',
+    tech: ['Astro 5', 'TypeScript', 'Tailwind', 'AWS CDN'],
+    results: [
+      { label: 'Artykułów', value: '30+' },
+      { label: 'Metodologia', value: '16' },
+    ],
+    url: 'https://magisterkaonline.com.pl',
+    featured: false
+  },
+  {
+    title: 'By-Interior.pl',
+    category: 'Portfolio / Wnętrza',
+    description: 'Profesjonalna strona dla studia projektowania wnętrz w Bydgoszczy z serverless backend.',
+    image: '/projects/by-interior.jpg',
+    tech: ['Astro 4', 'AWS Lambda', 'CloudFront', 'Tailwind'],
+    results: [
+      { label: 'Sekcji', value: '9' },
+      { label: 'Backend', value: 'Serverless' },
+    ],
+    url: 'https://by-interior.pl',
+    featured: false
+  }
+];
+
+const featuredProjects = projects.filter(p => p.featured);
+const otherProjects = projects.filter(p => !p.featured);
+---
+
+<section id="portfolio" class="py-24 lg:py-32 relative">
+  <!-- Background Accent -->
+  <div class="absolute inset-0 bg-gradient-to-b dark:from-dark-950 dark:via-dark-900/50 dark:to-dark-950 from-slate-50 via-white to-slate-50 -z-10"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
+      <span class="inline-block px-4 py-1.5 rounded-full glass text-accent-secondary text-sm font-mono mb-6">
+        &lt;portfolio /&gt;
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-6 text-heading">
+        Projekty z <span class="gradient-text">realnymi wynikami</span>
+      </h2>
+      <p class="text-muted text-lg">
+        Każdy projekt to unikalne rozwiązanie dopasowane do potrzeb klienta. 
+        Nie tworzę szablonowych stron — buduję narzędzia które generują przychód.
+      </p>
+    </div>
+    
+    <!-- Featured Projects (3 SaaS platforms) -->
+    <div class="grid lg:grid-cols-3 gap-6 mb-12">
+      {featuredProjects.map((project, i) => (
+        <div class={`group relative glass rounded-2xl overflow-hidden hover:border-accent transition-all duration-500 animate-on-scroll animate-delay-${(i + 1) * 100}`}>
+          <!-- Image -->
+          <div class="aspect-video bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200 relative overflow-hidden">
+            {project.image && (
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t dark:from-dark-950 from-white via-transparent to-transparent z-10"></div>
+            <!-- Featured Badge -->
+            <div class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full dark:bg-neon-green/20 bg-emerald-500/20 dark:border-neon-green/30 border-emerald-500/30 border text-accent text-xs font-medium">
+              Featured
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <span class="text-xs text-faint font-mono">{project.category}</span>
+                <h3 class="font-display font-bold text-xl text-heading mt-1">{project.title}</h3>
+              </div>
+              {project.url !== '#' && (
+                <a 
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-9 h-9 rounded-lg border border-theme flex items-center justify-center text-muted hover:text-accent hover:border-accent transition-colors flex-shrink-0"
+                >
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+            
+            <p class="text-muted text-sm mb-4 line-clamp-2">{project.description}</p>
+            
+            <!-- Results -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              {project.results.map(result => (
+                <div class="p-3 rounded-lg bg-elevated">
+                  <div class="text-xs text-faint mb-0.5">{result.label}</div>
+                  <div class="font-display font-bold text-lg gradient-text">{result.value}</div>
+                </div>
+              ))}
+            </div>
+            
+            <!-- Tech Stack -->
+            <div class="flex flex-wrap gap-1.5">
+              {project.tech.slice(0, 4).map(t => (
+                <span class="px-2 py-1 text-xs font-mono text-muted bg-elevated rounded-lg">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Other Projects Grid (9 projects in 3 columns) -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {otherProjects.map((project, i) => (
+        <div class={`group glass rounded-xl overflow-hidden hover:border-accent-secondary transition-all duration-300 hover:-translate-y-1 animate-on-scroll animate-delay-${(i + 1) * 50}`}>
+          <!-- Image Thumbnail -->
+          <div class="aspect-video bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200 relative overflow-hidden">
+            {project.image && (
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+            )}
+            <div class="absolute inset-0 bg-gradient-to-t dark:from-dark-950/80 from-white/80 via-transparent to-transparent"></div>
+          </div>
+          
+          <div class="p-5">
+            <div class="flex items-start justify-between mb-2">
+              <div>
+                <span class="text-xs text-faint font-mono">{project.category}</span>
+                <h3 class="font-display font-semibold text-lg text-heading mt-1">{project.title}</h3>
+              </div>
+              {project.url !== '#' && (
+                <a 
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-muted hover:text-accent-secondary transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+            
+            <p class="text-muted text-sm mb-4 line-clamp-2">{project.description}</p>
+            
+            <!-- Results inline -->
+            <div class="flex gap-4 mb-4">
+              {project.results.map(result => (
+                <div class="flex items-center gap-1.5">
+                  <span class="text-accent font-bold text-sm">{result.value}</span>
+                  <span class="text-xs text-faint">{result.label}</span>
+                </div>
+              ))}
+            </div>
+            
+            <!-- Tech Stack -->
+            <div class="flex flex-wrap gap-1.5">
+              {project.tech.slice(0, 4).map(t => (
+                <span class="px-2 py-0.5 text-[11px] font-mono text-faint bg-elevated rounded">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- CTA - Zobacz wszystkie -->
+    <div class="text-center animate-on-scroll">
+      <a 
+        href="/realizacje"
+        class="inline-flex items-center gap-3 px-8 py-4 glass rounded-xl hover:border-accent transition-all duration-300 group"
+      >
+        <span class="text-body font-medium">Zobacz wszystkie realizacje ze szczegółami</span>
+        <svg class="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

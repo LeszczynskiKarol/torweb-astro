@@ -1,0 +1,662 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const projects = [
+  {
+    id: 1,
+    title: "Smart-Copy.AI",
+    category: "SaaS / AI",
+    categorySlug: "saas",
+    description: "Zaawansowana platforma AI do generowania treści marketingowych z multi-agent architecture",
+    fullDescription: "Profesjonalna platforma full-stack do generowania treści marketingowych za pomocą sztucznej inteligencji Claude. System wykorzystuje zaawansowaną architekturę multi-agent - Kierownik dzieli strukturę tekstu na części, a zespół Pisarzy generuje treść równolegle. Platforma potrafi wygenerować teksty do 150 stron, automatycznie wyszukuje źródła przez Google Custom Search API, scrapuje i analizuje treści, a następnie tworzy unikalne, SEO-friendly artykuły. System obsługuje 8 języków, oferuje integrację własnych źródeł użytkownika (URL-e i pliki), oraz zaawansowane opcje SEO (frazy kluczowe, linkowanie wewnętrzne). Płatności przez Stripe z systemem prepaid balance.",
+    image: "/projects/smart-copy.jpg",
+    technologies: ["React 18", "TypeScript", "Vite", "Fastify", "Prisma ORM", "PostgreSQL", "Anthropic Claude AI", "Google Custom Search API", "Stripe", "AWS S3", "AWS SES", "AWS EC2", "Zustand", "TanStack Query", "Zod", "Framer Motion", "TailwindCSS"],
+    features: [
+      "Multi-agent AI architecture (Kierownik + Pisarze)",
+      "Generowanie tekstów do 150 stron",
+      "Automatyczne wyszukiwanie źródeł (Google API)",
+      "Scrapowanie i analiza treści z internetu",
+      "Wsparcie dla 8 języków",
+      "Upload własnych źródeł (URL-e + pliki PDF/DOCX)",
+      "Zaawansowane opcje SEO (keywords, linki)",
+      "System prepaid balance z Stripe",
+      "Real-time progress tracking",
+      "Eksport do HTML z formatowaniem",
+      "Panel administracyjny z monitoringiem",
+      "JWT authentication + Google OAuth"
+    ],
+    link: "https://smart-copy.ai",
+    year: "2024-2025",
+    stats: { agents: "Multi-agent", languages: "8 języków", maxPages: "150 stron" }
+  },
+  {
+    id: 2,
+    title: "MaturaPolski.pl",
+    category: "SaaS / EdTech",
+    categorySlug: "saas",
+    description: "Innowacyjna platforma AI do przygotowania do matury z języka polskiego",
+    fullDescription: "Zaawansowana platforma edukacyjna wykorzystująca Anthropic AI (Claude) do oceny wypracowań i notatek syntetycznych. System oferuje zarówno pytania zamknięte (jednokrotny i wielokrotny wybór, uzupełnianie luk, łączenie elementów itp.), jak i otwarte (krótkie odpowiedzi, notatki syntetyczne, wypracowania) oceniane przez sztuczną inteligencję. Platforma zawiera system sesji nauki z adaptywnym doborem zadań, real-time feedback, dashboard analityki postępów, oraz plany subskrypcyjne przez Stripe. Background jobs obsługiwane przez BullMQ + Redis. WebSockets dla live updates podczas sesji.",
+    image: "/projects/maturapolski.jpg",
+    technologies: ["React", "TypeScript", "Node.js", "Fastify", "Prisma ORM", "PostgreSQL", "Anthropic AI", "Stripe", "AWS S3", "AWS SES", "WebSockets", "BullMQ", "Redis", "TanStack Query", "Zustand", "Framer Motion"],
+    features: [
+      "Ocena wypracowań przez AI (Claude)",
+      "System sesji nauki z adaptywnym doborem zadań",
+      "Real-time feedback dla uczniów",
+      "Dashboard analityki postępów",
+      "Plany subskrypcyjne (FREE, BASIC, PREMIUM)",
+      "System punktów AI z rolling limits",
+      "WebSockets dla live updates",
+      "Background jobs (BullMQ + Redis)",
+      "Eksport wyników do PDF",
+      "Panel administracyjny",
+      "Autentykacja JWT + Google OAuth",
+      "Tracking postępów ucznia"
+    ],
+    link: "https://maturapolski.pl",
+    year: "2024-2025",
+    stats: { type: "EdTech", ai: "Claude AI", subscriptions: "3 plany" }
+  },
+  {
+    id: 3,
+    title: "Smart-Edu.AI",
+    category: "SaaS / EdTech",
+    categorySlug: "saas",
+    description: "Platforma AI do generowania prac pisemnych i naukowych",
+    fullDescription: "Zaawansowana platforma wykorzystująca sztuczną inteligencję (Claude AI) do generowania wysokiej jakości prac pisemnych, naukowych i zaliczeniowych. System potrafi wygenerować nawet 120-stronicową pracę dyplomową w 20 minut - w pełni kompletną z bibliografią, cytowaniami i formatowaniem akademickim. Platforma obsługuje 8 języków i różne typy prac.",
+    image: "/projects/smartedu.jpg",
+    technologies: ["Next.js", "Node.js", "MongoDB", "AWS EC2", "Anthropic AI", "Stripe", "Make.com", "Airtable", "TinyMCE"],
+    features: [
+      "Generowanie prac licencjackich i magisterskich",
+      "Wsparcie dla 8+ języków",
+      "Automatyczne wyszukiwanie i cytowanie źródeł",
+      "Bibliografia w formacie akademickim",
+      "Integracja z Make.com dla automatyzacji procesów",
+      "Baza danych klientów w Airtable",
+      "System płatności Stripe",
+      "Eksport do PDF, DOCX, HTML"
+    ],
+    link: "https://smart-edu.ai",
+    year: "2024",
+    stats: { pages: "120 stron", time: "20 minut", languages: "8 języków" }
+  },
+  {
+    id: 4,
+    title: "Nadamel.pl",
+    category: "Strona firmowa",
+    categorySlug: "strony",
+    description: "Nowoczesna strona dla firmy stolarskiej z pełną optymalizacją SEO i wydajności",
+    fullDescription: "Profesjonalna strona internetowa dla firmy stolarskiej Nadamel zbudowana w Astro z naciskiem na maksymalną wydajność i SEO. Strona wykorzystuje statyczną generację (SSG) dla błyskawicznego ładowania. Rozbudowana struktura 8 podstron usługowych z bogatą treścią SEO, mega menu dropdown w nawigacji, oraz zaawansowane structured data (JSON-LD z OfferCatalog). Hosting na AWS S3 + CloudFront CDN zapewnia globalną dostępność. Perfect Lighthouse score dzięki optymalizacji Core Web Vitals.",
+    image: "/projects/nadamel.jpg",
+    technologies: ["Astro", "TypeScript", "Tailwind CSS", "AWS S3", "AWS CloudFront"],
+    features: [
+      "Statyczna generacja stron (SSG)",
+      "8 kompletnych podstron usługowych",
+      "Mega menu dropdown w nawigacji",
+      "Rozbudowane JSON-LD structured data",
+      "Automatyczny sitemap i robots.txt",
+      "Hosting na AWS S3 + CloudFront CDN",
+      "Perfect Lighthouse score (98-100)",
+      "Pełna responsywność mobile-first",
+      "FAQ z interaktywnymi akordeonami",
+      "Core Web Vitals optimization"
+    ],
+    link: "https://nadamel.pl",
+    year: "2025",
+    stats: { lighthouse: "98/100", pages: "8 podstron", hosting: "AWS CDN" }
+  },
+  {
+    id: 5,
+    title: "GrandKuchnie.pl",
+    category: "Strona firmowa",
+    categorySlug: "strony",
+    description: "Profesjonalna strona dla producenta mebli kuchennych z portfolio realizacji",
+    fullDescription: "Kompleksowa strona internetowa dla firmy GrandKuchnie prezentująca portfolio realizacji kuchennych. System zawiera rozbudowany CMS umożliwiający zarządzanie treścią, galerię realizacji z kategoryzacją według stylu i materiałów, formularz kontaktowy z powiadomieniami email. Strona działa błyskawicznie i jest zoptymalizowana pod kątem SEO.",
+    image: "/projects/grandkuchnie.jpg",
+    technologies: ["Next.js", "Prisma", "Node.js", "React", "AWS S3", "Express", "Multer", "Tailwind CSS"],
+    features: [
+      "Portfolio realizacji z filtrowaniem po kategoriach",
+      "System CMS do zarządzania treścią",
+      "Galeria projektów z lightbox",
+      "Formularz kontaktowy z walidacją",
+      "Optymalizacja SEO",
+      "Responsywny design",
+      "Integracja z Google Analytics",
+      "Upload zdjęć na AWS S3",
+      "Panel administracyjny"
+    ],
+    link: "https://grandkuchnie.pl",
+    year: "2025",
+    stats: { type: "Meble", cms: "Custom CMS", storage: "AWS S3" }
+  },
+  {
+    id: 6,
+    title: "Stojan Shop",
+    category: "E-commerce",
+    categorySlug: "ecommerce",
+    description: "Własny sklep e-commerce z pełną migracją z WooCommerce",
+    fullDescription: "Profesjonalny sklep e-commerce stworzony od podstaw w 2024 roku jako następca wersji WooCommerce z 2021. Przeprowadziłem pełną migrację, zachowując strukturę URL i moc SEO. Nowy sklep nie tylko utrzymał pozycje, ale zwiększył sprzedaż o 40% dzięki szybszemu działaniu, lepszemu UX/UI i optymalizacji. System automatycznie generuje opisy produktów przez AI i synchronizuje stany magazynowe z Allegro.",
+    image: "/projects/stojan.jpg",
+    technologies: ["TypeScript", "Node.js", "TypeORM", "PostgreSQL", "AWS S3", "AWS SES", "Anthropic AI", "Allegro API", "Stripe", "Google Analytics", "Nginx", "PM2"],
+    features: [
+      "Migracja z WordPress/WooCommerce z zachowaniem SEO",
+      "Wzrost sprzedaży o 40% po migracji",
+      "Automatyczne opisy produktów generowane przez AI",
+      "Dwukierunkowa synchronizacja z Allegro",
+      "Zarządzanie stanami magazynowymi w czasie rzeczywistym",
+      "Płatności Stripe (w tym Przelewy24)",
+      "Automatyczne mailingi przez AWS SES",
+      "Integracja z Google Analytics, Ads i Merchant Center",
+      "Optymalizowany UX/UI dla konwersji",
+      "Hosting na AWS EC2 z Nginx"
+    ],
+    link: "https://www.silniki-elektryczne.com.pl",
+    year: "2021-2024",
+    stats: { growth: "+40% sprzedaży", integration: "Allegro API", ai: "Opisy AI" }
+  },
+  {
+    id: 7,
+    title: "Zeszyty ćwiczeń",
+    category: "Publishing",
+    categorySlug: "inne",
+    description: "11 profesjonalnych zeszytów ćwiczeń w LaTeX/Quarto dla wydawnictwa edukacyjnego",
+    fullDescription: "Kompleksowe zlecenie dla zewnętrznego wydawnictwa obejmujące stworzenie 11 zeszytów ćwiczeń dla uczniów szkół policealnych. Projekt obejmował zarówno tworzenie merytorycznej treści edukacyjnej, jak i profesjonalny skład w systemie Quarto/LaTeX. Każdy zeszyt został przygotowany do druku profesjonalnego z zachowaniem standardów wydawniczych.",
+    image: "/projects/zeszyty.jpg",
+    technologies: ["Quarto", "LaTeX", "Python", "Pandoc", "TikZ", "BibTeX"],
+    features: [
+      "11 kompletnych zeszytów ćwiczeń",
+      "Treści merytoryczne dla szkół policealnych",
+      "Profesjonalny skład w LaTeX",
+      "Formatowanie zgodne ze standardami wydawniczymi",
+      "Generowanie PDF print-ready",
+      "Automatyczne spisy treści i indeksy",
+      "Wykresy i diagramy w TikZ",
+      "Bibliografia w formacie akademickim",
+      "Gotowe do druku profesjonalnego",
+      "Renderowanie przez Quarto do PDF"
+    ],
+    link: "#",
+    year: "2025",
+    stats: { publications: "11 zeszytów", pages: "1500+", client: "Wydawnictwo" }
+  },
+  {
+    id: 8,
+    title: "Meble-Bydgoszcz.pl",
+    category: "Strona firmowa",
+    categorySlug: "strony",
+    description: "Kompleksowa strona dla firmy meblowej z dynamiczną integracją Google Places API",
+    fullDescription: "Profesjonalna strona internetowa dla firmy meblowej Meble-Bydgoszcz zbudowana w Astro z pełną optymalizacją wydajności. Strona wykorzystuje statyczną architekturę dla maksymalnej szybkości i SEO, jednocześnie integrując dynamiczne opinie z Google Places API przez serverless Lambda. Hosting na AWS S3 + CloudFront zapewnia globalną dostępność i błyskawiczne ładowanie.",
+    image: "/projects/meble-bydgoszcz.jpg",
+    technologies: ["Astro", "AWS S3", "AWS CloudFront", "AWS API Gateway", "AWS Lambda", "Tailwind CSS", "Google Places API", "TypeScript", "EmailJS"],
+    features: [
+      "Statyczna generacja stron dla maksymalnej wydajności",
+      "Hosting na AWS S3 z CloudFront CDN",
+      "Dynamiczne pobieranie opinii z Google Places API",
+      "Serverless API przez AWS Lambda",
+      "Automatyczne generowanie Schema.org",
+      "Pełna responsywność i optymalizacja mobile",
+      "Galeria realizacji z filtrowaniem",
+      "Formularz kontaktowy z EmailJS",
+      "Core Web Vitals optimization",
+      "SEO-friendly routing i metadata"
+    ],
+    link: "https://meble-bydgoszcz.pl",
+    year: "2024-2025",
+    stats: { api: "Google Places", hosting: "AWS CDN", backend: "Serverless" }
+  },
+  {
+    id: 9,
+    title: "Project-Design.pl",
+    category: "Portfolio",
+    categorySlug: "strony",
+    description: "Elegancka strona portfolio dla studia projektowania wnętrz w Toruniu",
+    fullDescription: "Minimalistyczna strona portfolio dla studia projektowania wnętrz Project Design. Projekt skupia się na prezentacji realizacji z naciskiem na estetykę premium i user experience. Wykorzystuje Astro dla statycznej generacji, co zapewnia błyskawiczne ładowanie. Integracja z Cloudinary umożliwia optymalizację i transformację obrazów on-the-fly.",
+    image: "/projects/project-design.jpg",
+    technologies: ["Astro", "AWS S3", "AWS CloudFront", "Tailwind CSS", "EmailJS", "Cloudinary", "TypeScript", "Intersection Observer API"],
+    features: [
+      "Minimalistyczny design premium",
+      "Zaawansowana galeria z modalami",
+      "System filtrowania realizacji",
+      "Scroll reveal animations",
+      "Upload obrazów do Cloudinary",
+      "Formularz z załącznikami",
+      "Global CDN przez CloudFront",
+      "Pełna optymalizacja SEO",
+      "Strukturyzowane dane JSON-LD",
+      "Lazy loading obrazów",
+      "Perfect Lighthouse score"
+    ],
+    link: "https://project-design.pl",
+    year: "2024",
+    stats: { lighthouse: "98/100", accessibility: "100/100", design: "Premium" }
+  },
+  {
+    id: 10,
+    title: "eCopywriting.pl",
+    category: "SaaS / Content",
+    categorySlug: "saas",
+    description: "Platforma do bezkontakowego zamawiania tekstów copywriterskich",
+    fullDescription: "Zaawansowana platforma umożliwiająca bezkontakowe zamawianie profesjonalnych tekstów copywriterskich. System łączy klientów z copywriterami poprzez intuicyjny panel, gdzie obie strony mogą komunikować się i realizować zamówienia. Cały proces jest zautomatyzowany - od wyceny po dostarczenie tekstów.",
+    image: "/projects/ecopywriting.jpg",
+    technologies: ["Next.js", "MongoDB", "AWS S3", "AWS EC2", "Stripe", "Node.js", "Nginx", "PM2", "TinyMCE", "Socket.io"],
+    features: [
+      "Panel klienta z historią zamówień",
+      "Panel administracyjny do zarządzania zleceniami",
+      "System komunikacji między klientem a copywriterem",
+      "Automatyczna wycena na podstawie typu i długości tekstu",
+      "Płatności online przez Stripe",
+      "Edytor tekstów TinyMCE",
+      "System powiadomień email",
+      "Real-time komunikacja przez Socket.io",
+      "System statusów zamówień",
+      "Generowanie faktur"
+    ],
+    link: "https://ecopywriting.pl",
+    year: "2024",
+    stats: { realtime: "Socket.io", payments: "Stripe", editor: "TinyMCE" }
+  },
+  {
+    id: 11,
+    title: "MagisterkaOnline.com.pl",
+    category: "Content / EdTech",
+    categorySlug: "inne",
+    description: "Kompleksowy portal edukacyjny z poradnikami o pisaniu pracy magisterskiej",
+    fullDescription: "Rozbudowany portal edukacyjny zawierający kompleksowe poradniki dla studentów piszących prace magisterskie. Strona oferuje szczegółowe artykuły na temat każdego etapu pisania pracy - od wyboru tematu, przez metodologię badań, po obronę. Szczególnie rozbudowana sekcja metodologii zawiera 16 podstron.",
+    image: "/projects/magisterkaonline.jpg",
+    technologies: ["Astro 5", "TypeScript", "Tailwind CSS", "AWS S3", "AWS CloudFront"],
+    features: [
+      "Statyczna generacja stron (SSG)",
+      "30+ podstron z poradnikami",
+      "Rozbudowana sekcja metodologii (16 artykułów)",
+      "Poradniki: bibliografia, cytowanie, formatowanie",
+      "Sekcje: wstęp, zakończenie, streszczenie, obrona",
+      "Optymalizacja SEO z meta tagami",
+      "Tailwind Typography dla czytelności",
+      "Hosting na AWS S3 + CloudFront CDN",
+      "Responsywny design mobile-first",
+      "Automatyczny sitemap"
+    ],
+    link: "https://magisterkaonline.com.pl",
+    year: "2025",
+    stats: { articles: "30+ artykułów", methodology: "16 poradników", hosting: "AWS CDN" }
+  },
+  {
+    id: 12,
+    title: "By-Interior.pl",
+    category: "Portfolio",
+    categorySlug: "strony",
+    description: "Elegancka strona dla studia projektowania wnętrz w Bydgoszczy",
+    fullDescription: "Profesjonalna strona internetowa dla studia projektowania wnętrz ByInterior z Bydgoszczy. Strona prezentuje portfolio realizacji, zespół projektantów, proces współpracy oraz ofertę usług. Zbudowana w Astro ze statyczną generacją dla maksymalnej wydajności. Serverless Lambda obsługuje backend.",
+    image: "/projects/by-interior.jpg",
+    technologies: ["Astro 4", "TypeScript", "Tailwind CSS", "AWS S3", "AWS CloudFront", "AWS Lambda"],
+    features: [
+      "Statyczna generacja stron (SSG)",
+      "Portfolio realizacji z galerią",
+      "Prezentacja zespołu projektantów",
+      "Sekcja procesu współpracy",
+      "Opinie klientów (testimonials)",
+      "Serverless backend (AWS Lambda)",
+      "Formularz kontaktowy",
+      "Animacje scroll reveal",
+      "Hosting na AWS S3 + CloudFront CDN",
+      "Responsywny design mobile-first",
+      "Optymalizacja SEO z meta tagami"
+    ],
+    link: "https://by-interior.pl",
+    year: "2025",
+    stats: { sections: "9 sekcji", hosting: "AWS CDN", backend: "Serverless" }
+  }
+];
+
+const categories = [
+  { slug: "all", name: "Wszystkie", count: projects.length },
+  { slug: "saas", name: "SaaS / AI", count: projects.filter(p => p.categorySlug === "saas").length },
+  { slug: "strony", name: "Strony WWW", count: projects.filter(p => p.categorySlug === "strony").length },
+  { slug: "ecommerce", name: "E-commerce", count: projects.filter(p => p.categorySlug === "ecommerce").length },
+  { slug: "inne", name: "Inne", count: projects.filter(p => p.categorySlug === "inne").length },
+];
+---
+
+<Layout 
+  title="Portfolio - Realizacje | Strony, Aplikacje, Sklepy - TorWeb"
+  description="Zobacz nasze realizacje: aplikacje webowe, sklepy internetowe, strony firmowe, platformy SaaS. Ponad 50 projektów dla klientów z całej Polski. Toruń, Bydgoszcz."
+>
+  <Navbar />
+  <Breadcrumbs items={[{ label: "Realizacje" }]} />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-12 md:pt-40 md:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-accent-secondary text-sm font-mono mb-6">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+          </svg>
+          &lt;portfolio /&gt;
+        </div>
+        
+        <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-heading">
+          Nasze <span class="gradient-text">realizacje</span>
+        </h1>
+        
+        <p class="text-xl text-muted max-w-3xl mx-auto mb-12">
+          Od koncepcji do deploymentu - kompleksowe rozwiązania webowe dla firm z całej Polski. 
+          Każdy projekt to unikalne wyzwanie i satysfakcja z dobrze wykonanej pracy.
+        </p>
+        
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12" id="category-filter">
+          {categories.map((cat, index) => (
+            <button 
+              data-category={cat.slug}
+              class={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${index === 0 ? 'bg-accent dark:bg-neon-green text-dark-950 active' : 'glass text-muted hover:border-accent/50 hover:text-body'}`}
+            >
+              {cat.name}
+              <span class="ml-1 opacity-60">({cat.count})</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+        {projects.map((project, index) => (
+          <div 
+            class={`project-card group relative animate-on-scroll animate-delay-${(index % 6 + 1) * 100}`}
+            data-category={project.categorySlug}
+            data-project-id={project.id}
+          >
+            <div class="glass rounded-2xl overflow-hidden hover:border-accent transition-all duration-300 cursor-pointer h-full flex flex-col">
+              <!-- Image -->
+              <div class="aspect-video relative overflow-hidden bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200">
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-6xl font-bold dark:text-white/5 text-slate-200">{project.title.substring(0, 2)}</span>
+                  </div>
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t dark:from-dark-950/90 from-white/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <!-- Year Badge -->
+                <div class="absolute top-3 right-3 px-2 py-1 rounded-lg dark:bg-dark-950/80 bg-white/80 backdrop-blur-sm text-xs text-muted">
+                  {project.year}
+                </div>
+              </div>
+              
+              <!-- Content -->
+              <div class="p-6 flex-grow flex flex-col">
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="font-display font-bold text-xl text-heading group-hover:text-accent transition-colors">{project.title}</h3>
+                </div>
+                <p class="text-sm text-accent-secondary mb-3">{project.category}</p>
+                <p class="text-muted text-sm mb-4 line-clamp-2 flex-grow">{project.description}</p>
+                
+                <!-- Technologies -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 3).map(tech => (
+                    <span class="text-xs px-2 py-1 bg-elevated rounded-lg text-faint font-mono">{tech}</span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span class="text-xs px-2 py-1 bg-elevated rounded-lg text-faint font-mono">+{project.technologies.length - 3}</span>
+                  )}
+                </div>
+                
+                <!-- CTA -->
+                <button class="project-trigger text-accent hover:text-accent/80 flex items-center gap-2 text-sm font-medium mt-auto group/btn">
+                  Zobacz szczegóły
+                  <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Modal -->
+  <div id="project-modal" class="fixed inset-0 dark:bg-dark-950/80 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass border-theme rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden transform scale-95 transition-transform duration-300" id="modal-content">
+      <!-- Modal Header -->
+      <div class="sticky top-0 dark:bg-dark-900/95 bg-white/95 backdrop-blur p-6 border-b border-theme flex justify-between items-center z-10">
+        <h3 class="font-display font-bold text-2xl text-heading" id="modal-title">Project Title</h3>
+        <button id="modal-close" class="p-2 hover:bg-elevated rounded-lg transition-colors">
+          <svg class="w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)]" id="modal-body">
+        <!-- Content will be injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="py-20 dark:bg-dark-900/50 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display font-bold text-3xl md:text-4xl text-heading mb-4">
+        Twój projekt może być <span class="gradient-text">następny</span>
+      </h2>
+      <p class="text-lg text-muted mb-8">
+        Porozmawiajmy o Twoich potrzebach. Bezpłatna konsultacja i wycena w 24h.
+      </p>
+      <a href="/kontakt" class="btn-primary">
+        Rozpocznij projekt
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  .project-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  
+  .project-card.hidden {
+    display: none;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  #project-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  #project-modal.active #modal-content {
+    transform: scale(1);
+  }
+</style>
+
+<script define:vars={{ projects }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('#category-filter button');
+    const projectCards = document.querySelectorAll('.project-card');
+    const modal = document.getElementById('project-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+    
+    // Category filtering
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.dataset.category;
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('bg-accent', 'dark:bg-neon-green', 'text-dark-950', 'active');
+          btn.classList.add('glass', 'text-muted');
+        });
+        button.classList.remove('glass', 'text-muted');
+        button.classList.add('bg-accent', 'dark:bg-neon-green', 'text-dark-950', 'active');
+        
+        // Filter projects
+        projectCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.classList.remove('hidden');
+            card.style.animation = 'none';
+            card.offsetHeight;
+            card.style.animation = null;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+    
+    // Project modal
+    projectCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        
+        const projectId = parseInt(card.dataset.projectId);
+        const project = projects.find(p => p.id === projectId);
+        
+        if (project) {
+          openModal(project);
+        }
+      });
+    });
+    
+    function openModal(project) {
+      modalTitle.textContent = project.title;
+      
+      let statsHtml = '';
+      if (project.stats) {
+        statsHtml = `
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            ${Object.entries(project.stats).map(([key, value]) => `
+              <div class="bg-elevated p-4 rounded-xl text-center">
+                <div class="text-xl font-bold gradient-text">${value}</div>
+                <div class="text-sm text-muted capitalize">${key.replace('_', ' ')}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+      
+      modalBody.innerHTML = `
+        <div class="aspect-video relative bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200 rounded-xl overflow-hidden mb-6">
+          ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover" />` : 
+          `<div class="flex items-center justify-center h-full"><span class="text-8xl font-bold dark:text-white/5 text-slate-200">${project.title.substring(0, 2)}</span></div>`}
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-4 mb-6">
+          <span class="px-3 py-1 dark:bg-neon-green/20 bg-emerald-500/20 text-accent rounded-full text-sm">${project.category}</span>
+          <span class="flex items-center gap-1 text-muted text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            ${project.year}
+          </span>
+          ${project.link !== '#' ? `
+            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="ml-auto flex items-center gap-2 text-accent hover:text-accent/80 text-sm">
+              Odwiedź stronę
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          ` : ''}
+        </div>
+        
+        <p class="text-muted mb-6 leading-relaxed">${project.fullDescription}</p>
+        
+        ${statsHtml}
+        
+        <div class="mb-6">
+          <h4 class="text-lg font-semibold text-heading mb-4">Funkcjonalności</h4>
+          <div class="grid md:grid-cols-2 gap-3">
+            ${project.features.map(feature => `
+              <div class="flex items-start gap-2">
+                <span class="w-2 h-2 bg-accent dark:bg-neon-green rounded-full mt-2 flex-shrink-0"></span>
+                <span class="text-muted text-sm">${feature}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold text-heading mb-4">Technologie</h4>
+          <div class="flex flex-wrap gap-2">
+            ${project.technologies.map(tech => `
+              <span class="px-3 py-2 bg-elevated rounded-lg text-sm text-body font-mono">${tech}</span>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      history.pushState({ modal: true }, '');
+    }
+    
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    modalClose.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+        if (history.state?.modal) {
+          history.back();
+        }
+      }
+    });
+    
+    window.addEventListener('popstate', () => {
+      if (modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+        if (history.state?.modal) {
+          history.back();
+        }
+      }
+    });
+  });
+</script>

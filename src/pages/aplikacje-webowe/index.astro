@@ -1,0 +1,497 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const faqs = [
+  {
+    question: "Czym różni się aplikacja webowa od strony internetowej?",
+    answer: "Strona internetowa prezentuje treści, aplikacja webowa umożliwia interakcję i wykonywanie zadań. Aplikacje webowe mają zaawansowaną logikę biznesową, bazy danych, systemy użytkowników, panele administracyjne. Przykłady: CRM, systemy rezerwacji, platformy e-learningowe, dashboardy analityczne."
+  },
+  {
+    question: "Ile kosztuje stworzenie aplikacji webowej?",
+    answer: "Koszt zależy od złożoności projektu. Proste aplikacje (MVP) zaczynają się od 15 000 zł. Średniej wielkości platformy kosztują 30 000-80 000 zł. Zaawansowane systemy enterprise to 100 000+ zł. Szczegółową wycenę przygotowujemy po analizie wymagań i specyfikacji."
+  },
+  {
+    question: "Jak długo trwa budowa aplikacji webowej?",
+    answer: "MVP (Minimum Viable Product) realizujemy w 6-8 tygodni. Pełna aplikacja średniej złożoności zajmuje 3-4 miesiące. Duże platformy enterprise wymagają 6-12 miesięcy. Pracujemy iteracyjnie - dostarczamy działające funkcjonalności co 2-3 tygodnie."
+  },
+  {
+    question: "Jakich technologii używacie do budowy aplikacji?",
+    answer: "Frontend budujemy w React/Next.js z TypeScript. Backend w Node.js (Express, NestJS) lub Python (FastAPI). Bazy danych: PostgreSQL, MongoDB, Redis. Hosting na AWS, Vercel lub własnej infrastrukturze. Dobieramy stack do wymagań projektu."
+  },
+  {
+    question: "Czy możecie stworzyć aplikację działającą offline (PWA)?",
+    answer: "Tak, budujemy Progressive Web Apps (PWA), które działają offline, można je zainstalować na telefonie jak natywną aplikację, wysyłają powiadomienia push. PWA to doskonała alternatywa dla natywnych aplikacji mobilnych przy niższym koszcie rozwoju."
+  },
+  {
+    question: "Jak wygląda proces tworzenia aplikacji?",
+    answer: "Pracujemy w metodyce Agile/Scrum. Zaczynamy od discovery (analiza, prototypy), potem iteracyjny development w sprintach 2-tygodniowych. Każdy sprint kończy się demo działających funkcji. Zapewniamy pełną transparentność i dostęp do progress trackera."
+  },
+  {
+    question: "Czy zapewniacie hosting i utrzymanie aplikacji?",
+    answer: "Tak, oferujemy pełen pakiet DevOps: hosting na AWS/Vercel/GCP, konfigurację CI/CD, monitoring 24/7, automatyczne backupy, skalowanie infrastruktury, aktualizacje bezpieczeństwa. Możemy też wdrożyć aplikację na Waszej infrastrukturze."
+  },
+  {
+    question: "Czy integrujecie aplikacje z zewnętrznymi systemami?",
+    answer: "Tak, budujemy integracje z dowolnymi API: systemy płatności, CRM, ERP, narzędzia marketing automation, Google Workspace, Microsoft 365, social media API, serwisy zewnętrzne. Tworzymy też własne API dla Waszych partnerów."
+  }
+];
+
+const features = [
+  {
+    icon: "react",
+    title: "Nowoczesny Stack",
+    description: "React, Next.js, TypeScript, Node.js. Technologie używane przez największe firmy tech na świecie."
+  },
+  {
+    icon: "api",
+    title: "RESTful & GraphQL API",
+    description: "Skalowalne API dla integracji z systemami zewnętrznymi, aplikacjami mobilnymi i partnerami."
+  },
+  {
+    icon: "realtime",
+    title: "Real-time Features",
+    description: "WebSockets dla live updates, notyfikacji, czatów i współpracy w czasie rzeczywistym."
+  },
+  {
+    icon: "database",
+    title: "Skalowalne Bazy Danych",
+    description: "PostgreSQL, MongoDB, Redis. Architektura gotowa na miliony rekordów i wysokie obciążenie."
+  },
+  {
+    icon: "security",
+    title: "Enterprise Security",
+    description: "OAuth 2.0, JWT, 2FA, szyfrowanie danych, audyt logów. Zgodność z RODO i standardami branżowymi."
+  },
+  {
+    icon: "cloud",
+    title: "Cloud-Native",
+    description: "AWS, Vercel, GCP. Auto-scaling, CI/CD, monitoring. Infrastruktura na miarę Twojego wzrostu."
+  }
+];
+
+const useCases = [
+  {
+    title: "Platformy SaaS",
+    description: "Aplikacje subskrypcyjne dla biznesu B2B i B2C",
+    examples: ["CRM i ERP", "Project Management", "Helpdesk", "Analytics"]
+  },
+  {
+    title: "Systemy Rezerwacji",
+    description: "Booking dla różnych branż",
+    examples: ["Gabinety lekarskie", "Salony beauty", "Hotele", "Eventy"]
+  },
+  {
+    title: "Platformy E-learning",
+    description: "Systemy szkoleń i kursów online",
+    examples: ["LMS", "Kursy video", "Quizy", "Certyfikaty"]
+  },
+  {
+    title: "Dashboardy & BI",
+    description: "Analityka i raportowanie biznesowe",
+    examples: ["KPI dashboards", "Raporty real-time", "Data visualization", "Alerty"]
+  },
+  {
+    title: "Marketplace",
+    description: "Platformy łączące sprzedawców i kupujących",
+    examples: ["Ogłoszenia", "Aukcje", "Usługi", "B2B"]
+  },
+  {
+    title: "Portale Klienta",
+    description: "Self-service dla klientów Twojej firmy",
+    examples: ["Panel klienta", "Faktury", "Zgłoszenia", "Dokumenty"]
+  }
+];
+
+const process = [
+  {
+    phase: "Discovery",
+    duration: "1-2 tygodnie",
+    activities: ["Analiza wymagań", "User stories", "Architektura systemu", "Prototypy UI/UX", "Wycena i roadmapa"]
+  },
+  {
+    phase: "Design",
+    duration: "2-3 tygodnie",
+    activities: ["Wireframes", "Design system", "Prototyp interaktywny", "Testy z użytkownikami"]
+  },
+  {
+    phase: "Development",
+    duration: "8-16 tygodni",
+    activities: ["Sprinty 2-tygodniowe", "Demo co sprint", "Code review", "Testy automatyczne"]
+  },
+  {
+    phase: "Launch",
+    duration: "1-2 tygodnie",
+    activities: ["Testy UAT", "Migracja danych", "Deploy produkcyjny", "Monitoring"]
+  }
+];
+
+const techStack = {
+  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux/Zustand"],
+  backend: ["Node.js", "NestJS", "Express", "Python", "FastAPI"],
+  database: ["PostgreSQL", "MongoDB", "Redis", "Prisma ORM"],
+  cloud: ["AWS", "Vercel", "Docker", "Kubernetes", "GitHub Actions"]
+};
+
+const pricing = [
+  {
+    name: "MVP / Startup",
+    price: "od 15 000",
+    description: "Pierwsza wersja produktu",
+    features: [
+      "Core features",
+      "Do 10 ekranów",
+      "Podstawowa autoryzacja",
+      "Responsywny design",
+      "API dla przyszłych integracji",
+      "Deployment + 3 msc hosting"
+    ],
+    popular: false
+  },
+  {
+    name: "Business App",
+    price: "od 40 000",
+    description: "Pełnowartościowa aplikacja",
+    features: [
+      "Zaawansowana logika",
+      "Panel administracyjny",
+      "Role i uprawnienia",
+      "Integracje zewnętrzne",
+      "Real-time features",
+      "Testy automatyczne",
+      "CI/CD + monitoring"
+    ],
+    popular: true
+  },
+  {
+    name: "Enterprise",
+    price: "od 100 000",
+    description: "Kompleksowe systemy",
+    features: [
+      "Architektura mikroserwisowa",
+      "Multi-tenant SaaS",
+      "Zaawansowane security",
+      "Integracje enterprise",
+      "Wysoka dostępność (HA)",
+      "SLA + dedykowany PM",
+      "Długoterminowe wsparcie"
+    ],
+    popular: false
+  }
+];
+---
+
+<ServiceLayout
+  title="Aplikacje Webowe Toruń | Web Apps, SaaS, PWA - TorWeb"
+  description="Tworzymy aplikacje webowe i platformy SaaS na miarę. React, Next.js, Node.js. Systemy CRM, rezerwacje, e-learning, dashboardy. Od MVP po enterprise. Toruń, Bydgoszcz."
+  keywords="aplikacje webowe, web apps, aplikacje internetowe, SaaS, PWA, React, Next.js, Node.js, systemy webowe, platforma online, aplikacja na zamówienie Toruń"
+  serviceName="Aplikacje webowe i platformy SaaS"
+  serviceSlug="aplikacje-webowe"
+  serviceCategory="Web Application Development"
+  priceRange="15000-200000"
+  breadcrumbName="Aplikacje webowe"
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+            Full-Stack Development
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-heading leading-tight mb-6">
+            Aplikacje<br>
+            <span class="text-accent">Webowe</span>
+          </h1>
+          
+          <p class="text-xl text-muted mb-8 leading-relaxed">
+            Budujemy <strong>aplikacje webowe i platformy SaaS</strong> które automatyzują procesy, 
+            zwiększają efektywność i generują przychody. Od MVP po systemy enterprise.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="/kontakt" class="btn-primary">
+              Omów swój projekt
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#case-studies" class="btn-secondary">
+              Zobacz realizacje
+            </a>
+          </div>
+          
+          <div class="flex flex-wrap gap-3">
+            {['React', 'Next.js', 'Node.js', 'TypeScript', 'AWS'].map(tech => (
+              <span class="px-3 py-1 rounded-lg bg-elevated border border-theme text-sm text-muted">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+      <div class="relative">
+  <!-- Code Preview -->
+  <div class="relative rounded-2xl overflow-hidden border border-theme bg-dark-950 p-4 font-mono text-sm">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      <span class="text-xs text-gray-500 ml-4">app/api/route.ts</span>
+    </div>
+    <pre class="text-gray-300 overflow-hidden"><code set:html={`<span class="text-purple-400">import</span> { NextResponse } <span class="text-purple-400">from</span> <span class="text-green-400">'next/server'</span>
+
+<span class="text-purple-400">export async function</span> <span class="text-blue-400">GET</span>() {
+  <span class="text-purple-400">const</span> data = <span class="text-purple-400">await</span> fetchData()
+  
+  <span class="text-purple-400">return</span> NextResponse.<span class="text-yellow-400">json</span>({
+    success: <span class="text-orange-400">true</span>,
+    data
+  })
+}`} /></pre>
+  </div>
+  
+  <!-- Floating badges - reszta bez zmian -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Co <span class="text-accent">budujemy</span>?
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Specjalizujemy się w różnorodnych typach aplikacji webowych dla biznesu.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {useCases.map((useCase, index) => (
+          <div class="p-6 rounded-2xl border border-theme bg-card hover:border-accent/50 transition-all duration-300 animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <h3 class="text-xl font-semibold text-heading mb-2">{useCase.title}</h3>
+            <p class="text-muted mb-4">{useCase.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {useCase.examples.map(example => (
+                <span class="text-xs px-2 py-1 rounded bg-accent/10 text-accent">{example}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Technologie <span class="text-accent">enterprise-grade</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Budujemy aplikacje gotowe na skalę i wymagania dużych organizacji.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <div class="group p-6 rounded-2xl border border-theme bg-card hover:border-accent/50 transition-all duration-300 animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              {feature.icon === 'react' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+              )}
+              {feature.icon === 'api' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              )}
+              {feature.icon === 'realtime' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              )}
+              {feature.icon === 'database' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                </svg>
+              )}
+              {feature.icon === 'security' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              )}
+              {feature.icon === 'cloud' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-semibold text-heading mb-2">{feature.title}</h3>
+            <p class="text-muted">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Proces <span class="text-accent">development</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Agile/Scrum z pełną transparentnością. Działające funkcje co 2 tygodnie.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {process.map((phase, index) => (
+          <div class="relative p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="text-4xl font-bold text-accent/20 mb-4">0{index + 1}</div>
+            <h3 class="text-xl font-semibold text-heading mb-1">{phase.phase}</h3>
+            <p class="text-sm text-accent mb-4">{phase.duration}</p>
+            <ul class="space-y-2">
+              {phase.activities.map(activity => (
+                <li class="flex items-center gap-2 text-sm text-muted">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                  {activity}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Tech <span class="text-accent">Stack</span>
+        </h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl border border-theme bg-card">
+          <h3 class="text-lg font-semibold text-heading mb-4">Frontend</h3>
+          <div class="flex flex-wrap gap-2">
+            {techStack.frontend.map(tech => (
+              <span class="px-3 py-1 rounded-lg bg-elevated text-sm text-body">{tech}</span>
+            ))}
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl border border-theme bg-card">
+          <h3 class="text-lg font-semibold text-heading mb-4">Backend</h3>
+          <div class="flex flex-wrap gap-2">
+            {techStack.backend.map(tech => (
+              <span class="px-3 py-1 rounded-lg bg-elevated text-sm text-body">{tech}</span>
+            ))}
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl border border-theme bg-card">
+          <h3 class="text-lg font-semibold text-heading mb-4">Database</h3>
+          <div class="flex flex-wrap gap-2">
+            {techStack.database.map(tech => (
+              <span class="px-3 py-1 rounded-lg bg-elevated text-sm text-body">{tech}</span>
+            ))}
+          </div>
+        </div>
+        <div class="p-6 rounded-2xl border border-theme bg-card">
+          <h3 class="text-lg font-semibold text-heading mb-4">Cloud & DevOps</h3>
+          <div class="flex flex-wrap gap-2">
+            {techStack.cloud.map(tech => (
+              <span class="px-3 py-1 rounded-lg bg-elevated text-sm text-body">{tech}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="cennik" class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Modele <span class="text-accent">współpracy</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Elastyczne podejście dopasowane do etapu rozwoju Twojego produktu.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {pricing.map((plan, index) => (
+          <div class={`relative p-8 rounded-2xl border ${plan.popular ? 'border-accent bg-accent/5' : 'border-theme bg-card'} animate-on-scroll`} style={`animation-delay: ${index * 100}ms`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-dark-950 text-sm font-semibold px-4 py-1 rounded-full">
+                Rekomendowany
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold text-heading mb-2">{plan.name}</h3>
+              <p class="text-sm text-muted mb-4">{plan.description}</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-heading">{plan.price}</span>
+                <span class="text-muted">PLN</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map(feature => (
+                <li class="flex items-center gap-3 text-body">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a href="/kontakt" class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
+              Porozmawiajmy
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          FAQ - <span class="text-accent">Aplikacje webowe</span>
+        </h2>
+      </div>
+      
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group p-6 rounded-xl border border-theme bg-card">
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <h3 class="text-lg font-medium text-heading pr-4">{faq.question}</h3>
+              <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <p class="mt-4 text-muted leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</ServiceLayout>

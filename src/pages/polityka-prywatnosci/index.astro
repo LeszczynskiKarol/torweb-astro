@@ -1,0 +1,246 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const siteUrl = 'https://torweb.pl';
+const lastUpdated = '09.12.2024';
+---
+
+<Layout 
+  title="Polityka Prywatności | TorWeb.pl"
+  description="Polityka prywatności serwisu TorWeb.pl. Informacje o przetwarzaniu danych osobowych, cookies i prawach użytkowników zgodnie z RODO/GDPR."
+  canonical={`${siteUrl}/polityka-prywatnosci`}
+>
+  <Navbar />
+  
+  <main class="pt-24 pb-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="mb-12">
+        <nav class="text-sm text-muted mb-4">
+          <a href="/" class="hover:text-accent transition-colors">Strona główna</a>
+          <span class="mx-2">/</span>
+          <span class="text-heading">Polityka prywatności</span>
+        </nav>
+        <h1 class="text-4xl md:text-5xl font-bold text-heading mb-4">
+          Polityka Prywatności
+        </h1>
+        <p class="text-muted">
+          Ostatnia aktualizacja: {lastUpdated}
+        </p>
+      </div>
+      
+      <!-- Content -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">1. Administrator danych</h2>
+          <p class="text-body mb-4">
+            Administratorem danych osobowych jest TorWeb.pl - Karol Leszczyński, z siedzibą w Toruniu, 
+            województwo kujawsko-pomorskie, Polska.
+          </p>
+          <p class="text-body">
+            Kontakt z administratorem: <a href="mailto:kontakt@torweb.pl" class="text-accent hover:underline">kontakt@torweb.pl</a>
+          </p>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">2. Zakres zbieranych danych</h2>
+          <p class="text-body mb-4">Zbieramy następujące kategorie danych:</p>
+          <ul class="list-disc list-inside text-body space-y-2 mb-4">
+            <li><strong>Dane kontaktowe:</strong> imię, adres e-mail, numer telefonu (podawane dobrowolnie w formularzu kontaktowym)</li>
+            <li><strong>Dane firmowe:</strong> nazwa firmy, NIP (opcjonalnie)</li>
+            <li><strong>Dane techniczne:</strong> adres IP, typ przeglądarki, system operacyjny, rozdzielczość ekranu</li>
+            <li><strong>Dane analityczne:</strong> informacje o sposobie korzystania z serwisu (za zgodą)</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">3. Cele przetwarzania danych</h2>
+          <p class="text-body mb-4">Przetwarzamy dane osobowe w następujących celach:</p>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li>Odpowiedź na zapytania przesłane przez formularz kontaktowy</li>
+            <li>Realizacja umów i świadczenie usług</li>
+            <li>Analiza ruchu na stronie i poprawa jej funkcjonalności (za zgodą)</li>
+            <li>Marketing własnych usług (za zgodą)</li>
+            <li>Wypełnienie obowiązków prawnych</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">4. Pliki cookies</h2>
+          <p class="text-body mb-4">
+            Nasza strona wykorzystuje pliki cookies (ciasteczka). Są to małe pliki tekstowe zapisywane 
+            na urządzeniu użytkownika podczas odwiedzania strony.
+          </p>
+          
+          <h3 class="text-xl font-semibold text-heading mb-3 mt-6">4.1 Rodzaje używanych cookies</h3>
+          
+          <div class="bg-card border border-theme rounded-xl p-6 mb-4">
+            <h4 class="font-semibold text-heading mb-2">Niezbędne (zawsze aktywne)</h4>
+            <p class="text-muted text-sm">
+              Wymagane do prawidłowego działania strony. Obejmują preferencje motywu (jasny/ciemny) 
+              oraz zapisane zgody na cookies.
+            </p>
+          </div>
+          
+          <div class="bg-card border border-theme rounded-xl p-6 mb-4">
+            <h4 class="font-semibold text-heading mb-2">Analityczne (za zgodą)</h4>
+            <p class="text-muted text-sm mb-2">
+              Służą do analizy ruchu na stronie. Używamy Google Analytics 4 (GA4) z następującymi ustawieniami:
+            </p>
+            <ul class="text-muted text-sm list-disc list-inside">
+              <li>Anonimizacja adresów IP</li>
+              <li>Brak śledzenia między witrynami</li>
+              <li>Przechowywanie danych przez 14 miesięcy</li>
+            </ul>
+          </div>
+          
+          <div class="bg-card border border-theme rounded-xl p-6 mb-4">
+            <h4 class="font-semibold text-heading mb-2">Marketingowe (za zgodą)</h4>
+            <p class="text-muted text-sm">
+              Służą do personalizacji reklam i remarketingu. Używamy Google Tag Manager do zarządzania 
+              tagami marketingowymi. Dane są przetwarzane tylko po uzyskaniu wyraźnej zgody.
+            </p>
+          </div>
+          
+          <h3 class="text-xl font-semibold text-heading mb-3 mt-6">4.2 Zarządzanie cookies</h3>
+          <p class="text-body mb-4">
+            Przy pierwszej wizycie wyświetlamy baner z prośbą o zgodę na cookies. Możesz w każdej chwili 
+            zmienić swoje preferencje klikając link "Ustawienia cookies" w stopce strony.
+          </p>
+          <p class="text-body">
+            Możesz również zarządzać cookies w ustawieniach przeglądarki. Pamiętaj, że zablokowanie 
+            niektórych cookies może wpłynąć na funkcjonalność strony.
+          </p>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">5. Google Consent Mode v2</h2>
+          <p class="text-body mb-4">
+            Nasza strona korzysta z Google Consent Mode v2, który pozwala na:
+          </p>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li>Respektowanie Twoich wyborów dotyczących cookies</li>
+            <li>Domyślne blokowanie cookies analitycznych i marketingowych do momentu wyrażenia zgody</li>
+            <li>Dynamiczne dostosowywanie działania Google Analytics i Google Ads do Twoich preferencji</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">6. Twoje prawa (RODO)</h2>
+          <p class="text-body mb-4">Zgodnie z RODO przysługują Ci następujące prawa:</p>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li><strong>Prawo dostępu</strong> - możesz uzyskać informacje o przetwarzanych danych</li>
+            <li><strong>Prawo do sprostowania</strong> - możesz żądać poprawienia nieprawidłowych danych</li>
+            <li><strong>Prawo do usunięcia</strong> - możesz żądać usunięcia swoich danych ("prawo do bycia zapomnianym")</li>
+            <li><strong>Prawo do ograniczenia przetwarzania</strong> - możesz żądać ograniczenia przetwarzania danych</li>
+            <li><strong>Prawo do przenoszenia danych</strong> - możesz otrzymać swoje dane w formacie do odczytu maszynowego</li>
+            <li><strong>Prawo do sprzeciwu</strong> - możesz sprzeciwić się przetwarzaniu danych</li>
+            <li><strong>Prawo do cofnięcia zgody</strong> - możesz w każdej chwili cofnąć udzieloną zgodę</li>
+          </ul>
+          <p class="text-body mt-4">
+            W celu realizacji swoich praw skontaktuj się z nami: <a href="mailto:kontakt@torweb.pl" class="text-accent hover:underline">kontakt@torweb.pl</a>
+          </p>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">7. Okres przechowywania danych</h2>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li><strong>Dane z formularza kontaktowego:</strong> do momentu zakończenia korespondencji lub realizacji usługi, maksymalnie 3 lata</li>
+            <li><strong>Dane analityczne:</strong> 14 miesięcy (Google Analytics)</li>
+            <li><strong>Preferencje cookies:</strong> 12 miesięcy</li>
+            <li><strong>Dane księgowe:</strong> 5 lat (wymóg prawny)</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">8. Odbiorcy danych</h2>
+          <p class="text-body mb-4">Twoje dane mogą być przekazywane następującym podmiotom:</p>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li><strong>Google LLC</strong> - usługi analityczne (Google Analytics) i reklamowe (Google Ads) - dane przekazywane do USA na podstawie standardowych klauzul umownych</li>
+            <li><strong>Dostawcy hostingu</strong> - Amazon Web Services (AWS)</li>
+            <li><strong>Dostawcy usług e-mail</strong> - do realizacji korespondencji</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">9. Bezpieczeństwo danych</h2>
+          <p class="text-body mb-4">
+            Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony danych osobowych:
+          </p>
+          <ul class="list-disc list-inside text-body space-y-2">
+            <li>Szyfrowanie połączenia SSL/TLS</li>
+            <li>Regularne kopie zapasowe</li>
+            <li>Ograniczony dostęp do danych</li>
+            <li>Monitorowanie bezpieczeństwa</li>
+          </ul>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">10. Prawo do skargi</h2>
+          <p class="text-body">
+            Jeśli uważasz, że przetwarzanie Twoich danych narusza przepisy RODO, masz prawo złożyć skargę 
+            do Prezesa Urzędu Ochrony Danych Osobowych (PUODO), ul. Stawki 2, 00-193 Warszawa.
+          </p>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading mb-4">11. Zmiany w polityce prywatności</h2>
+          <p class="text-body">
+            Zastrzegamy sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności. 
+            O istotnych zmianach poinformujemy poprzez wyświetlenie odpowiedniego komunikatu na stronie. 
+            Data ostatniej aktualizacji znajduje się na górze dokumentu.
+          </p>
+        </section>
+        
+        <section>
+          <h2 class="text-2xl font-bold text-heading mb-4">12. Kontakt</h2>
+          <p class="text-body mb-4">
+            W sprawach związanych z ochroną danych osobowych możesz skontaktować się z nami:
+          </p>
+          <div class="bg-card border border-theme rounded-xl p-6">
+            <p class="text-body"><strong>TorWeb.pl - Karol Leszczyński</strong></p>
+            <p class="text-muted">Toruń, Kujawsko-Pomorskie</p>
+            <p class="text-muted">
+              E-mail: <a href="mailto:kontakt@torweb.pl" class="text-accent hover:underline">kontakt@torweb.pl</a>
+            </p>
+            <p class="text-muted">
+              Telefon: <a href="tel:+48509370772" class="text-accent hover:underline">+48 509 370 772</a>
+            </p>
+          </div>
+        </section>
+        
+      </div>
+      
+      <!-- Back to home -->
+      <div class="mt-12 pt-8 border-t border-theme">
+        <a href="/" class="inline-flex items-center gap-2 text-accent hover:underline">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Powrót do strony głównej
+        </a>
+      </div>
+      
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .prose h2 {
+    @apply mt-8;
+  }
+  
+  .prose ul {
+    @apply my-4;
+  }
+  
+  .prose p {
+    @apply leading-relaxed;
+  }
+</style>

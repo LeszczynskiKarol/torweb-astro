@@ -1,0 +1,529 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const faqs = [
+  {
+    question: "Czym są integracje AI i jak mogą pomóc mojej firmie?",
+    answer: "Integracje AI to wdrożenie sztucznej inteligencji do procesów biznesowych: automatyczne odpowiadanie na zapytania klientów, generowanie treści, analiza dokumentów, ekstrakcja danych, personalizacja rekomendacji. AI może zautomatyzować 40-70% powtarzalnych zadań, obniżyć koszty i przyspieszyć obsługę."
+  },
+  {
+    question: "Ile kosztuje wdrożenie AI w firmie?",
+    answer: "Koszt zależy od zakresu projektu. Proste chatboty AI zaczynają się od 5 000 zł. Integracje z API OpenAI/Claude dla automatyzacji treści od 10 000 zł. Zaawansowane systemy RAG i wektorowe bazy danych od 25 000 zł. Kompleksowe platformy AI od 50 000 zł. Wyceniamy po analizie potrzeb."
+  },
+  {
+    question: "Czy mogę używać AI do obsługi klienta?",
+    answer: "Tak, budujemy chatboty AI i systemy wsparcia: odpowiadanie na FAQ 24/7, kwalifikacja leadów, rezerwacje i umawianie spotkań, obsługa reklamacji, wsparcie techniczne pierwszej linii. AI obsługuje 60-80% zapytań, eskalując złożone sprawy do ludzi."
+  },
+  {
+    question: "Jakie modele AI wykorzystujecie (GPT-4, Claude, Gemini)?",
+    answer: "Dobieramy model do potrzeb projektu. Używamy: GPT-4o/GPT-4 Turbo dla ogólnych zadań, Claude 3.5 Sonnet dla długich dokumentów i analizy, Gemini Pro dla multimodalności, Llama/Mistral dla rozwiązań on-premise. Możemy też fine-tunować modele na Twoich danych."
+  },
+  {
+    question: "Czy moje dane są bezpieczne przy korzystaniu z AI?",
+    answer: "Bezpieczeństwo to priorytet. Oferujemy: modele hostowane prywatnie (Azure OpenAI, AWS Bedrock), rozwiązania on-premise bez wysyłania danych na zewnątrz, szyfrowanie danych, anonimizację PII, audyt logów. Wszystkie wdrożenia zgodne z RODO."
+  },
+  {
+    question: "Czym jest RAG i wektorowa baza danych?",
+    answer: "RAG (Retrieval-Augmented Generation) pozwala AI odpowiadać na podstawie Twoich dokumentów, bazy wiedzy czy procedur. Wektorowa baza danych (Pinecone, Weaviate, pgvector) przechowuje treści w formie pozwalającej na semantyczne wyszukiwanie. AI 'rozumie' kontekst i daje precyzyjne odpowiedzi."
+  },
+  {
+    question: "Jak długo trwa wdrożenie integracji AI?",
+    answer: "Prosty chatbot FAQ wdrażamy w 1-2 tygodnie. Integracje z procesami (CRM, helpdesk, content) zajmują 3-6 tygodni. Zaawansowane systemy RAG z bazą wiedzy 6-10 tygodni. Kompleksowe platformy AI 3-6 miesięcy. Pracujemy iteracyjnie - szybki MVP, potem rozwój."
+  },
+  {
+    question: "Czy AI może generować treści dla mojej firmy?",
+    answer: "Tak, wdrażamy systemy do generowania: opisów produktów, artykułów blogowych, postów social media, newsletterów, odpowiedzi na opinie, tłumaczeń. AI zachowuje ton i styl Twojej marki. Treści przechodzą przez workflow z opcją human-in-the-loop."
+  }
+];
+
+const useCases = [
+  {
+    icon: "chat",
+    title: "Chatboty AI & Voiceboty",
+    description: "Inteligentna obsługa klienta 24/7",
+    examples: ["Obsługa FAQ i zapytań", "Kwalifikacja leadów", "Rezerwacje i umawianie", "Wsparcie techniczne L1"]
+  },
+  {
+    icon: "document",
+    title: "Analiza Dokumentów",
+    description: "Ekstrakcja danych i automatyzacja",
+    examples: ["OCR faktur i umów", "Klasyfikacja dokumentów", "Ekstrakcja encji", "Podsumowania raportów"]
+  },
+  {
+    icon: "content",
+    title: "Generowanie Treści",
+    description: "AI content w skali",
+    examples: ["Opisy produktów", "Artykuły SEO", "Social media posts", "Newslettery"]
+  },
+  {
+    icon: "search",
+    title: "Semantic Search & RAG",
+    description: "Wyszukiwanie w bazie wiedzy",
+    examples: ["Intranet AI", "Dokumentacja produktu", "FAQ dynamiczne", "Asystent sprzedaży"]
+  },
+  {
+    icon: "data",
+    title: "Analityka Predykcyjna",
+    description: "Przewidywanie trendów i zachowań",
+    examples: ["Churn prediction", "Demand forecasting", "Lead scoring", "Fraud detection"]
+  },
+  {
+    icon: "personalization",
+    title: "Personalizacja AI",
+    description: "Rekomendacje i segmentacja",
+    examples: ["Product recommendations", "Dynamic pricing", "Personalized emails", "Content personalization"]
+  }
+];
+
+const techStack = [
+  {
+    category: "LLM Providers",
+    items: ["OpenAI GPT-4o", "Anthropic Claude", "Google Gemini", "Meta Llama", "Mistral AI"]
+  },
+  {
+    category: "Vector Databases",
+    items: ["Pinecone", "Weaviate", "Qdrant", "Chroma", "pgvector"]
+  },
+  {
+    category: "Frameworks",
+    items: ["LangChain", "LlamaIndex", "Haystack", "Semantic Kernel"]
+  },
+  {
+    category: "Cloud AI",
+    items: ["Azure OpenAI", "AWS Bedrock", "GCP Vertex AI", "Hugging Face"]
+  }
+];
+
+const process = [
+  {
+    phase: "Discovery & Audit",
+    duration: "1-2 tygodnie",
+    description: "Analiza procesów, identyfikacja przypadków użycia AI, ocena ROI",
+    activities: ["Mapowanie procesów", "Identyfikacja quick-wins", "Analiza danych", "Proof of Concept"]
+  },
+  {
+    phase: "Architektura",
+    duration: "1-2 tygodnie",
+    description: "Projekt techniczny, wybór modeli i infrastruktury",
+    activities: ["Wybór LLM", "Projekt pipeline", "Strategia danych", "Plan bezpieczeństwa"]
+  },
+  {
+    phase: "MVP Development",
+    duration: "3-6 tygodni",
+    description: "Budowa pierwszej wersji z kluczowymi funkcjami",
+    activities: ["Integracja API", "Prompt engineering", "RAG setup", "Testy jakości"]
+  },
+  {
+    phase: "Skalowanie",
+    duration: "Ongoing",
+    description: "Optymalizacja, rozszerzanie funkcji, monitoring",
+    activities: ["Fine-tuning", "Monitoring kosztów", "A/B testing", "Rozszerzanie use cases"]
+  }
+];
+
+const pricing = [
+  {
+    name: "AI Starter",
+    price: "od 5 000",
+    description: "Pierwszy krok w AI",
+    features: [
+      "Chatbot FAQ (do 50 pytań)",
+      "Integracja z 1 kanałem",
+      "Podstawowy prompt engineering",
+      "Dashboard analityczny",
+      "30 dni wsparcia",
+      "Do 1000 zapytań/msc*"
+    ],
+    popular: false
+  },
+  {
+    name: "AI Business",
+    price: "od 15 000",
+    description: "AI dla procesów biznesowych",
+    features: [
+      "Chatbot z RAG/bazą wiedzy",
+      "Multi-channel (web, email, CRM)",
+      "Integracja z systemami",
+      "Custom prompt templates",
+      "Analytics & monitoring",
+      "3 miesiące wsparcia",
+      "Do 10 000 zapytań/msc*"
+    ],
+    popular: true
+  },
+  {
+    name: "AI Enterprise",
+    price: "od 40 000",
+    description: "Kompleksowa platforma AI",
+    features: [
+      "Wielomodułowa platforma AI",
+      "Prywatny hosting (Azure/AWS)",
+      "Fine-tuning na danych firmy",
+      "Zaawansowane bezpieczeństwo",
+      "SLA + dedykowany PM",
+      "Nieograniczone zapytania",
+      "Ciągły rozwój i optymalizacja"
+    ],
+    popular: false
+  }
+];
+
+const benefits = [
+  { value: "70%", label: "Mniej czasu na powtarzalne zadania" },
+  { value: "24/7", label: "Dostępność obsługi AI" },
+  { value: "60%", label: "Niższe koszty obsługi klienta" },
+  { value: "3x", label: "Szybsze generowanie treści" }
+];
+---
+
+<ServiceLayout
+  title="Integracje AI dla Firm | ChatGPT, Claude, Automatyzacja - TorWeb"
+  description="Wdrażamy AI w firmach: chatboty, automatyzacja treści, analiza dokumentów, RAG. OpenAI, Claude, Gemini. Zwiększ efektywność i obniż koszty. Toruń, Bydgoszcz, cała Polska."
+  keywords="integracje AI, sztuczna inteligencja dla firm, chatbot AI, GPT-4, Claude, automatyzacja AI, wdrożenie AI, chatbot dla firmy, AI w biznesie, RAG, LLM"
+  serviceName="Integracje AI i automatyzacja"
+  serviceSlug="integracje-ai"
+  serviceCategory="AI Integration Services"
+  priceRange="5000-100000"
+  breadcrumbName="Integracje AI"
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+            AI & Machine Learning
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-heading leading-tight mb-6">
+            Integracje<br>
+            <span class="text-accent">AI</span>
+          </h1>
+          
+          <p class="text-xl text-muted mb-8 leading-relaxed">
+            Wdrażamy <strong>sztuczną inteligencję w procesach biznesowych</strong>. Chatboty, automatyzacja treści, 
+            analiza dokumentów, systemy rekomendacji. GPT-4, Claude, Gemini.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="/kontakt" class="btn-primary">
+              Bezpłatna konsultacja AI
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#use-cases" class="btn-secondary">
+              Zobacz zastosowania
+            </a>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {benefits.map(benefit => (
+              <div class="text-center p-3 rounded-xl bg-elevated border border-theme">
+                <div class="text-2xl font-bold text-accent">{benefit.value}</div>
+                <div class="text-xs text-muted">{benefit.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div class="relative">
+          <!-- AI Chat Preview -->
+          <div class="relative rounded-2xl overflow-hidden border border-theme bg-card p-4">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="text-xs text-muted ml-4">AI Assistant</span>
+            </div>
+            
+            <div class="space-y-4">
+              <!-- User message -->
+              <div class="flex justify-end">
+                <div class="max-w-[80%] p-3 rounded-2xl rounded-br-md bg-accent text-dark-950 text-sm">
+                  Jaki jest status mojego zamówienia #4521?
+                </div>
+              </div>
+              
+              <!-- AI response -->
+              <div class="flex justify-start">
+                <div class="max-w-[80%] p-3 rounded-2xl rounded-bl-md bg-elevated text-body text-sm">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                      <svg class="w-3 h-3 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1a1 1 0 011 1v3a1 1 0 01-1 1h-1v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1H2a1 1 0 01-1-1v-3a1 1 0 011-1h1a7 7 0 017-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2z"/>
+                      </svg>
+                    </div>
+                    <span class="text-xs text-accent font-medium">AI Asystent</span>
+                  </div>
+                  Zamówienie <strong>#4521</strong> zostało wysłane wczoraj o 14:30. 
+                  Przesyłka InPost jest w drodze - przewidywana dostawa: jutro do 18:00. 
+                  <span class="text-accent underline cursor-pointer">Śledź paczkę →</span>
+                </div>
+              </div>
+              
+              <!-- Typing indicator -->
+              <div class="flex items-center gap-2 text-muted text-xs">
+                <div class="flex gap-1">
+                  <span class="w-2 h-2 rounded-full bg-accent/50 animate-bounce"></span>
+                  <span class="w-2 h-2 rounded-full bg-accent/50 animate-bounce" style="animation-delay: 0.1s"></span>
+                  <span class="w-2 h-2 rounded-full bg-accent/50 animate-bounce" style="animation-delay: 0.2s"></span>
+                </div>
+                <span>AI analizuje kontekst...</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-4 -right-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7h1a1 1 0 011 1v3a1 1 0 01-1 1h-1v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1H2a1 1 0 01-1-1v-3a1 1 0 011-1h1a7 7 0 017-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Model</p>
+                <p class="text-sm font-bold text-purple-400">GPT-4o</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-4 -left-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Response</p>
+                <p class="text-sm font-bold text-green-500">&lt;500ms</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section id="use-cases" class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Jak AI może pomóc <span class="text-accent">Twojej firmie</span>?
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Praktyczne zastosowania sztucznej inteligencji w biznesie.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {useCases.map((useCase, index) => (
+          <div class="group p-6 rounded-2xl border border-theme bg-card hover:border-accent/50 transition-all duration-300 animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              {useCase.icon === 'chat' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              )}
+              {useCase.icon === 'document' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              )}
+              {useCase.icon === 'content' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+              )}
+              {useCase.icon === 'search' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              )}
+              {useCase.icon === 'data' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              )}
+              {useCase.icon === 'personalization' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-semibold text-heading mb-2">{useCase.title}</h3>
+            <p class="text-muted mb-4">{useCase.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {useCase.examples.map(example => (
+                <span class="text-xs px-2 py-1 rounded bg-accent/10 text-accent">{example}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Technologie <span class="text-accent">AI</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Najlepsze modele i narzędzia dostosowane do potrzeb projektu.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {techStack.map((category, index) => (
+          <div class="p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <h3 class="text-lg font-semibold text-heading mb-4">{category.category}</h3>
+            <div class="flex flex-wrap gap-2">
+              {category.items.map(item => (
+                <span class="px-3 py-1 rounded-lg bg-elevated text-sm text-body">{item}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Proces <span class="text-accent">wdrożenia AI</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Od identyfikacji potrzeb do działającego rozwiązania AI.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {process.map((phase, index) => (
+          <div class="relative p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="text-4xl font-bold text-accent/20 mb-4">0{index + 1}</div>
+            <h3 class="text-xl font-semibold text-heading mb-1">{phase.phase}</h3>
+            <p class="text-sm text-accent mb-2">{phase.duration}</p>
+            <p class="text-sm text-muted mb-4">{phase.description}</p>
+            <ul class="space-y-2">
+              {phase.activities.map(activity => (
+                <li class="flex items-center gap-2 text-sm text-muted">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                  {activity}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="cennik" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Pakiety <span class="text-accent">integracji AI</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Rozwiązania AI na każdy etap rozwoju firmy.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {pricing.map((plan, index) => (
+          <div class={`relative p-8 rounded-2xl border ${plan.popular ? 'border-accent bg-accent/5' : 'border-theme bg-card'} animate-on-scroll`} style={`animation-delay: ${index * 100}ms`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-dark-950 text-sm font-semibold px-4 py-1 rounded-full">
+                Rekomendowany
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold text-heading mb-2">{plan.name}</h3>
+              <p class="text-sm text-muted mb-4">{plan.description}</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-heading">{plan.price}</span>
+                <span class="text-muted">PLN</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map(feature => (
+                <li class="flex items-center gap-3 text-body">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a href="/kontakt" class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
+              Porozmawiajmy
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      <p class="text-center text-sm text-muted mt-8">
+        * Limity dotyczą wersji hostowanych przez nas. Rozwiązania on-premise bez limitów.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          FAQ - <span class="text-accent">Integracje AI</span>
+        </h2>
+      </div>
+      
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group p-6 rounded-xl border border-theme bg-card">
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <h3 class="text-lg font-medium text-heading pr-4">{faq.question}</h3>
+              <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <p class="mt-4 text-muted leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+        Gotowy na <span class="text-accent">rewolucję AI</span> w firmie?
+      </h2>
+      <p class="text-lg text-muted mb-8">
+        Porozmawiajmy o tym, jak AI może usprawnić Twój biznes. Bezpłatna konsultacja.
+      </p>
+      <a href="/kontakt" class="btn-primary">
+        Umów bezpłatną konsultację AI
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

@@ -1,0 +1,670 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const faqs = [
+  {
+    question: "Ile kosztuje migracja sklepu internetowego?",
+    answer: "Koszt migracji zależy od rozmiaru sklepu i złożoności danych. Proste migracje (do 1000 produktów) od 3 000 zł. Średnie sklepy (do 10 000 produktów) od 8 000 zł. Duże sklepy z historią zamówień i integracjami od 15 000 zł. Migracje enterprise z custom development od 30 000 zł."
+  },
+  {
+    question: "Jak długo trwa migracja sklepu?",
+    answer: "Prosta migracja zajmuje 1-2 tygodnie. Średni sklep z integracjami 3-4 tygodnie. Duże platformy z rozbudowanymi danymi 6-8 tygodni. Migracja odbywa się bez przestojów - stary sklep działa do momentu przełączenia. Planujemy launch na dzień o niskim ruchu."
+  },
+  {
+    question: "Czy stracę pozycje w Google po migracji?",
+    answer: "Nie, jeśli migracja jest przeprowadzona poprawnie. Implementujemy pełne przekierowania 301 ze starych URL na nowe, zachowujemy strukturę URL gdzie to możliwe, migrujemy meta tagi i schema markup, oraz monitorujemy indeksację po migracji. Dobrze przeprowadzona migracja często poprawia pozycje."
+  },
+  {
+    question: "Jakie dane są migrowane do nowego sklepu?",
+    answer: "Migrujemy komplet danych: produkty z wariantami, cenami, opisami i zdjęciami; kategorie i filtry; klientów z historiami zamówień; zamówienia i faktury; kody rabatowe i promocje; treści statyczne (regulaminy, o nas); konfigurację dostaw i płatności. Nic nie zostaje pominięte."
+  },
+  {
+    question: "Z jakich platform przeprowadzacie migracje?",
+    answer: "Migrujemy z dowolnej platformy: PrestaShop, Magento 1/2, OpenCart, osCommerce, Sky-Shop, Shoper, IdoSell, Shopify (na inną platformę), stare WooCommerce, custom sklepy PHP. Również z marketplace jak Allegro czy Amazon do własnego sklepu."
+  },
+  {
+    question: "Czy integracje z BaseLinker/ERP zostaną zachowane?",
+    answer: "Tak, odtwarzamy wszystkie kluczowe integracje: BaseLinker, systemy ERP (Subiekt, Comarch), płatności (Przelewy24, PayU), kurierzy (InPost, DPD, DHL), marketing (GA4, Meta Pixel, edrone). Testujemy każdą integrację przed uruchomieniem."
+  },
+  {
+    question: "Co jeśli mój obecny sklep ma problemy techniczne?",
+    answer: "Migracja to doskonała okazja do naprawy problemów. Audytujemy obecny sklep, identyfikujemy błędy i projektujemy nową architekturę bez tych wad. Optymalizujemy strukturę kategorii, poprawiamy UX, przyspieszamy ładowanie. Migracja = modernizacja."
+  },
+  {
+    question: "Czy oferujecie wsparcie po migracji?",
+    answer: "Tak, każda migracja zawiera okres wsparcia (minimum 30 dni). Monitorujemy działanie sklepu, naprawiamy ewentualne błędy, pomagamy w obsłudze nowego panelu. Oferujemy też pakiety długoterminowego utrzymania i rozwoju sklepu."
+  }
+];
+
+const migrationTypes = [
+  {
+    from: "PrestaShop",
+    to: "WooCommerce / Shopify",
+    description: "Najpopularniejsza migracja - od przestarzałego PrestaShop do nowoczesnych platform",
+    challenges: ["Wielowariantowe produkty", "Moduły custom", "Historia zamówień"],
+    duration: "2-4 tygodnie"
+  },
+  {
+    from: "Magento",
+    to: "WooCommerce / Headless",
+    description: "Migracja z ciężkiego Magento do szybszych, tańszych w utrzymaniu platform",
+    challenges: ["Atrybuty produktów", "Konfiguratory", "B2B pricing"],
+    duration: "4-8 tygodni"
+  },
+  {
+    from: "Shoper / Sky-Shop",
+    to: "WooCommerce / Shopify",
+    description: "Ucieczka od abonamentowych platform polskich do rozwiązań bez limitów",
+    challenges: ["Export danych", "Integracje PL", "SEO preservation"],
+    duration: "2-3 tygodnie"
+  },
+  {
+    from: "Custom PHP",
+    to: "Nowoczesna platforma",
+    description: "Przejście z legacy systemu do utrzymywalnej, skalowalnej platformy",
+    challenges: ["Reverse engineering", "Brak dokumentacji", "Niestandardowe dane"],
+    duration: "4-8 tygodni"
+  }
+];
+
+const whatWeMigrate = [
+  {
+    icon: "products",
+    title: "Produkty",
+    items: ["Nazwy i opisy", "Warianty i atrybuty", "Ceny i promocje", "Zdjęcia i galerie", "Stan magazynowy", "SKU i kody EAN"]
+  },
+  {
+    icon: "categories",
+    title: "Kategorie & Filtry",
+    items: ["Drzewo kategorii", "Filtry i atrybuty", "URL i breadcrumbs", "Meta SEO", "Grafiki kategorii"]
+  },
+  {
+    icon: "customers",
+    title: "Klienci",
+    items: ["Dane kontaktowe", "Adresy wysyłkowe", "Historia zamówień", "Punkty lojalnościowe", "Grupy rabatowe"]
+  },
+  {
+    icon: "orders",
+    title: "Zamówienia",
+    items: ["Pełna historia", "Statusy i notatki", "Faktury i paragony", "Zwroty i reklamacje", "Dane kurierskie"]
+  },
+  {
+    icon: "content",
+    title: "Treści",
+    items: ["Strony statyczne", "Blog i artykuły", "Regulaminy", "Bannery i slider", "Newsletter"]
+  },
+  {
+    icon: "seo",
+    title: "SEO",
+    items: ["URL structure", "Meta title/desc", "Przekierowania 301", "Schema markup", "Sitemap XML"]
+  }
+];
+
+const process = [
+  {
+    phase: "Audyt & Analiza",
+    duration: "2-5 dni",
+    description: "Pełna analiza obecnego sklepu, danych i integracji",
+    activities: ["Audyt techniczny", "Mapowanie danych", "Analiza integracji", "Plan migracji", "Risk assessment"]
+  },
+  {
+    phase: "Przygotowanie",
+    duration: "1-2 tygodnie",
+    description: "Setup nowej platformy, skrypty migracyjne, środowisko testowe",
+    activities: ["Instalacja platformy", "Konfiguracja motywu", "Skrypty migracji", "Mapping pól", "Środowisko staging"]
+  },
+  {
+    phase: "Migracja Testowa",
+    duration: "1 tydzień",
+    description: "Pełna migracja na środowisko testowe, weryfikacja danych",
+    activities: ["Import produktów", "Import klientów", "Import zamówień", "Testy funkcjonalne", "Walidacja danych"]
+  },
+  {
+    phase: "Integracje",
+    duration: "1-2 tygodnie",
+    description: "Podłączenie wszystkich systemów zewnętrznych",
+    activities: ["Płatności", "Kurierzy", "BaseLinker/ERP", "Marketing", "Analityka"]
+  },
+  {
+    phase: "UAT & Launch",
+    duration: "3-5 dni",
+    description: "Testy akceptacyjne, migracja finalna, przełączenie DNS",
+    activities: ["Testy z klientem", "Finalna migracja", "Przekierowania 301", "DNS switch", "Monitoring"]
+  }
+];
+
+const pricing = [
+  {
+    name: "Starter",
+    price: "od 3 000",
+    description: "Mały sklep, proste dane",
+    features: [
+      "Do 1 000 produktów",
+      "Do 1 000 klientów",
+      "Podstawowa struktura",
+      "1 język",
+      "Przekierowania 301",
+      "30 dni wsparcia"
+    ],
+    popular: false
+  },
+  {
+    name: "Business",
+    price: "od 8 000",
+    description: "Średni sklep z integracjami",
+    features: [
+      "Do 10 000 produktów",
+      "Pełna historia zamówień",
+      "Integracje (płatności, kurierzy)",
+      "BaseLinker/ERP sync",
+      "Wielojęzyczność",
+      "Custom atrybuty",
+      "60 dni wsparcia"
+    ],
+    popular: true
+  },
+  {
+    name: "Enterprise",
+    price: "od 20 000",
+    description: "Duży sklep, złożone wymagania",
+    features: [
+      "Nieograniczone produkty",
+      "B2B + B2C",
+      "Multi-store",
+      "Custom development",
+      "Migracja integracji custom",
+      "Dedykowany PM",
+      "SLA + 90 dni wsparcia"
+    ],
+    popular: false
+  }
+];
+
+const platforms = [
+  { name: "PrestaShop", direction: "from" },
+  { name: "Magento", direction: "from" },
+  { name: "Shoper", direction: "from" },
+  { name: "Sky-Shop", direction: "from" },
+  { name: "IdoSell", direction: "from" },
+  { name: "OpenCart", direction: "from" },
+  { name: "osCommerce", direction: "from" },
+  { name: "Custom PHP", direction: "from" },
+  { name: "WooCommerce", direction: "to" },
+  { name: "Shopify", direction: "to" },
+  { name: "Headless", direction: "to" }
+];
+
+const benefits = [
+  { value: "0", label: "Przestojów w sprzedaży" },
+  { value: "100%", label: "Danych zmigrowanych" },
+  { value: "301", label: "Przekierowania dla SEO" },
+  { value: "24h", label: "Monitoring po launchu" }
+];
+
+const seoChecklist = [
+  "Mapowanie wszystkich URL (stare → nowe)",
+  "Implementacja przekierowań 301",
+  "Zachowanie meta title i description",
+  "Migracja danych strukturalnych (schema)",
+  "Aktualizacja sitemap.xml",
+  "Zgłoszenie do Google Search Console",
+  "Monitoring indeksacji po migracji",
+  "Redirect chain analysis"
+];
+---
+
+<ServiceLayout
+  title="Migracja Sklepu Internetowego | PrestaShop, Magento → WooCommerce - TorWeb"
+  description="Profesjonalna migracja sklepów internetowych. Z PrestaShop, Magento, Shoper do WooCommerce, Shopify. Bez utraty danych i pozycji SEO. Od 3000 zł. Toruń, Bydgoszcz."
+  keywords="migracja sklepu internetowego, migracja PrestaShop, migracja Magento, przeniesienie sklepu, zmiana platformy e-commerce, migracja WooCommerce, migracja Shopify, migracja danych sklepu"
+  serviceName="Migracje sklepów internetowych"
+  serviceSlug="migracje-sklepow"
+  serviceCategory="E-commerce Migration Services"
+  priceRange="3000-50000"
+  breadcrumbName="Migracje sklepów"
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+            E-commerce Migration
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-heading leading-tight mb-6">
+            Migracje<br>
+            <span class="text-accent">Sklepów</span>
+          </h1>
+          
+          <p class="text-xl text-muted mb-8 leading-relaxed">
+            Przenosimy sklepy z <strong>PrestaShop, Magento, Shoper</strong> do nowoczesnych platform. 
+            Bez przestojów, bez utraty danych, bez spadku pozycji w Google.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="/kontakt" class="btn-primary">
+              Bezpłatna wycena migracji
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#proces" class="btn-secondary">
+              Jak to działa
+            </a>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {benefits.map(benefit => (
+              <div class="text-center p-3 rounded-xl bg-elevated border border-theme">
+                <div class="text-2xl font-bold text-accent">{benefit.value}</div>
+                <div class="text-xs text-muted">{benefit.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div class="relative">
+          <!-- Migration Visualization -->
+          <div class="relative rounded-2xl overflow-hidden border border-theme bg-card p-6">
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="text-xs text-muted ml-4">Migration Pipeline</span>
+            </div>
+            
+            <div class="flex items-center justify-between gap-4">
+              <!-- From -->
+              <div class="flex-1 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-center">
+                <div class="w-12 h-12 mx-auto mb-2 rounded-lg bg-red-500/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                  </svg>
+                </div>
+                <p class="text-sm font-medium text-heading">PrestaShop</p>
+                <p class="text-xs text-muted">Stara platforma</p>
+              </div>
+              
+              <!-- Arrow -->
+              <div class="flex flex-col items-center gap-1">
+                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+                <span class="text-xs text-muted">Migracja</span>
+              </div>
+              
+              <!-- To -->
+              <div class="flex-1 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-center">
+                <div class="w-12 h-12 mx-auto mb-2 rounded-lg bg-green-500/20 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <p class="text-sm font-medium text-heading">WooCommerce</p>
+                <p class="text-xs text-muted">Nowa platforma</p>
+              </div>
+            </div>
+            
+            <!-- Migration Stats -->
+            <div class="mt-6 grid grid-cols-3 gap-3">
+              <div class="p-3 rounded-lg bg-elevated text-center">
+                <p class="text-lg font-bold text-accent">4,521</p>
+                <p class="text-xs text-muted">Produktów</p>
+              </div>
+              <div class="p-3 rounded-lg bg-elevated text-center">
+                <p class="text-lg font-bold text-accent">12,847</p>
+                <p class="text-xs text-muted">Klientów</p>
+              </div>
+              <div class="p-3 rounded-lg bg-elevated text-center">
+                <p class="text-lg font-bold text-accent">28,392</p>
+                <p class="text-xs text-muted">Zamówień</p>
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mt-4">
+              <div class="flex justify-between text-xs text-muted mb-1">
+                <span>Postęp migracji</span>
+                <span class="text-accent">87%</span>
+              </div>
+              <div class="h-2 bg-elevated rounded-full overflow-hidden">
+                <div class="h-full w-[87%] bg-gradient-to-r from-accent to-green-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-4 -right-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">SEO</p>
+                <p class="text-sm font-bold text-green-500">Preserved</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-4 -left-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Downtime</p>
+                <p class="text-sm font-bold text-accent">0 min</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- From/To Platforms -->
+  <section class="py-12 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold text-heading mb-4 flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+            </span>
+            Migrujemy Z
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {platforms.filter(p => p.direction === 'from').map(platform => (
+              <span class="px-4 py-2 rounded-lg bg-card border border-theme text-body">{platform.name}</span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-heading mb-4 flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+            </span>
+            Migrujemy DO
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {platforms.filter(p => p.direction === 'to').map(platform => (
+              <span class="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 text-accent font-medium">{platform.name}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Migration Types -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Popularne <span class="text-accent">ścieżki migracji</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Każda platforma ma swoje wyzwania - znamy je wszystkie.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        {migrationTypes.map((type, index) => (
+          <div class="p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-lg bg-red-500/10 text-red-400 text-sm font-medium">{type.from}</span>
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+                <span class="px-3 py-1 rounded-lg bg-green-500/10 text-green-400 text-sm font-medium">{type.to}</span>
+              </div>
+            </div>
+            <p class="text-muted mb-4">{type.description}</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {type.challenges.map(challenge => (
+                <span class="text-xs px-2 py-1 rounded bg-accent/10 text-accent">{challenge}</span>
+              ))}
+            </div>
+            <div class="pt-4 border-t border-theme flex justify-between items-center">
+              <span class="text-sm text-muted">Czas realizacji:</span>
+              <span class="text-sm font-medium text-accent">{type.duration}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Migrate -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Co <span class="text-accent">migrujemy</span>?
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Kompletny transfer wszystkich danych - nic nie zostaje pominięte.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {whatWeMigrate.map((category, index) => (
+          <div class="p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+              {category.icon === 'products' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+              )}
+              {category.icon === 'categories' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                </svg>
+              )}
+              {category.icon === 'customers' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              )}
+              {category.icon === 'orders' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                </svg>
+              )}
+              {category.icon === 'content' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                </svg>
+              )}
+              {category.icon === 'seo' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-semibold text-heading mb-3">{category.title}</h3>
+            <ul class="space-y-2">
+              {category.items.map(item => (
+                <li class="flex items-center gap-2 text-sm text-muted">
+                  <svg class="w-4 h-4 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Checklist -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-8 rounded-2xl border border-accent/30 bg-accent/5">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-heading mb-2">SEO Preservation Checklist</h2>
+            <p class="text-muted">Gwarantujemy zachowanie pozycji w Google po migracji:</p>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-3">
+          {seoChecklist.map(item => (
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-card">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-sm text-body">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="proces" class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Proces <span class="text-accent">migracji</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Sprawdzony proces, który minimalizuje ryzyko i zapewnia płynne przejście.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {process.map((phase, index) => (
+          <div class="relative p-5 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="text-3xl font-bold text-accent/20 mb-3">0{index + 1}</div>
+            <h3 class="text-lg font-semibold text-heading mb-1">{phase.phase}</h3>
+            <p class="text-xs text-accent mb-2">{phase.duration}</p>
+            <p class="text-sm text-muted mb-3">{phase.description}</p>
+            <ul class="space-y-1">
+              {phase.activities.slice(0, 3).map(activity => (
+                <li class="flex items-center gap-1 text-xs text-muted">
+                  <span class="w-1 h-1 rounded-full bg-accent"></span>
+                  {activity}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="cennik" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Pakiety <span class="text-accent">migracji</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Cena zależy od rozmiaru sklepu i złożoności danych.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {pricing.map((plan, index) => (
+          <div class={`relative p-8 rounded-2xl border ${plan.popular ? 'border-accent bg-accent/5' : 'border-theme bg-card'} animate-on-scroll`} style={`animation-delay: ${index * 100}ms`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-dark-950 text-sm font-semibold px-4 py-1 rounded-full">
+                Najczęściej wybierany
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold text-heading mb-2">{plan.name}</h3>
+              <p class="text-sm text-muted mb-4">{plan.description}</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-heading">{plan.price}</span>
+                <span class="text-muted">PLN</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map(feature => (
+                <li class="flex items-center gap-3 text-body">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a href="/kontakt" class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
+              Zamów wycenę
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          FAQ - <span class="text-accent">Migracje sklepów</span>
+        </h2>
+      </div>
+      
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group p-6 rounded-xl border border-theme bg-card">
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <h3 class="text-lg font-medium text-heading pr-4">{faq.question}</h3>
+              <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <p class="mt-4 text-muted leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+        Czas na <span class="text-accent">nową platformę</span>?
+      </h2>
+      <p class="text-lg text-muted mb-8">
+        Bezpłatna analiza Twojego sklepu i wycena migracji w 24h.
+      </p>
+      <a href="/kontakt" class="btn-primary">
+        Zamów bezpłatną wycenę
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

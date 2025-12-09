@@ -1,0 +1,275 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+
+const services = [
+  { href: '/strony-internetowe', label: 'Strony internetowe', icon: 'web' },
+  { href: '/sklepy-internetowe', label: 'Sklepy internetowe', icon: 'cart' },
+  { href: '/aplikacje-webowe', label: 'Aplikacje webowe', icon: 'app' },
+  { href: '/integracje-ai', label: 'Integracje AI', icon: 'ai' },
+  { href: '/automatyzacja', label: 'Automatyzacja', icon: 'auto' },
+  { href: '/migracje-sklepow', label: 'Migracje sklepów', icon: 'migrate' },
+];
+
+const serviceSlugs = services.map(s => s.href);
+
+const navLinks = [
+  { href: '/realizacje', label: 'Portfolio' },
+  { href: '/#proces', label: 'Jak działamy' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+const isServicesActive = serviceSlugs.some(slug => currentPath === slug || currentPath === slug + '/');
+---
+
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br dark:from-neon-green dark:to-neon-blue from-emerald-500 to-sky-500 flex items-center justify-center font-display font-bold text-dark-950 text-lg group-hover:scale-110 transition-transform">
+            T
+          </div>
+          <div class="absolute inset-0 w-10 h-10 rounded-lg bg-gradient-to-br dark:from-neon-green dark:to-neon-blue from-emerald-500 to-sky-500 opacity-0 group-hover:opacity-50 blur-lg transition-opacity"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-xl text-heading">TorWeb<span class="text-accent">.pl</span></span>
+          <span class="text-[10px] text-faint font-mono uppercase tracking-widest -mt-1">Agencja Interaktywna</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center gap-8">
+        <!-- Usługi Dropdown -->
+        <div class="relative group/dropdown">
+          <button 
+            class:list={[
+              "relative text-sm transition-colors font-medium flex items-center gap-1",
+              isServicesActive ? "text-accent" : "text-muted hover:text-heading"
+            ]}
+          >
+            Usługi
+            <svg class="w-4 h-4 transition-transform group-hover/dropdown:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+            <span class:list={[
+              "absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r dark:from-neon-green dark:to-neon-blue from-emerald-500 to-sky-500 transition-all duration-300",
+              isServicesActive ? "w-full" : "w-0 group-hover/dropdown:w-full"
+            ]}></span>
+          </button>
+          
+          <!-- Dropdown Menu - SOLIDNE TŁO -->
+          <div class="absolute top-full left-0 pt-4 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200">
+            <div class="dropdown-menu w-64 rounded-xl border border-theme shadow-2xl overflow-hidden">
+              <div class="p-2">
+                {services.map(service => (
+                  <a 
+                    href={service.href}
+                    class:list={[
+                      "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
+                      currentPath === service.href || currentPath === service.href + '/'
+                        ? "bg-accent/10 text-accent" 
+                        : "text-muted hover:bg-black/10 dark:hover:bg-white/5 hover:text-heading"
+                    ]}
+                  >
+                    <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      {service.icon === 'web' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'cart' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'app' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                      )}
+                      {service.icon === 'ai' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                      )}
+                      {service.icon === 'auto' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                      )}
+                      {service.icon === 'migrate' && (
+                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                      )}
+                    </div>
+                    <span class="text-sm font-medium">{service.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other Nav Links -->
+        {navLinks.map(link => {
+          const active = link.href.startsWith('/') && !link.href.includes('#') 
+            ? currentPath === link.href || currentPath.startsWith(link.href)
+            : false;
+          return (
+            <a 
+              href={link.href}
+              class:list={[
+                "relative text-sm transition-colors font-medium group",
+                active ? "text-accent" : "text-muted hover:text-heading"
+              ]}
+            >
+              {link.label}
+              <span class:list={[
+                "absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r dark:from-neon-green dark:to-neon-blue from-emerald-500 to-sky-500 transition-all duration-300",
+                active ? "w-full" : "w-0 group-hover:w-full"
+              ]}></span>
+            </a>
+          );
+        })}
+      </div>
+      
+      <!-- Right Side -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="tel:+48509370772" class="text-sm text-muted hover:text-accent transition-colors font-mono">
+          +48 509 370 772
+        </a>
+        <ThemeToggle />
+        <a href="/kontakt" class="btn-primary relative px-6 py-2.5 text-sm rounded-lg overflow-hidden group">
+          <span class="relative z-10">Darmowa wycena</span>
+        </a>
+      </div>
+      
+      <!-- Mobile -->
+      <div class="flex lg:hidden items-center gap-2">
+        <ThemeToggle />
+        <button id="mobile-menu-btn" class="relative w-10 h-10 flex items-center justify-center" aria-label="Menu">
+          <div class="flex flex-col gap-1.5" id="hamburger">
+            <span class="w-6 h-0.5 bg-heading transition-all origin-center"></span>
+            <span class="w-6 h-0.5 bg-heading transition-all"></span>
+            <span class="w-4 h-0.5 bg-accent transition-all origin-center"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="lg:hidden fixed inset-0 top-20 bg-page/98 backdrop-blur-xl opacity-0 invisible transition-all duration-300 z-40 overflow-y-auto">
+    <nav class="flex flex-col items-center py-8 gap-6">
+      <div class="w-full px-8">
+        <button id="mobile-services-toggle" class:list={["flex items-center justify-between w-full text-2xl font-display font-semibold", isServicesActive ? "text-accent" : "text-muted"]}>
+          Usługi
+          <svg class="w-6 h-6 transition-transform" id="mobile-services-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div id="mobile-services-list" class="hidden mt-4 space-y-2 pl-4">
+          {services.map(service => (
+            <a href={service.href} class:list={["block py-2 text-lg transition-colors", currentPath === service.href || currentPath === service.href + '/' ? "text-accent" : "text-muted hover:text-accent"]}>
+              {service.label}
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      {navLinks.map(link => {
+        const active = link.href.startsWith('/') && !link.href.includes('#') ? currentPath === link.href : false;
+        return (
+          <a href={link.href} class:list={["text-2xl font-display font-semibold transition-colors", active ? "text-accent" : "text-muted hover:text-accent"]}>
+            {link.label}
+          </a>
+        );
+      })}
+      
+      <a href="/kontakt" class="btn-primary mt-4 px-8 py-3 rounded-lg">Darmowa wycena</a>
+      <a href="tel:+48509370772" class="text-muted font-mono">+48 509 370 772</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  #navbar.scrolled {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  /* SOLIDNE TŁO DROPDOWN - NIE PRZEZROCZYSTE */
+  .dropdown-menu {
+    background-color: #ffffff !important;
+  }
+  
+  :global(.dark) .dropdown-menu {
+    background-color: #0d0e10 !important;
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger');
+  const mobileServicesToggle = document.getElementById('mobile-services-toggle');
+  const mobileServicesList = document.getElementById('mobile-services-list');
+  const mobileServicesArrow = document.getElementById('mobile-services-arrow');
+  
+  let isMenuOpen = false;
+  
+  window.addEventListener('scroll', () => {
+    navbar?.classList.toggle('scrolled', window.scrollY > 50);
+  });
+  
+  mobileMenuBtn?.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    const spans = hamburger?.querySelectorAll('span');
+    
+    if (isMenuOpen) {
+      mobileMenu?.classList.remove('opacity-0', 'invisible');
+      mobileMenu?.classList.add('opacity-100', 'visible');
+      document.body.style.overflow = 'hidden';
+      if (spans) {
+        spans[0].style.transform = 'rotate(45deg) translate(3px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(3px, -5px)';
+        spans[2].style.width = '1.5rem';
+      }
+    } else {
+      mobileMenu?.classList.add('opacity-0', 'invisible');
+      mobileMenu?.classList.remove('opacity-100', 'visible');
+      document.body.style.overflow = '';
+      if (spans) {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = '';
+        spans[2].style.width = '1rem';
+      }
+    }
+  });
+  
+  mobileServicesToggle?.addEventListener('click', () => {
+    const isOpen = !mobileServicesList?.classList.contains('hidden');
+    mobileServicesList?.classList.toggle('hidden');
+    if (mobileServicesArrow) mobileServicesArrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+  });
+  
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      isMenuOpen = false;
+      mobileMenu?.classList.add('opacity-0', 'invisible');
+      document.body.style.overflow = '';
+      const spans = hamburger?.querySelectorAll('span');
+      if (spans) { spans[0].style.transform = ''; spans[1].style.opacity = '1'; spans[2].style.transform = ''; spans[2].style.width = '1rem'; }
+    });
+  });
+</script>

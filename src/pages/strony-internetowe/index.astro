@@ -1,0 +1,506 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const faqs = [
+  {
+    question: "Ile kosztuje stworzenie strony internetowej?",
+    answer: "Cena strony internetowej zależy od jej złożoności i funkcjonalności. Proste strony wizytówki zaczynają się od 2500 zł, rozbudowane strony firmowe od 5000 zł, a zaawansowane platformy z panelem CMS od 8000 zł. Każdy projekt wyceniamy indywidualnie po analizie potrzeb."
+  },
+  {
+    question: "Jak długo trwa tworzenie strony internetowej?",
+    answer: "Standardowa strona firmowa powstaje w 2-4 tygodnie. Proste strony wizytówki realizujemy nawet w 5-7 dni roboczych. Rozbudowane projekty z dedykowanymi funkcjonalnościami mogą trwać 6-8 tygodni. Dokładny termin ustalamy po analizie zakresu projektu."
+  },
+  {
+    question: "Czy strona będzie responsywna i działać na telefonach?",
+    answer: "Tak, wszystkie nasze strony są w pełni responsywne i zoptymalizowane pod urządzenia mobilne. Projektujemy w podejściu mobile-first, co oznacza że strona idealnie wyświetla się na smartfonach, tabletach i komputerach. Google premiuje strony mobilne w wynikach wyszukiwania."
+  },
+  {
+    question: "Czy mogę samodzielnie edytować treści na stronie?",
+    answer: "Tak, implementujemy intuicyjne systemy zarządzania treścią (CMS), które pozwalają na samodzielną edycję tekstów, zdjęć i innych elementów bez znajomości programowania. Zapewniamy również szkolenie z obsługi panelu administracyjnego."
+  },
+  {
+    question: "Czy strona będzie zoptymalizowana pod SEO?",
+    answer: "Tak, każda strona powstaje z myślą o pozycjonowaniu. Implementujemy techniczne SEO: optymalizację szybkości, poprawną strukturę nagłówków, meta tagi, schema markup, sitemap XML, oraz optymalizację Core Web Vitals. To solidna baza pod dalsze działania SEO."
+  },
+  {
+    question: "Co obejmuje hosting i utrzymanie strony?",
+    answer: "Oferujemy kompleksową opiekę nad stroną: szybki hosting SSD, certyfikat SSL, regularne backupy, aktualizacje bezpieczeństwa, monitoring dostępności 24/7, oraz wsparcie techniczne. Pakiety zaczynają się od 99 zł/miesiąc."
+  },
+  {
+    question: "Jakich technologii używacie do tworzenia stron?",
+    answer: "Wykorzystujemy nowoczesne technologie: Astro, Next.js, React dla dynamicznych aplikacji, oraz headless CMS (Strapi, Sanity) dla łatwego zarządzania treścią. Dla prostszych projektów stosujemy WordPress z własnym motywem. Dobieramy technologię do potrzeb projektu."
+  },
+  {
+    question: "Czy pomagacie w przygotowaniu treści i zdjęć?",
+    answer: "Tak, oferujemy kompleksowe wsparcie contentowe: copywriting stron, optymalizację tekstów pod SEO, pozyskanie lub stworzenie grafik i zdjęć stockowych, oraz przygotowanie materiałów do social media. Możemy też przeprowadzić sesję zdjęciową."
+  }
+];
+
+const features = [
+  {
+    icon: "responsive",
+    title: "Responsywność Mobile-First",
+    description: "Strony projektowane z priorytetem dla urządzeń mobilnych. Perfekcyjne wyświetlanie na każdym ekranie."
+  },
+  {
+    icon: "speed",
+    title: "Błyskawiczna Szybkość",
+    description: "Optymalizacja Core Web Vitals. Czas ładowania poniżej 2 sekund dla najlepszego UX i SEO."
+  },
+  {
+    icon: "seo",
+    title: "SEO w DNA",
+    description: "Techniczne SEO wbudowane od podstaw: struktura, meta tagi, schema markup, sitemap XML."
+  },
+  {
+    icon: "cms",
+    title: "Łatwa Edycja Treści",
+    description: "Intuicyjny panel CMS do samodzielnej aktualizacji treści bez pomocy programisty."
+  },
+  {
+    icon: "security",
+    title: "Bezpieczeństwo",
+    description: "Certyfikat SSL, regularne backupy, ochrona przed atakami i monitoring 24/7."
+  },
+  {
+    icon: "analytics",
+    title: "Analityka i Konwersje",
+    description: "Integracja Google Analytics 4, śledzenie celów i optymalizacja pod konwersje."
+  }
+];
+
+const process = [
+  {
+    step: 1,
+    title: "Analiza i Brief",
+    description: "Poznajemy Twój biznes, cele i konkurencję. Definiujemy funkcjonalności i strukturę strony.",
+    duration: "1-2 dni"
+  },
+  {
+    step: 2,
+    title: "Projekt UX/UI",
+    description: "Tworzymy wireframe'y i projekt graficzny. Iterujemy aż do pełnej akceptacji.",
+    duration: "3-5 dni"
+  },
+  {
+    step: 3,
+    title: "Kodowanie",
+    description: "Programujemy stronę w nowoczesnych technologiach z dbałością o każdy detal.",
+    duration: "5-10 dni"
+  },
+  {
+    step: 4,
+    title: "Testy i Optymalizacja",
+    description: "Testujemy na wszystkich urządzeniach, optymalizujemy szybkość i SEO.",
+    duration: "2-3 dni"
+  },
+  {
+    step: 5,
+    title: "Wdrożenie",
+    description: "Publikujemy stronę, konfigurujemy hosting, SSL i narzędzia analityczne.",
+    duration: "1 dzień"
+  }
+];
+
+const pricing = [
+  {
+    name: "Strona Wizytówka",
+    price: "od 2 500",
+    description: "Idealna dla freelancerów i małych firm",
+    features: [
+      "Do 5 podstron",
+      "Responsywny design",
+      "Formularz kontaktowy",
+      "Podstawowe SEO",
+      "Certyfikat SSL",
+      "Hosting na 1 rok"
+    ],
+    popular: false
+  },
+  {
+    name: "Strona Firmowa",
+    price: "od 5 000",
+    description: "Dla firm potrzebujących profesjonalnej prezentacji",
+    features: [
+      "Do 15 podstron",
+      "Panel CMS",
+      "Blog firmowy",
+      "Zaawansowane SEO",
+      "Google Analytics 4",
+      "Integracje (mapy, social)",
+      "Szkolenie z obsługi"
+    ],
+    popular: true
+  },
+  {
+    name: "Strona Premium",
+    price: "od 10 000",
+    description: "Zaawansowane rozwiązania dla wymagających",
+    features: [
+      "Nielimitowane podstrony",
+      "Dedykowane funkcjonalności",
+      "Wielojęzyczność",
+      "Zaawansowane animacje",
+      "System rezerwacji/kalendarza",
+      "Integracje API",
+      "Priorytetowe wsparcie"
+    ],
+    popular: false
+  }
+];
+
+
+---
+
+<ServiceLayout
+  title="Tworzenie Stron Internetowych Toruń | Projektowanie WWW - TorWeb"
+  description="Profesjonalne tworzenie stron internetowych w Toruniu i Bydgoszczy. Responsywne strony WWW, optymalizacja SEO, nowoczesny design. Realizacja od 2500 zł. Bezpłatna wycena!"
+  keywords="tworzenie stron internetowych, projektowanie stron www, strony internetowe Toruń, strony www Bydgoszcz, responsywne strony, strony firmowe, strony wizytówki, web design, nowoczesne strony internetowe"
+  serviceName="Tworzenie stron internetowych"
+  serviceSlug="strony-internetowe"
+  serviceCategory="Web Development"
+  priceRange="2500-25000"
+  breadcrumbName="Strony internetowe"
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+            Realizacja od 5 dni roboczych
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-heading leading-tight mb-6">
+            Tworzenie Stron<br>
+            <span class="text-accent">Internetowych</span>
+          </h1>
+          
+          <p class="text-xl text-muted mb-8 leading-relaxed">
+            Projektujemy i tworzymy <strong>nowoczesne strony internetowe</strong>, które przyciągają klientów 
+            i konwertują odwiedzających. Responsywny design, błyskawiczna szybkość, SEO w standardzie.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="/kontakt" class="btn-primary">
+              Bezpłatna wycena
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#realizacje" class="btn-secondary">
+              Zobacz realizacje
+            </a>
+          </div>
+          
+          <div class="flex items-center gap-6 text-sm text-muted">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>100+ zrealizowanych projektów</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>15+ lat doświadczenia</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="relative rounded-2xl overflow-hidden border border-theme bg-card p-2">
+            <div class="flex items-center gap-2 px-4 py-3 border-b border-theme">
+              <div class="flex gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              </div>
+              <span class="text-xs text-muted ml-4">torweb.pl</span>
+            </div>
+            <div class="aspect-video bg-elevated rounded-lg flex items-center justify-center">
+              <div class="text-center p-8">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-accent/20 flex items-center justify-center">
+                  <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <p class="text-body font-medium">Twoja strona tutaj</p>
+                <p class="text-sm text-muted">Nowoczesny design dostosowany do Twojej marki</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-4 -right-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Page Speed</p>
+                <p class="text-sm font-bold text-green-500">98/100</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-4 -left-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Mobile</p>
+                <p class="text-sm font-bold text-accent">Responsive</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 border-y border-theme bg-elevated/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 text-muted">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <span class="font-medium">4.9/5 ocena klientów</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>15+ lat na rynku</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>100+ projektów</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Toruń / Bydgoszcz</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Dlaczego nasze strony <span class="text-accent">działają</span>?
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Każda strona internetowa to przemyślany projekt łączący estetykę z funkcjonalnością i technologią.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <div class="group p-6 rounded-2xl border border-theme bg-card hover:border-accent/50 transition-all duration-300 animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              {feature.icon === 'responsive' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+              )}
+              {feature.icon === 'speed' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              )}
+              {feature.icon === 'seo' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              )}
+              {feature.icon === 'cms' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+              )}
+              {feature.icon === 'security' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              )}
+              {feature.icon === 'analytics' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-semibold text-heading mb-2">{feature.title}</h3>
+            <p class="text-muted">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Proces tworzenia <span class="text-accent">strony</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Sprawdzony proces, który gwarantuje terminową realizację i najwyższą jakość.
+        </p>
+      </div>
+      
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent/50 to-transparent hidden md:block"></div>
+        
+        <div class="space-y-8">
+          {process.map((step, index) => (
+            <div class="relative flex gap-8 animate-on-scroll" style={`animation-delay: ${index * 150}ms`}>
+              <div class="flex-shrink-0 w-16 h-16 rounded-full bg-accent/20 border-2 border-accent flex items-center justify-center text-accent font-bold text-xl relative z-10">
+                {step.step}
+              </div>
+              <div class="flex-grow pb-8">
+                <div class="flex items-center gap-4 mb-2">
+                  <h3 class="text-xl font-semibold text-heading">{step.title}</h3>
+                  <span class="text-xs text-accent bg-accent/10 px-3 py-1 rounded-full">{step.duration}</span>
+                </div>
+                <p class="text-muted">{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="cennik" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Transparentny <span class="text-accent">cennik</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Wybierz pakiet dopasowany do Twoich potrzeb. Każdy projekt wyceniamy indywidualnie.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {pricing.map((plan, index) => (
+          <div class={`relative p-8 rounded-2xl border ${plan.popular ? 'border-accent bg-accent/5' : 'border-theme bg-card'} animate-on-scroll`} style={`animation-delay: ${index * 100}ms`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-dark-950 text-sm font-semibold px-4 py-1 rounded-full">
+                Najpopularniejszy
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold text-heading mb-2">{plan.name}</h3>
+              <p class="text-sm text-muted mb-4">{plan.description}</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-heading">{plan.price}</span>
+                <span class="text-muted">PLN</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map(feature => (
+                <li class="flex items-center gap-3 text-body">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a href="/kontakt" class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
+              Zapytaj o wycenę
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      <p class="text-center text-sm text-muted mt-8">
+        * Ceny netto. Dokładna wycena po analizie wymagań projektu.
+      </p>
+    </div>
+  </section>
+
+  <!-- Technologies Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Technologie, które <span class="text-accent">stosujemy</span>
+        </h2>
+        <p class="text-lg text-muted">
+          Nowoczesny stack technologiczny dla optymalnej wydajności i bezpieczeństwa.
+        </p>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-6">
+        {['Astro', 'Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'WordPress', 'Vercel', 'AWS'].map(tech => (
+          <div class="px-6 py-3 rounded-xl border border-theme bg-card text-body font-medium hover:border-accent/50 transition-colors">
+            {tech}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Często zadawane <span class="text-accent">pytania</span>
+        </h2>
+        <p class="text-lg text-muted">
+          Odpowiedzi na najczęstsze pytania dotyczące tworzenia stron internetowych.
+        </p>
+      </div>
+      
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <details class="group p-6 rounded-xl border border-theme bg-card" data-faq>
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <h3 class="text-lg font-medium text-heading pr-4">{faq.question}</h3>
+              <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <p class="mt-4 text-muted leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</ServiceLayout>
+
+<style>
+  details[data-faq] summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details[data-faq][open] {
+    border-color: rgba(var(--color-accent-rgb), 0.3);
+  }
+</style>

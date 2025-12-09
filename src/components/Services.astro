@@ -1,0 +1,192 @@
+---
+const mainServices = [
+  {
+    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+    title: 'Strony internetowe',
+    subtitle: 'Toruń / Bydgoszcz',
+    description: 'Nowoczesne strony firmowe, landing page i portfolio. PageSpeed 95+, SEO w standardzie, responsywny design.',
+    features: ['Responsywny design', 'Optymalizacja SEO', 'Panel CMS', 'SSL gratis'],
+    price: 'od 1 990 zł',
+    popular: true,
+    href: '#strony-www'
+  },
+  {
+    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+    title: 'Sklepy internetowe',
+    subtitle: 'Toruń / Bydgoszcz',
+    description: 'E-commerce który sprzedaje. Integracje z Allegro, płatności online, automatyzacja zamówień.',
+    features: ['Integracja Allegro', 'Płatności online', 'Panel produktów', 'Automatyzacja'],
+    price: 'od 4 990 zł',
+    popular: false,
+    href: '#sklepy'
+  },
+  {
+    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`,
+    title: 'Aplikacje webowe',
+    subtitle: 'Cała Polska',
+    description: 'Dedykowane systemy, panele klienta, CRM. React, Next.js, Node.js. Skalowalne rozwiązania enterprise.',
+    features: ['React / Next.js', 'Bazy danych', 'API REST', 'Cloud hosting'],
+    price: 'od 9 990 zł',
+    popular: false,
+    href: '#aplikacje'
+  }
+];
+
+const specialistServices = [
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`,
+    title: 'Integracje AI',
+    description: 'Chatboty, automatyzacja treści, analiza danych z wykorzystaniem Claude AI i GPT.',
+    price: 'od 2 990 zł',
+    colorClass: 'dark:text-neon-purple text-violet-600',
+    bgClass: 'dark:bg-neon-purple/10 bg-violet-500/10'
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>`,
+    title: 'Platformy SaaS',
+    description: 'Kompletne platformy SaaS z systemem płatności, subskrypcji i panelem użytkownika.',
+    price: 'od 15 000 zł',
+    colorClass: 'dark:text-neon-blue text-sky-600',
+    bgClass: 'dark:bg-neon-blue/10 bg-sky-500/10'
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>`,
+    title: 'Migracje sklepów',
+    description: 'Z WooCommerce na szybsze rozwiązania. 100% zachowanie SEO, +40% wzrost sprzedaży.',
+    price: 'od 7 990 zł',
+    colorClass: 'dark:text-amber-400 text-amber-600',
+    bgClass: 'dark:bg-amber-400/10 bg-amber-500/10'
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+    title: 'Automatyzacja',
+    description: 'Make.com, Zapier, własne integracje. Oszczędź 10+ godzin tygodniowo.',
+    price: 'od 990 zł',
+    colorClass: 'text-accent',
+    bgClass: 'dark:bg-neon-green/10 bg-emerald-500/10'
+  }
+];
+
+const additionalServices = [
+  { name: 'Audyt SEO', price: 'od 490 zł', desc: 'Analiza i rekomendacje' },
+  { name: 'Redesign strony', price: 'od 2 990 zł', desc: 'Modernizacja istniejącej' },
+  { name: 'Wsparcie techniczne', price: 'od 299 zł/mies', desc: 'Utrzymanie i rozwój' },
+  { name: 'Landing Page', price: 'od 1 490 zł', desc: 'Strona sprzedażowa' },
+  { name: 'Copywriting', price: 'od 150 zł/1000zn', desc: 'Treści na stronę' },
+  { name: 'Publikacje LaTeX', price: 'od 50 zł/strona', desc: 'Skład profesjonalny' },
+];
+---
+
+<section id="uslugi" class="py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll">
+      <span class="inline-block px-4 py-1.5 rounded-full glass text-accent text-sm font-mono mb-6">
+        &lt;usługi /&gt;
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl mb-6 text-heading">
+        Kompleksowe usługi <span class="gradient-text">web development</span>
+      </h2>
+      <p class="text-muted text-lg">
+        Od prostych stron wizytówkowych po zaawansowane platformy SaaS z AI. 
+        Lokalne wsparcie w Toruniu i Bydgoszczy, realizacje w całej Polsce.
+      </p>
+    </div>
+    
+    <!-- Main Services Grid -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      {mainServices.map((service, i) => (
+        <div class={`group relative glass rounded-2xl p-8 hover:border-accent transition-all duration-300 hover:-translate-y-2 animate-on-scroll animate-delay-${(i + 1) * 100}`}>
+          {service.popular && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-emerald-500 to-sky-500 dark:from-neon-green dark:to-neon-blue text-dark-950 text-xs font-bold rounded-full">
+              Najpopularniejsze
+            </div>
+          )}
+          
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br dark:from-neon-green/10 dark:to-neon-blue/10 from-emerald-500/10 to-sky-500/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform" set:html={service.icon} />
+          
+          <div class="flex items-center gap-2 mb-2">
+            <h3 class="font-display font-bold text-xl text-heading">{service.title}</h3>
+          </div>
+          <span class="text-xs text-faint font-mono">{service.subtitle}</span>
+          
+          <p class="text-muted text-sm mt-4 mb-6">{service.description}</p>
+          
+          <ul class="space-y-2 mb-8">
+            {service.features.map(feature => (
+              <li class="flex items-center gap-2 text-sm text-body">
+                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+          
+          <div class="flex items-center justify-between pt-6 border-t border-theme">
+            <div>
+              <span class="text-xs text-faint">Cena</span>
+              <div class="font-display font-bold text-xl gradient-text">{service.price}</div>
+            </div>
+            <a 
+              href="#kontakt" 
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-elevated hover:bg-accent/10 text-heading hover:text-accent transition-colors text-sm font-medium"
+            >
+              Zapytaj
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Specialist Services -->
+    <div class="mb-12">
+      <h3 class="font-display font-semibold text-xl text-center mb-8 animate-on-scroll text-heading">
+        Usługi specjalistyczne <span class="text-muted">— Cała Polska</span>
+      </h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {specialistServices.map((service, i) => (
+          <div class={`group glass rounded-xl p-6 transition-all animate-on-scroll animate-delay-${(i + 1) * 100}`}>
+            <div class={`w-12 h-12 rounded-lg ${service.bgClass} flex items-center justify-center ${service.colorClass} mb-4`} set:html={service.icon} />
+            <h4 class="font-semibold text-heading mb-2">{service.title}</h4>
+            <p class="text-muted text-sm mb-4">{service.description}</p>
+            <div class={`${service.colorClass} font-semibold`}>{service.price}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Additional Services -->
+    <div class="glass rounded-2xl p-8 animate-on-scroll">
+      <h3 class="font-display font-semibold text-lg mb-6 text-center text-heading">Dodatkowe usługi</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {additionalServices.map(service => (
+          <div class="flex items-center justify-between p-4 rounded-lg bg-elevated hover:bg-card transition-colors">
+            <div>
+              <div class="font-medium text-heading">{service.name}</div>
+              <div class="text-xs text-faint">{service.desc}</div>
+            </div>
+            <div class="text-accent font-mono text-sm">{service.price}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="text-center mt-12 animate-on-scroll">
+      <p class="text-muted mb-4">Nie widzisz usługi której szukasz?</p>
+      <a 
+        href="#kontakt" 
+        class="inline-flex items-center gap-2 px-6 py-3 border border-theme hover:border-accent rounded-xl text-heading hover:text-accent transition-colors"
+      >
+        Opisz swój projekt — znajdziemy rozwiązanie
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

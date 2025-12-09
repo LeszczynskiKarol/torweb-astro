@@ -1,0 +1,593 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const faqs = [
+  {
+    question: "Czym jest automatyzacja procesów biznesowych?",
+    answer: "Automatyzacja procesów biznesowych to wykorzystanie technologii do eliminacji ręcznych, powtarzalnych zadań. Obejmuje: automatyczne przesyłanie danych między systemami, generowanie dokumentów i raportów, wysyłkę powiadomień i emaili, synchronizację CRM z innymi narzędziami. Oszczędzasz czas, eliminujesz błędy i skalujesz operacje."
+  },
+  {
+    question: "Ile kosztuje wdrożenie automatyzacji?",
+    answer: "Koszt zależy od złożoności procesów. Proste automatyzacje (np. synchronizacja formularzy z CRM) od 2 000 zł. Średnie projekty (wieloetapowe workflow) od 8 000 zł. Zaawansowane integracje enterprise od 20 000 zł. Automatyzacje z AI od 15 000 zł. Wyceniamy po mapowaniu procesów."
+  },
+  {
+    question: "Jakich narzędzi używacie do automatyzacji?",
+    answer: "Dobieramy narzędzia do potrzeb: Make (Integromat) i Zapier dla szybkich integracji, n8n dla rozwiązań self-hosted, dedykowane API i webhooks dla custom integracji. Łączymy ponad 1000 aplikacji: CRM, email, e-commerce, księgowość, social media, Google Workspace, Microsoft 365."
+  },
+  {
+    question: "Czy automatyzacja zastąpi moich pracowników?",
+    answer: "Automatyzacja nie zastępuje ludzi - uwalnia ich od powtarzalnych zadań, by mogli skupić się na pracy twórczej i relacjach z klientami. Typowo automatyzujemy: wprowadzanie danych, generowanie raportów, wysyłkę emaili, synchronizację systemów. Ludzie nadal podejmują decyzje i obsługują wyjątki."
+  },
+  {
+    question: "Jak długo trwa wdrożenie automatyzacji?",
+    answer: "Proste automatyzacje (1-3 kroki) wdrażamy w 1-2 dni. Średnie workflow (5-10 kroków) w 1-2 tygodnie. Złożone procesy z wieloma integracjami 3-6 tygodni. Projekty enterprise 2-3 miesiące. Zaczynamy od quick-wins, które dają natychmiastowy ROI."
+  },
+  {
+    question: "Czy mogę samodzielnie modyfikować automatyzacje?",
+    answer: "Tak, przy rozwiązaniach no-code (Make, Zapier) szkolimy Twój zespół w obsłudze i prostych modyfikacjach. Dla bardziej zaawansowanych automatyzacji oferujemy pakiety utrzymaniowe z możliwością zlecania zmian. Dostarczamy dokumentację każdego procesu."
+  },
+  {
+    question: "Jakie procesy najczęściej automatyzujecie?",
+    answer: "Najczęściej automatyzujemy: lead nurturing i CRM (nowe kontakty → automatyczne sekwencje), e-commerce (zamówienia → faktury → WMS → wysyłka), HR (onboarding, wnioski urlopowe), finanse (faktury, rozliczenia), marketing (social media, newsletter), raportowanie (dashboardy, alerty)."
+  },
+  {
+    question: "Czy automatyzacja jest bezpieczna dla moich danych?",
+    answer: "Bezpieczeństwo to priorytet. Używamy szyfrowanych połączeń (TLS), bezpiecznej autoryzacji (OAuth 2.0), minimalnych uprawnień dla integracji. Dla wrażliwych danych oferujemy rozwiązania self-hosted (n8n na Twojej infrastrukturze). Wszystkie wdrożenia zgodne z RODO."
+  }
+];
+
+const automationTypes = [
+  {
+    icon: "lead",
+    title: "Lead Management",
+    description: "Automatyzacja pozyskiwania i obsługi leadów",
+    examples: ["Formularze → CRM", "Lead scoring", "Automatyczne follow-up", "Segmentacja kontaktów"],
+    tools: ["HubSpot", "Pipedrive", "Salesforce"]
+  },
+  {
+    icon: "ecommerce",
+    title: "E-commerce Operations",
+    description: "Automatyzacja procesów sprzedażowych",
+    examples: ["Zamówienia → ERP", "Faktury automatyczne", "Stany magazynowe", "Powiadomienia wysyłkowe"],
+    tools: ["WooCommerce", "Shopify", "BaseLinker"]
+  },
+  {
+    icon: "marketing",
+    title: "Marketing Automation",
+    description: "Automatyzacja działań marketingowych",
+    examples: ["Email sequences", "Social media posting", "Lead nurturing", "Kampanie drip"],
+    tools: ["Mailchimp", "ActiveCampaign", "edrone"]
+  },
+  {
+    icon: "finance",
+    title: "Finanse & Księgowość",
+    description: "Automatyzacja procesów finansowych",
+    examples: ["Import wyciągów", "Generowanie faktur", "Przypomnienia o płatnościach", "Rozliczenia prowizji"],
+    tools: ["Fakturownia", "inFakt", "Comarch"]
+  },
+  {
+    icon: "hr",
+    title: "HR & Onboarding",
+    description: "Automatyzacja procesów kadrowych",
+    examples: ["Onboarding workflow", "Wnioski urlopowe", "Ankiety pracownicze", "Przypomnienia o rocznicach"],
+    tools: ["BambooHR", "Personio", "Calamari"]
+  },
+  {
+    icon: "reporting",
+    title: "Raportowanie & BI",
+    description: "Automatyczne raporty i dashboardy",
+    examples: ["Raporty dzienne/tygodniowe", "Alerty KPI", "Data aggregation", "Executive summaries"],
+    tools: ["Google Sheets", "Looker", "Power BI"]
+  }
+];
+
+const tools = [
+  { name: "Make", logo: "make", description: "Zaawansowane workflow" },
+  { name: "Zapier", logo: "zapier", description: "1000+ integracji" },
+  { name: "n8n", logo: "n8n", description: "Self-hosted, open source" },
+  { name: "Power Automate", logo: "power-automate", description: "Ekosystem Microsoft" }
+];
+
+const process = [
+  {
+    phase: "Audyt Procesów",
+    duration: "1-3 dni",
+    description: "Mapowanie obecnych procesów i identyfikacja potencjału automatyzacji",
+    deliverables: ["Mapa procesów", "Lista quick-wins", "Priorytetyzacja", "Szacunek ROI"]
+  },
+  {
+    phase: "Projektowanie",
+    duration: "2-5 dni",
+    description: "Projekt workflow, wybór narzędzi, architektura integracji",
+    deliverables: ["Diagramy workflow", "Wybór platformy", "Plan implementacji", "Scenariusze testowe"]
+  },
+  {
+    phase: "Implementacja",
+    duration: "1-4 tygodnie",
+    description: "Budowa automatyzacji, integracja systemów, testy",
+    deliverables: ["Działające workflow", "Integracje API", "Obsługa błędów", "Monitoring"]
+  },
+  {
+    phase: "Optymalizacja",
+    duration: "Ongoing",
+    description: "Monitoring, fine-tuning, rozszerzanie automatyzacji",
+    deliverables: ["Raporty wydajności", "Optymalizacja kosztów", "Nowe use cases", "Szkolenia"]
+  }
+];
+
+const pricing = [
+  {
+    name: "Quick Wins",
+    price: "od 2 000",
+    description: "Proste automatyzacje",
+    features: [
+      "Do 5 kroków workflow",
+      "2 integrowane systemy",
+      "Podstawowa obsługa błędów",
+      "Dokumentacja procesu",
+      "14 dni wsparcia",
+      "1 iteracja zmian"
+    ],
+    popular: false
+  },
+  {
+    name: "Business",
+    price: "od 8 000",
+    description: "Kompleksowe workflow",
+    features: [
+      "Do 20 kroków workflow",
+      "5+ integrowanych systemów",
+      "Zaawansowana logika",
+      "Obsługa wyjątków",
+      "Dashboard monitoringu",
+      "Szkolenie zespołu",
+      "30 dni wsparcia"
+    ],
+    popular: true
+  },
+  {
+    name: "Enterprise",
+    price: "od 20 000",
+    description: "Automatyzacja procesów krytycznych",
+    features: [
+      "Nieograniczone workflow",
+      "Custom integracje API",
+      "Self-hosted (n8n/Temporal)",
+      "High availability",
+      "SLA + monitoring 24/7",
+      "Dedykowany opiekun",
+      "Ciągła optymalizacja"
+    ],
+    popular: false
+  }
+];
+
+const benefits = [
+  { value: "80%", label: "Mniej ręcznej pracy" },
+  { value: "0", label: "Błędów przy wprowadzaniu danych" },
+  { value: "24/7", label: "Procesy działają non-stop" },
+  { value: "3x", label: "Szybsza obsługa zamówień" }
+];
+
+const integrations = [
+  "HubSpot", "Salesforce", "Pipedrive", "Slack", "Microsoft Teams", "Gmail", 
+  "Google Sheets", "Notion", "Airtable", "Trello", "Asana", "Monday.com",
+  "Shopify", "WooCommerce", "BaseLinker", "Allegro", "Stripe", "PayU",
+  "Mailchimp", "ActiveCampaign", "Facebook", "LinkedIn", "Fakturownia", "inFakt"
+];
+---
+
+<ServiceLayout
+  title="Automatyzacja Procesów Biznesowych | Make, Zapier, n8n - TorWeb"
+  description="Automatyzacja procesów biznesowych dla firm. Make, Zapier, n8n. Integracje CRM, e-commerce, marketing. Oszczędź czas i wyeliminuj błędy. Toruń, Bydgoszcz, cała Polska."
+  keywords="automatyzacja procesów, automatyzacja biznesu, Make, Zapier, n8n, integracje systemów, workflow automation, automatyzacja CRM, automatyzacja e-commerce, RPA"
+  serviceName="Automatyzacja procesów biznesowych"
+  serviceSlug="automatyzacja"
+  serviceCategory="Business Process Automation"
+  priceRange="2000-50000"
+  breadcrumbName="Automatyzacja"
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            Workflow Automation
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-heading leading-tight mb-6">
+            Automatyzacja<br>
+            <span class="text-accent">Procesów</span>
+          </h1>
+          
+          <p class="text-xl text-muted mb-8 leading-relaxed">
+            Automatyzujemy <strong>powtarzalne procesy biznesowe</strong>, integrujemy systemy i eliminujemy ręczne zadania. 
+            Oszczędzasz czas, redukujesz błędy, skalujesz operacje.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="/kontakt" class="btn-primary">
+              Bezpłatny audyt procesów
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#procesy" class="btn-secondary">
+              Zobacz przykłady
+            </a>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {benefits.map(benefit => (
+              <div class="text-center p-3 rounded-xl bg-elevated border border-theme">
+                <div class="text-2xl font-bold text-accent">{benefit.value}</div>
+                <div class="text-xs text-muted">{benefit.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div class="relative">
+          <!-- Workflow Visualization -->
+          <div class="relative rounded-2xl overflow-hidden border border-theme bg-card p-6">
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="text-xs text-muted ml-4">Workflow: Lead → CRM → Email</span>
+            </div>
+            
+            <!-- Workflow Steps -->
+            <div class="space-y-4">
+              <!-- Step 1 -->
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                </div>
+                <div class="flex-grow p-3 rounded-lg bg-elevated">
+                  <p class="text-sm font-medium text-heading">Nowy lead z formularza</p>
+                  <p class="text-xs text-muted">Trigger: Typeform webhook</p>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- Arrow -->
+              <div class="flex justify-center">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+              </div>
+              
+              <!-- Step 2 -->
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div class="flex-grow p-3 rounded-lg bg-elevated">
+                  <p class="text-sm font-medium text-heading">Dodaj kontakt do HubSpot</p>
+                  <p class="text-xs text-muted">Action: Create/Update contact</p>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- Arrow -->
+              <div class="flex justify-center">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+              </div>
+              
+              <!-- Step 3 -->
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div class="flex-grow p-3 rounded-lg bg-elevated">
+                  <p class="text-sm font-medium text-heading">Wyślij email powitalny</p>
+                  <p class="text-xs text-muted">Action: Send personalized email</p>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center animate-pulse">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating badges -->
+          <div class="absolute -top-4 -right-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Wykonania</p>
+                <p class="text-sm font-bold text-green-500">1,847/msc</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-4 -left-4 bg-card border border-theme rounded-xl p-3 shadow-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs text-muted">Oszczędność</p>
+                <p class="text-sm font-bold text-accent">47h/msc</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Automation Types Section -->
+  <section id="procesy" class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Co <span class="text-accent">automatyzujemy</span>?
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Od prostych integracji po złożone procesy wieloetapowe.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {automationTypes.map((type, index) => (
+          <div class="group p-6 rounded-2xl border border-theme bg-card hover:border-accent/50 transition-all duration-300 animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              {type.icon === 'lead' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              )}
+              {type.icon === 'ecommerce' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              )}
+              {type.icon === 'marketing' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                </svg>
+              )}
+              {type.icon === 'finance' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              )}
+              {type.icon === 'hr' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              )}
+              {type.icon === 'reporting' && (
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-semibold text-heading mb-2">{type.title}</h3>
+            <p class="text-muted mb-4">{type.description}</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {type.examples.map(example => (
+                <span class="text-xs px-2 py-1 rounded bg-accent/10 text-accent">{example}</span>
+              ))}
+            </div>
+            <div class="pt-4 border-t border-theme">
+              <p class="text-xs text-muted">Integracje:</p>
+              <p class="text-sm text-body">{type.tools.join(', ')}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          <span class="text-accent">1000+</span> integracji
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Łączymy wszystkie narzędzia, których używasz.
+        </p>
+      </div>
+      
+      <div class="flex flex-wrap justify-center gap-3">
+        {integrations.map(integration => (
+          <div class="px-4 py-2 rounded-lg border border-theme bg-card text-body text-sm hover:border-accent/50 transition-colors">
+            {integration}
+          </div>
+        ))}
+      </div>
+      
+      <p class="text-center text-muted mt-6">
+        ...i wiele więcej. Nie widzisz swojego narzędzia? <a href="/kontakt" class="text-accent hover:underline">Zapytaj nas</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Platformy <span class="text-accent">automatyzacji</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Dobieramy narzędzie do skali i potrzeb projektu.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {tools.map((tool, index) => (
+          <div class="p-6 rounded-2xl border border-theme bg-card text-center animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center">
+              <span class="text-2xl font-bold text-accent">{tool.name.charAt(0)}</span>
+            </div>
+            <h3 class="text-lg font-semibold text-heading mb-1">{tool.name}</h3>
+            <p class="text-sm text-muted">{tool.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Proces <span class="text-accent">wdrożenia</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Od audytu do działających automatyzacji.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {process.map((phase, index) => (
+          <div class="relative p-6 rounded-2xl border border-theme bg-card animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="text-4xl font-bold text-accent/20 mb-4">0{index + 1}</div>
+            <h3 class="text-xl font-semibold text-heading mb-1">{phase.phase}</h3>
+            <p class="text-sm text-accent mb-2">{phase.duration}</p>
+            <p class="text-sm text-muted mb-4">{phase.description}</p>
+            <div class="pt-4 border-t border-theme">
+              <p class="text-xs text-muted mb-2">Deliverables:</p>
+              <ul class="space-y-1">
+                {phase.deliverables.map(item => (
+                  <li class="flex items-center gap-2 text-xs text-body">
+                    <span class="w-1 h-1 rounded-full bg-accent"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="cennik" class="py-20 bg-elevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          Pakiety <span class="text-accent">automatyzacji</span>
+        </h2>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Rozwiązania na każdą skalę - od quick-wins po transformację procesów.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {pricing.map((plan, index) => (
+          <div class={`relative p-8 rounded-2xl border ${plan.popular ? 'border-accent bg-accent/5' : 'border-theme bg-card'} animate-on-scroll`} style={`animation-delay: ${index * 100}ms`}>
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-dark-950 text-sm font-semibold px-4 py-1 rounded-full">
+                Najpopularniejszy
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold text-heading mb-2">{plan.name}</h3>
+              <p class="text-sm text-muted mb-4">{plan.description}</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-bold text-heading">{plan.price}</span>
+                <span class="text-muted">PLN</span>
+              </div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {plan.features.map(feature => (
+                <li class="flex items-center gap-3 text-body">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <a href="/kontakt" class={plan.popular ? 'btn-primary w-full justify-center' : 'btn-secondary w-full justify-center'}>
+              Zamów audyt
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+          FAQ - <span class="text-accent">Automatyzacja</span>
+        </h2>
+      </div>
+      
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <details class="group p-6 rounded-xl border border-theme bg-card">
+            <summary class="flex items-center justify-between cursor-pointer list-none">
+              <h3 class="text-lg font-medium text-heading pr-4">{faq.question}</h3>
+              <svg class="w-5 h-5 text-muted group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <p class="mt-4 text-muted leading-relaxed">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-elevated">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-heading mb-4">
+        Gotowy na <span class="text-accent">automatyzację</span>?
+      </h2>
+      <p class="text-lg text-muted mb-8">
+        Bezpłatny audyt procesów - znajdziemy quick-wins w Twojej firmie.
+      </p>
+      <a href="/kontakt" class="btn-primary">
+        Zamów bezpłatny audyt
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</ServiceLayout>

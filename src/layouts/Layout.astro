@@ -1,0 +1,224 @@
+---
+import '../styles/global.css';
+import CookieBanner from '../components/CookieBanner.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { 
+  title, 
+  description, 
+  canonical = Astro.url.href,
+  ogImage = '/og-image.jpg'
+} = Astro.props;
+
+const siteUrl = 'https://torweb.pl';
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${siteUrl}/#organization`,
+  "name": "TorWeb.pl - Agencja Interaktywna",
+  "alternateName": "TorWeb",
+  "url": siteUrl,
+  "logo": `${siteUrl}/logo.svg`,
+  "image": fullOgImage,
+  "description": "Profesjonalna agencja interaktywna z Torunia. Tworzenie stron internetowych, sklepów e-commerce, platform SaaS z AI. 15+ lat doświadczenia w digital.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Toruń",
+    "addressRegion": "Kujawsko-Pomorskie",
+    "postalCode": "87-100",
+    "addressCountry": "PL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 53.0138,
+    "longitude": 18.5984
+  },
+  "telephone": "+48509370772",
+  "email": "kontakt@torweb.pl",
+  "priceRange": "$$",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Toruń" },
+    { "@type": "City", "name": "Bydgoszcz" },
+    { "@type": "City", "name": "Grudziądz" },
+    { "@type": "Country", "name": "Polska" }
+  ],
+  "serviceType": [
+    "Tworzenie stron internetowych",
+    "Sklepy internetowe e-commerce",
+    "Aplikacje webowe",
+    "Platformy SaaS",
+    "Integracje AI",
+    "Automatyzacja procesów"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Karol Leszczyński",
+    "jobTitle": "Full-Stack Developer",
+    "url": "https://karol-leszczynski.pl"
+  },
+  "sameAs": [
+    "https://github.com/LeszczynskiKarol",
+    "https://karol-leszczynski.pl"
+  ]
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TorWeb.pl",
+  "url": siteUrl,
+  "description": description,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": `${siteUrl}/szukaj?q={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<!doctype html>
+<html lang="pl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Theme initialization (prevents flash) -->
+  <script is:inline>
+    (function() {
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  
+  <!-- 
+    ============================================
+    Google Consent Mode v2 - MUST be before any Google scripts
+    Initialized in CookieBanner.astro component
+    ============================================
+  -->
+  
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+  <meta name="keywords" content="tworzenie stron internetowych Toruń, strony WWW Bydgoszcz, sklepy internetowe, programista Toruń, agencja interaktywna, web development, aplikacje webowe, SEO, e-commerce Toruń" />
+  <meta name="author" content="TorWeb.pl - Karol Leszczyński" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonical} />
+  
+  <meta name="geo.region" content="PL-KP" />
+  <meta name="geo.placename" content="Toruń" />
+  <meta name="geo.position" content="53.0138;18.5984" />
+  <meta name="ICBM" content="53.0138, 18.5984" />
+  
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content="TorWeb.pl" />
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonical} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={fullOgImage} />
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  
+  <!-- Preconnect to Google domains for faster loading after consent -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="preconnect" href="https://www.google-analytics.com" />
+  
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  
+  <meta name="theme-color" content="#050506" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="msapplication-TileColor" content="#050506" />
+</head>
+<body class="bg-page antialiased overflow-x-hidden transition-colors duration-300">
+  <!-- Google Tag Manager (noscript) - immediately after body tag -->
+  <noscript>
+    <iframe 
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NVNG92JP"
+      height="0" 
+      width="0" 
+      style="display:none;visibility:hidden"
+      title="Google Tag Manager"
+    ></iframe>
+  </noscript>
+  
+  <!-- Background Layer -->
+  <div class="fixed inset-0 -z-10 bg-page">
+    <!-- Gradient overlay - works for both modes via CSS -->
+    <div class="absolute inset-0 bg-gradient-overlay"></div>
+    
+    <!-- Decorative blurs - dark mode only -->
+    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] transition-opacity duration-500 dark-blur" 
+         style="background: rgba(0, 255, 136, 0.05);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] transition-opacity duration-500 dark-blur" 
+         style="background: rgba(0, 212, 255, 0.05);"></div>
+    <div class="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 dark-blur" 
+         style="background: rgba(168, 85, 247, 0.03);"></div>
+  </div>
+  
+  <!-- Grid Pattern -->
+  <div class="fixed inset-0 -z-10 grid-pattern"></div>
+  
+  <slot />
+  
+  <!-- Cookie Consent Banner -->
+  <CookieBanner />
+  
+  <script>
+    // Scroll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
+
+<style is:global>
+  /* Dark mode blurs visibility */
+  .dark .dark-blur { opacity: 1; }
+  .light .dark-blur { opacity: 0; }
+  
+  /* Grid pattern */
+  .grid-pattern {
+    opacity: 0.02;
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23888888" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  }
+  .light .grid-pattern { opacity: 0.03; }
+</style>
