@@ -28,7 +28,7 @@ const isServicesActive = serviceSlugs.some(slug => currentPath === slug || curre
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 group">
+      <a href="/" class="flex items-center gap-3 group relative z-[70]">
         <div class="relative">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br dark:from-neon-green dark:to-neon-blue from-emerald-500 to-sky-500 flex items-center justify-center font-display font-bold text-dark-950 text-lg group-hover:scale-110 transition-transform">
             T
@@ -61,7 +61,7 @@ const isServicesActive = serviceSlugs.some(slug => currentPath === slug || curre
             ]}></span>
           </button>
           
-          <!-- Dropdown Menu - SOLIDNE TŁO -->
+          <!-- Dropdown Menu -->
           <div class="absolute top-full left-0 pt-4 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-200">
             <div class="dropdown-menu w-64 rounded-xl border border-theme shadow-2xl overflow-hidden">
               <div class="p-2">
@@ -138,7 +138,7 @@ const isServicesActive = serviceSlugs.some(slug => currentPath === slug || curre
         })}
       </div>
       
-      <!-- Right Side -->
+      <!-- Right Side Desktop -->
       <div class="hidden lg:flex items-center gap-4">
         <a href="tel:+48509370772" class="text-sm text-muted hover:text-accent transition-colors font-mono">
           +48 509 370 772
@@ -149,63 +149,142 @@ const isServicesActive = serviceSlugs.some(slug => currentPath === slug || curre
         </a>
       </div>
       
-      <!-- Mobile -->
-      <div class="flex lg:hidden items-center gap-2">
+      <!-- Mobile Menu Button -->
+      <div class="flex lg:hidden items-center gap-3 relative z-[100]">
         <ThemeToggle />
-        <button id="mobile-menu-btn" class="relative w-10 h-10 flex items-center justify-center" aria-label="Menu">
+        <button 
+          id="mobile-menu-btn" 
+          type="button"
+          class="relative w-12 h-12 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-dark-800 border border-gray-200 dark:border-dark-700" 
+          aria-label="Otwórz menu"
+        >
           <div class="flex flex-col gap-1.5" id="hamburger">
-            <span class="w-6 h-0.5 bg-heading transition-all origin-center"></span>
-            <span class="w-6 h-0.5 bg-heading transition-all"></span>
-            <span class="w-4 h-0.5 bg-accent transition-all origin-center"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 dark:bg-white transition-all origin-center"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 dark:bg-white transition-all"></span>
+            <span class="hamburger-line w-4 h-0.5 bg-emerald-500 dark:bg-neon-green transition-all origin-center"></span>
           </div>
         </button>
       </div>
     </div>
   </nav>
-  
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="lg:hidden fixed inset-0 top-20 bg-page/98 backdrop-blur-xl opacity-0 invisible transition-all duration-300 z-40 overflow-y-auto">
-    <nav class="flex flex-col items-center py-8 gap-6">
-      <div class="w-full px-8">
-        <button id="mobile-services-toggle" class:list={["flex items-center justify-between w-full text-2xl font-display font-semibold", isServicesActive ? "text-accent" : "text-muted"]}>
-          Usługi
-          <svg class="w-6 h-6 transition-transform" id="mobile-services-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </button>
-        <div id="mobile-services-list" class="hidden mt-4 space-y-2 pl-4">
-          {services.map(service => (
-            <a href={service.href} class:list={["block py-2 text-lg transition-colors", currentPath === service.href || currentPath === service.href + '/' ? "text-accent" : "text-muted hover:text-accent"]}>
-              {service.label}
-            </a>
-          ))}
-        </div>
-      </div>
-      
-      {navLinks.map(link => {
-        const active = link.href.startsWith('/') && !link.href.includes('#') ? currentPath === link.href : false;
-        return (
-          <a href={link.href} class:list={["text-2xl font-display font-semibold transition-colors", active ? "text-accent" : "text-muted hover:text-accent"]}>
-            {link.label}
-          </a>
-        );
-      })}
-      
-      <a href="/kontakt" class="btn-primary mt-4 px-8 py-3 rounded-lg">Darmowa wycena</a>
-      <a href="tel:+48509370772" class="text-muted font-mono">+48 509 370 772</a>
-    </nav>
-  </div>
 </header>
+
+<!-- =====================================================
+     MOBILE MENU - KOMPLETNIE OSOBNY OD HEADERA
+     Z-INDEX 9999 + INLINE BACKGROUND COLOR
+     ===================================================== -->
+<div 
+  id="mobile-menu" 
+  class="lg:hidden"
+  style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999;"
+>
+  <!-- TŁO - INLINE STYLE ŻEBY NA PEWNO BYŁO SOLIDNE -->
+  <div 
+    id="mobile-menu-bg" 
+    style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #ffffff;"
+  ></div>
+  
+  <!-- HEADER MOBILE MENU -->
+  <div 
+    style="position: relative; z-index: 10; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid #e5e7eb;"
+  >
+    <a href="/" id="mobile-logo-link" style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(to bottom right, #10b981, #0ea5e9); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; color: #0a0b0d;">
+        T
+      </div>
+      <span style="font-weight: bold; font-size: 20px; color: #111827;">TorWeb<span style="color: #10b981;">.pl</span></span>
+    </a>
+    
+    <button 
+      id="mobile-menu-close" 
+      type="button"
+      style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background-color: #f3f4f6; border: 1px solid #e5e7eb;"
+      aria-label="Zamknij menu"
+    >
+      <svg style="width: 24px; height: 24px; color: #374151;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- MENU CONTENT -->
+  <nav 
+    id="mobile-menu-content"
+    style="position: relative; z-index: 10; display: flex; flex-direction: column; padding: 24px; overflow-y: auto; max-height: calc(100vh - 80px);"
+  >
+    <!-- Usługi -->
+    <div style="margin-bottom: 16px;">
+      <button 
+        id="mobile-services-toggle" 
+        type="button"
+        style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 0; font-size: 20px; font-weight: 600; color: #374151; background: none; border: none; cursor: pointer;"
+      >
+        Usługi
+        <svg id="mobile-services-arrow" style="width: 20px; height: 20px; transition: transform 0.2s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      
+      <div id="mobile-services-list" style="display: none; padding-left: 16px; margin-top: 8px; border-left: 2px solid #e5e7eb;">
+        {services.map(service => (
+          <a 
+            href={service.href} 
+            class="mobile-link"
+            style={`display: block; padding: 8px 0; font-size: 16px; color: ${currentPath === service.href || currentPath === service.href + '/' ? '#10b981' : '#6b7280'}; text-decoration: none;`}
+          >
+            {service.label}
+          </a>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Other Links -->
+    {navLinks.map(link => {
+      const active = link.href.startsWith('/') && !link.href.includes('#') ? currentPath === link.href : false;
+      return (
+        <a 
+          href={link.href} 
+          class="mobile-link"
+          style={`display: block; padding: 12px 0; font-size: 20px; font-weight: 600; color: ${active ? '#10b981' : '#374151'}; text-decoration: none;`}
+        >
+          {link.label}
+        </a>
+      );
+    })}
+    
+    <!-- CTA -->
+    <div style="margin-top: 32px;">
+      <a 
+        href="/kontakt" 
+        class="mobile-link"
+        style="display: block; width: 100%; text-align: center; padding: 16px; border-radius: 12px; font-weight: 600; font-size: 18px; background: linear-gradient(to right, #10b981, #0ea5e9); color: #0a0b0d; text-decoration: none;"
+      >
+        Darmowa wycena
+      </a>
+      <a 
+        href="tel:+48509370772" 
+        class="mobile-link"
+        style="display: block; text-align: center; padding: 12px; margin-top: 16px; font-family: monospace; color: #6b7280; text-decoration: none;"
+      >
+        +48 509 370 772
+      </a>
+    </div>
+  </nav>
+</div>
 
 <style>
   #navbar.scrolled {
-    background: var(--glass-bg);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   
-  /* SOLIDNE TŁO DROPDOWN - NIE PRZEZROCZYSTE */
+  :global(.dark) #navbar.scrolled {
+    background: rgba(10, 11, 13, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
   .dropdown-menu {
     background-color: #ffffff !important;
   }
@@ -213,63 +292,183 @@ const isServicesActive = serviceSlugs.some(slug => currentPath === slug || curre
   :global(.dark) .dropdown-menu {
     background-color: #0d0e10 !important;
   }
+  
+  /* Hamburger animation */
+  #hamburger.open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 6px);
+  }
+  
+  #hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  #hamburger.open .hamburger-line:nth-child(3) {
+    width: 1.5rem;
+    transform: rotate(-45deg) translate(4px, -6px);
+  }
 </style>
 
-<script>
+<script is:inline>
+(function() {
   const navbar = document.getElementById('navbar');
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuBg = document.getElementById('mobile-menu-bg');
   const hamburger = document.getElementById('hamburger');
   const mobileServicesToggle = document.getElementById('mobile-services-toggle');
   const mobileServicesList = document.getElementById('mobile-services-list');
   const mobileServicesArrow = document.getElementById('mobile-services-arrow');
+  const mobileLogoLink = document.getElementById('mobile-logo-link');
   
   let isMenuOpen = false;
   
-  window.addEventListener('scroll', () => {
-    navbar?.classList.toggle('scrolled', window.scrollY > 50);
+  function isDark() {
+    return document.documentElement.classList.contains('dark');
+  }
+  
+  function updateDarkMode() {
+    if (!mobileMenuBg || !mobileMenu) return;
+    
+    const dark = isDark();
+    
+    // Tło
+    mobileMenuBg.style.backgroundColor = dark ? '#0a0b0d' : '#ffffff';
+    
+    // Header border
+    const header = mobileMenu.querySelector('div[style*="border-bottom"]');
+    if (header) {
+      header.style.borderColor = dark ? '#374151' : '#e5e7eb';
+    }
+    
+    // Logo text
+    const logoText = mobileMenu.querySelector('[style*="color: #111827"]');
+    if (logoText) {
+      logoText.style.color = dark ? '#ffffff' : '#111827';
+    }
+    
+    // Close button
+    const closeBtn = document.getElementById('mobile-menu-close');
+    if (closeBtn) {
+      closeBtn.style.backgroundColor = dark ? '#1f2937' : '#f3f4f6';
+      closeBtn.style.borderColor = dark ? '#374151' : '#e5e7eb';
+      const svg = closeBtn.querySelector('svg');
+      if (svg) svg.style.color = dark ? '#d1d5db' : '#374151';
+    }
+    
+    // Services toggle
+    if (mobileServicesToggle) {
+      mobileServicesToggle.style.color = dark ? '#d1d5db' : '#374151';
+    }
+    
+    // Services list border
+    if (mobileServicesList) {
+      mobileServicesList.style.borderColor = dark ? '#374151' : '#e5e7eb';
+    }
+    
+    // Update link colors
+    mobileMenu.querySelectorAll('.mobile-link').forEach(function(link) {
+      const currentColor = link.style.color;
+      if (currentColor === '#374151' || currentColor === 'rgb(55, 65, 81)') {
+        link.style.color = dark ? '#d1d5db' : '#374151';
+      } else if (currentColor === '#6b7280' || currentColor === 'rgb(107, 114, 128)') {
+        link.style.color = dark ? '#9ca3af' : '#6b7280';
+      }
+      // Keep #10b981 (accent) as is
+    });
+  }
+  
+  // Scroll handler
+  function handleScroll() {
+    if (navbar) {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }
+  }
+  
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+  
+  function openMenu() {
+    isMenuOpen = true;
+    if (mobileMenu) {
+      mobileMenu.style.display = 'block';
+      updateDarkMode();
+    }
+    if (hamburger) hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeMenu() {
+    isMenuOpen = false;
+    if (mobileMenu) mobileMenu.style.display = 'none';
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  
+  // Event listeners
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      isMenuOpen ? closeMenu() : openMenu();
+    });
+  }
+  
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMenu();
+    });
+  }
+  
+  if (mobileLogoLink) {
+    mobileLogoLink.addEventListener('click', closeMenu);
+  }
+  
+  if (mobileServicesToggle) {
+    mobileServicesToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (mobileServicesList) {
+        const isOpen = mobileServicesList.style.display !== 'none';
+        mobileServicesList.style.display = isOpen ? 'none' : 'block';
+        if (mobileServicesArrow) {
+          mobileServicesArrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+        }
+      }
+    });
+  }
+  
+  // Close on link click
+  document.querySelectorAll('#mobile-menu .mobile-link').forEach(function(link) {
+    link.addEventListener('click', closeMenu);
   });
   
-  mobileMenuBtn?.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-    const spans = hamburger?.querySelectorAll('span');
-    
-    if (isMenuOpen) {
-      mobileMenu?.classList.remove('opacity-0', 'invisible');
-      mobileMenu?.classList.add('opacity-100', 'visible');
-      document.body.style.overflow = 'hidden';
-      if (spans) {
-        spans[0].style.transform = 'rotate(45deg) translate(3px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(3px, -5px)';
-        spans[2].style.width = '1.5rem';
-      }
-    } else {
-      mobileMenu?.classList.add('opacity-0', 'invisible');
-      mobileMenu?.classList.remove('opacity-100', 'visible');
-      document.body.style.overflow = '';
-      if (spans) {
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = '';
-        spans[2].style.width = '1rem';
-      }
+  // Resize handler
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1024 && isMenuOpen) {
+      closeMenu();
     }
   });
   
-  mobileServicesToggle?.addEventListener('click', () => {
-    const isOpen = !mobileServicesList?.classList.contains('hidden');
-    mobileServicesList?.classList.toggle('hidden');
-    if (mobileServicesArrow) mobileServicesArrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+  // Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isMenuOpen) {
+      closeMenu();
+    }
   });
   
-  mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      isMenuOpen = false;
-      mobileMenu?.classList.add('opacity-0', 'invisible');
-      document.body.style.overflow = '';
-      const spans = hamburger?.querySelectorAll('span');
-      if (spans) { spans[0].style.transform = ''; spans[1].style.opacity = '1'; spans[2].style.transform = ''; spans[2].style.width = '1rem'; }
-    });
+  // Watch for theme changes
+  var observer = new MutationObserver(function() {
+    if (isMenuOpen) {
+      updateDarkMode();
+    }
   });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+})();
 </script>
