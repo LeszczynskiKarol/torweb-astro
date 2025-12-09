@@ -29,6 +29,7 @@ const projects = [
       "JWT authentication + Google OAuth"
     ],
     link: "https://smart-copy.ai",
+    urlDisplay: "smart-copy.ai",
     year: "2024-2025",
     stats: { agents: "Multi-agent", languages: "8 języków", maxPages: "150 stron" }
   },
@@ -56,6 +57,7 @@ const projects = [
       "Tracking postępów ucznia"
     ],
     link: "https://maturapolski.pl",
+    urlDisplay: "maturapolski.pl",
     year: "2024-2025",
     stats: { type: "EdTech", ai: "Claude AI", subscriptions: "3 plany" }
   },
@@ -79,6 +81,7 @@ const projects = [
       "Eksport do PDF, DOCX, HTML"
     ],
     link: "https://smart-edu.ai",
+    urlDisplay: "smart-edu.ai",
     year: "2024",
     stats: { pages: "120 stron", time: "20 minut", languages: "8 języków" }
   },
@@ -104,6 +107,7 @@ const projects = [
       "Core Web Vitals optimization"
     ],
     link: "https://nadamel.pl",
+    urlDisplay: "nadamel.pl",
     year: "2025",
     stats: { lighthouse: "98/100", pages: "8 podstron", hosting: "AWS CDN" }
   },
@@ -128,6 +132,7 @@ const projects = [
       "Panel administracyjny"
     ],
     link: "https://grandkuchnie.pl",
+    urlDisplay: "grandkuchnie.pl",
     year: "2025",
     stats: { type: "Meble", cms: "Custom CMS", storage: "AWS S3" }
   },
@@ -153,6 +158,7 @@ const projects = [
       "Hosting na AWS EC2 z Nginx"
     ],
     link: "https://www.silniki-elektryczne.com.pl",
+    urlDisplay: "silniki-elektryczne.com.pl",
     year: "2021-2024",
     stats: { growth: "+40% sprzedaży", integration: "Allegro API", ai: "Opisy AI" }
   },
@@ -178,6 +184,7 @@ const projects = [
       "Renderowanie przez Quarto do PDF"
     ],
     link: "#",
+    urlDisplay: null,
     year: "2025",
     stats: { publications: "11 zeszytów", pages: "1500+", client: "Wydawnictwo" }
   },
@@ -203,6 +210,7 @@ const projects = [
       "SEO-friendly routing i metadata"
     ],
     link: "https://meble-bydgoszcz.pl",
+    urlDisplay: "meble-bydgoszcz.pl",
     year: "2024-2025",
     stats: { api: "Google Places", hosting: "AWS CDN", backend: "Serverless" }
   },
@@ -229,6 +237,7 @@ const projects = [
       "Perfect Lighthouse score"
     ],
     link: "https://project-design.pl",
+    urlDisplay: "project-design.pl",
     year: "2024",
     stats: { lighthouse: "98/100", accessibility: "100/100", design: "Premium" }
   },
@@ -254,6 +263,7 @@ const projects = [
       "Generowanie faktur"
     ],
     link: "https://ecopywriting.pl",
+    urlDisplay: "ecopywriting.pl",
     year: "2024",
     stats: { realtime: "Socket.io", payments: "Stripe", editor: "TinyMCE" }
   },
@@ -279,6 +289,7 @@ const projects = [
       "Automatyczny sitemap"
     ],
     link: "https://magisterkaonline.com.pl",
+    urlDisplay: "magisterkaonline.com.pl",
     year: "2025",
     stats: { articles: "30+ artykułów", methodology: "16 poradników", hosting: "AWS CDN" }
   },
@@ -305,6 +316,7 @@ const projects = [
       "Optymalizacja SEO z meta tagami"
     ],
     link: "https://by-interior.pl",
+    urlDisplay: "by-interior.pl",
     year: "2025",
     stats: { sections: "9 sekcji", hosting: "AWS CDN", backend: "Serverless" }
   }
@@ -397,8 +409,19 @@ const categories = [
               
               <!-- Content -->
               <div class="p-6 flex-grow flex flex-col">
-                <div class="flex items-start justify-between mb-2">
+                <div class="flex items-start justify-between mb-2 gap-2">
                   <h3 class="font-display font-bold text-xl text-heading group-hover:text-accent transition-colors">{project.title}</h3>
+                  {project.urlDisplay && (
+                    <a 
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sm text-accent hover:text-accent/80 hover:underline transition-colors flex-shrink-0"
+                      onclick="event.stopPropagation();"
+                    >
+                      {project.urlDisplay}
+                    </a>
+                  )}
                 </div>
                 <p class="text-sm text-accent-secondary mb-3">{project.category}</p>
                 <p class="text-muted text-sm mb-4 line-clamp-2 flex-grow">{project.description}</p>
@@ -587,12 +610,9 @@ const categories = [
             </svg>
             ${project.year}
           </span>
-          ${project.link !== '#' ? `
-            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="ml-auto flex items-center gap-2 text-accent hover:text-accent/80 text-sm">
-              Odwiedź stronę
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-              </svg>
+          ${project.urlDisplay ? `
+            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="ml-auto text-accent hover:text-accent/80 hover:underline text-sm font-medium">
+              ${project.urlDisplay}
             </a>
           ` : ''}
         </div>

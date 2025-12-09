@@ -11,6 +11,7 @@ const projects = [
       { label: 'Języki', value: '8' },
     ],
     url: 'https://smart-copy.ai',
+    urlDisplay: 'smart-copy.ai',
     featured: false
   },
   {
@@ -24,6 +25,7 @@ const projects = [
       { label: 'Pytań w bazie', value: '1000+' },
     ],
     url: 'https://maturapolski.pl',
+    urlDisplay: 'maturapolski.pl',
     featured: false
   },
   {
@@ -37,6 +39,7 @@ const projects = [
       { label: 'Wygenerowanych prac', value: '10k+' },
     ],
     url: 'https://smart-edu.ai',
+    urlDisplay: 'smart-edu.ai',
     featured: false
   },
   {
@@ -50,6 +53,7 @@ const projects = [
       { label: 'Podstron', value: '8' },
     ],
     url: 'https://nadamel.pl',
+    urlDisplay: 'nadamel.pl',
     featured: false
   },
   {
@@ -63,6 +67,7 @@ const projects = [
       { label: 'Pozycja Google', value: 'Top 3' },
     ],
     url: 'https://grandkuchnie.pl',
+    urlDisplay: 'grandkuchnie.pl',
     featured: false
   },
   {
@@ -76,6 +81,7 @@ const projects = [
       { label: 'PageSpeed', value: '92' },
     ],
     url: 'https://www.silniki-elektryczne.com.pl',
+    urlDisplay: 'silniki-elektryczne.com.pl',
     featured: false
   },
   {
@@ -89,6 +95,7 @@ const projects = [
       { label: 'Stron', value: '1500+' },
     ],
     url: '#',
+    urlDisplay: null,
     featured: false
   },
   {
@@ -102,6 +109,7 @@ const projects = [
       { label: 'Czas ładowania', value: '<1s' },
     ],
     url: 'https://meble-bydgoszcz.pl',
+    urlDisplay: 'meble-bydgoszcz.pl',
     featured: false
   },
   {
@@ -115,6 +123,7 @@ const projects = [
       { label: 'Accessibility', value: '100' },
     ],
     url: 'https://project-design.pl',
+    urlDisplay: 'project-design.pl',
     featured: false
   },
   {
@@ -128,6 +137,7 @@ const projects = [
       { label: 'Czas realizacji', value: '24h' },
     ],
     url: 'https://ecopywriting.pl',
+    urlDisplay: 'ecopywriting.pl',
     featured: false
   },
   {
@@ -141,6 +151,7 @@ const projects = [
       { label: 'Metodologia', value: '16' },
     ],
     url: 'https://magisterkaonline.com.pl',
+    urlDisplay: 'magisterkaonline.com.pl',
     featured: false
   },
   {
@@ -154,6 +165,7 @@ const projects = [
       { label: 'Backend', value: 'Serverless' },
     ],
     url: 'https://by-interior.pl',
+    urlDisplay: 'by-interior.pl',
     featured: false
   }
 ];
@@ -182,73 +194,73 @@ const otherProjects = projects.filter(p => !p.featured);
     </div>
     
     <!-- Featured Projects (3 SaaS platforms) -->
-    <div class="grid lg:grid-cols-3 gap-6 mb-12">
-      {featuredProjects.map((project, i) => (
-        <div class={`group relative glass rounded-2xl overflow-hidden hover:border-accent transition-all duration-500 animate-on-scroll animate-delay-${(i + 1) * 100}`}>
-          <!-- Image -->
-          <div class="aspect-video bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200 relative overflow-hidden">
-            {project.image && (
-              <img 
-                src={project.image} 
-                alt={project.title}
-                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-            )}
-            <div class="absolute inset-0 bg-gradient-to-t dark:from-dark-950 from-white via-transparent to-transparent z-10"></div>
-            <!-- Featured Badge -->
-            <div class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full dark:bg-neon-green/20 bg-emerald-500/20 dark:border-neon-green/30 border-emerald-500/30 border text-accent text-xs font-medium">
-              Featured
-            </div>
-          </div>
-          
-          <!-- Content -->
-          <div class="p-6">
-            <div class="flex items-start justify-between mb-3">
-              <div>
-                <span class="text-xs text-faint font-mono">{project.category}</span>
-                <h3 class="font-display font-bold text-xl text-heading mt-1">{project.title}</h3>
-              </div>
-              {project.url !== '#' && (
-                <a 
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-9 h-9 rounded-lg border border-theme flex items-center justify-center text-muted hover:text-accent hover:border-accent transition-colors flex-shrink-0"
-                >
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
+    {featuredProjects.length > 0 && (
+      <div class="grid lg:grid-cols-3 gap-6 mb-12">
+        {featuredProjects.map((project, i) => (
+          <div class={`group relative glass rounded-2xl overflow-hidden hover:border-accent transition-all duration-500 animate-on-scroll animate-delay-${(i + 1) * 100}`}>
+            <!-- Image -->
+            <div class="aspect-video bg-gradient-to-br dark:from-dark-800 dark:to-dark-900 from-slate-100 to-slate-200 relative overflow-hidden">
+              {project.image && (
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
               )}
+              <div class="absolute inset-0 bg-gradient-to-t dark:from-dark-950 from-white via-transparent to-transparent z-10"></div>
+              <!-- Featured Badge -->
+              <div class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full dark:bg-neon-green/20 bg-emerald-500/20 dark:border-neon-green/30 border-emerald-500/30 border text-accent text-xs font-medium">
+                Featured
+              </div>
             </div>
             
-            <p class="text-muted text-sm mb-4 line-clamp-2">{project.description}</p>
-            
-            <!-- Results -->
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              {project.results.map(result => (
-                <div class="p-3 rounded-lg bg-elevated">
-                  <div class="text-xs text-faint mb-0.5">{result.label}</div>
-                  <div class="font-display font-bold text-lg gradient-text">{result.value}</div>
+            <!-- Content -->
+            <div class="p-6">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <span class="text-xs text-faint font-mono">{project.category}</span>
+                  <h3 class="font-display font-bold text-xl text-heading mt-1">{project.title}</h3>
                 </div>
-              ))}
-            </div>
-            
-            <!-- Tech Stack -->
-            <div class="flex flex-wrap gap-1.5">
-              {project.tech.slice(0, 4).map(t => (
-                <span class="px-2 py-1 text-xs font-mono text-muted bg-elevated rounded-lg">
-                  {t}
-                </span>
-              ))}
+                {project.urlDisplay && (
+                  <a 
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-accent hover:text-accent/80 hover:underline transition-colors flex-shrink-0 font-medium"
+                  >
+                    {project.urlDisplay}
+                  </a>
+                )}
+              </div>
+              
+              <p class="text-muted text-sm mb-4 line-clamp-2">{project.description}</p>
+              
+              <!-- Results -->
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                {project.results.map(result => (
+                  <div class="p-3 rounded-lg bg-elevated">
+                    <div class="text-xs text-faint mb-0.5">{result.label}</div>
+                    <div class="font-display font-bold text-lg gradient-text">{result.value}</div>
+                  </div>
+                ))}
+              </div>
+              
+              <!-- Tech Stack -->
+              <div class="flex flex-wrap gap-1.5">
+                {project.tech.slice(0, 4).map(t => (
+                  <span class="px-2 py-1 text-xs font-mono text-muted bg-elevated rounded-lg">
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    )}
     
-    <!-- Other Projects Grid (9 projects in 3 columns) -->
+    <!-- Other Projects Grid (12 projects in 3 columns) -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       {otherProjects.map((project, i) => (
         <div class={`group glass rounded-xl overflow-hidden hover:border-accent-secondary transition-all duration-300 hover:-translate-y-1 animate-on-scroll animate-delay-${(i + 1) * 50}`}>
@@ -266,21 +278,19 @@ const otherProjects = projects.filter(p => !p.featured);
           </div>
           
           <div class="p-5">
-            <div class="flex items-start justify-between mb-2">
-              <div>
+            <div class="flex items-start justify-between mb-2 gap-2">
+              <div class="min-w-0">
                 <span class="text-xs text-faint font-mono">{project.category}</span>
                 <h3 class="font-display font-semibold text-lg text-heading mt-1">{project.title}</h3>
               </div>
-              {project.url !== '#' && (
+              {project.urlDisplay && (
                 <a 
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-muted hover:text-accent-secondary transition-colors"
+                  class="text-sm text-accent hover:text-accent/80 hover:underline transition-colors flex-shrink-0"
                 >
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
+                  {project.urlDisplay}
                 </a>
               )}
             </div>
