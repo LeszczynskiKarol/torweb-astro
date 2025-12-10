@@ -1,0 +1,136 @@
+---
+// src/components/TechStack.astro
+
+// Kategorie technologii
+const techCategories = [
+  {
+    name: "Frontend",
+    description: "Nowoczesne interfejsy użytkownika",
+    techs: [
+      { name: "React", icon: "⚛️", color: "from-cyan-500 to-blue-500" },
+      { name: "Next.js", icon: "▲", color: "from-gray-600 to-gray-800" },
+      { name: "Astro", icon: "🚀", color: "from-orange-500 to-pink-500" },
+      { name: "Tailwind CSS", icon: "🎨", color: "from-cyan-400 to-blue-500" },
+      { name: "TypeScript", icon: "TS", color: "from-blue-500 to-blue-700" },
+    ]
+  },
+  {
+    name: "Backend",
+    description: "Wydajna logika biznesowa",
+    techs: [
+      { name: "Node.js", icon: "🟢", color: "from-green-500 to-green-700" },
+      { name: "Prisma", icon: "◮", color: "from-indigo-500 to-purple-600" },
+      { name: "PostgreSQL", icon: "🐘", color: "from-blue-400 to-blue-600" },
+      { name: "MongoDB", icon: "🍃", color: "from-green-400 to-green-600" },
+      { name: "REST API", icon: "🔗", color: "from-emerald-500 to-teal-500" },
+    ]
+  },
+  {
+    name: "Infrastruktura",
+    description: "Niezawodny hosting i deployment",
+    techs: [
+      { name: "AWS", icon: "☁️", color: "from-orange-400 to-yellow-500" },
+      { name: "CloudFront", icon: "⚡", color: "from-purple-500 to-indigo-500" },
+      { name: "S3", icon: "📦", color: "from-green-500 to-emerald-500" },
+      { name: "Docker", icon: "🐳", color: "from-blue-400 to-cyan-500" },
+      { name: "GitHub", icon: "🐙", color: "from-gray-600 to-gray-800" },
+    ]
+  },
+  {
+    name: "Integracje",
+    description: "Połączenia z zewnętrznymi serwisami",
+    techs: [
+      { name: "Stripe", icon: "💳", color: "from-purple-500 to-indigo-600" },
+      { name: "OpenAI", icon: "🤖", color: "from-emerald-400 to-teal-500" },
+      { name: "Allegro API", icon: "🛒", color: "from-orange-500 to-red-500" },
+      { name: "OAuth", icon: "🔐", color: "from-blue-500 to-indigo-500" },
+      { name: "Cloudinary", icon: "🖼️", color: "from-blue-400 to-purple-500" },
+    ]
+  }
+];
+---
+
+<section id="technologie" class="py-20 sm:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center mb-16 animate-on-scroll animate-fade-in-up">
+      <span class="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-4">
+        Tech Stack
+      </span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-heading mb-6">
+        Sprawdzone <span class="text-gradient">technologie</span>
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">
+        Wykorzystuję nowoczesne narzędzia, które gwarantują wydajność, bezpieczeństwo 
+        i łatwość rozwoju Twojego projektu.
+      </p>
+    </div>
+    
+    <!-- Tech Grid -->
+    <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+      {techCategories.map((category, catIndex) => (
+        <div 
+          class={`bg-card border border-theme rounded-2xl p-6 sm:p-8 animate-on-scroll animate-fade-in-up delay-${(catIndex + 1) * 100}`}
+        >
+          <!-- Category Header -->
+          <div class="mb-6">
+            <h3 class="text-xl font-bold text-heading mb-1">{category.name}</h3>
+            <p class="text-sm text-muted">{category.description}</p>
+          </div>
+          
+          <!-- Tech Items -->
+          <div class="flex flex-wrap gap-3">
+            {category.techs.map((tech) => (
+              <div 
+                class="group flex items-center gap-2 px-4 py-2.5 bg-elevated border border-theme rounded-xl hover:border-accent/50 transition-all cursor-default"
+              >
+                <span class="text-lg">{tech.icon}</span>
+                <span class="text-sm font-medium text-heading group-hover:text-accent transition-colors">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Bottom Stats -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 animate-on-scroll animate-fade-in-up">
+      <div class="text-center p-6 bg-card border border-theme rounded-xl">
+        <div class="text-3xl sm:text-4xl font-bold text-gradient mb-2">15+</div>
+        <div class="text-sm text-muted">Lat doświadczenia</div>
+      </div>
+      <div class="text-center p-6 bg-card border border-theme rounded-xl">
+        <div class="text-3xl sm:text-4xl font-bold text-gradient mb-2">50+</div>
+        <div class="text-sm text-muted">Zrealizowanych projektów</div>
+      </div>
+      <div class="text-center p-6 bg-card border border-theme rounded-xl">
+        <div class="text-3xl sm:text-4xl font-bold text-gradient mb-2">95+</div>
+        <div class="text-sm text-muted">PageSpeed Score</div>
+      </div>
+      <div class="text-center p-6 bg-card border border-theme rounded-xl">
+        <div class="text-3xl sm:text-4xl font-bold text-gradient mb-2">24h</div>
+        <div class="text-sm text-muted">Czas na wycenę</div>
+      </div>
+    </div>
+    
+    <!-- CTA Text -->
+    <div class="mt-12 text-center animate-on-scroll animate-fade-in-up">
+      <p class="text-muted mb-4">
+        Nie wiesz, która technologia będzie najlepsza dla Twojego projektu?
+      </p>
+      <a 
+        href="/kontakt" 
+        class="inline-flex items-center gap-2 text-accent font-medium hover:underline"
+      >
+        Porozmawiajmy o Twoich potrzebach
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+    
+  </div>
+</section>
