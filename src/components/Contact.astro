@@ -173,19 +173,20 @@ const budgets = [
               ></textarea>
             </div>
 
-            <!-- File Upload -->
+            <!-- File Upload - POPRAWIONA WERSJA -->
             <div>
               <label class="label">
                 Załączniki <span class="text-faint font-normal">(opcjonalnie, max 5 plików)</span>
               </label>
-              <div id="hp-file-upload-area" class="border-2 border-dashed border-theme rounded-xl p-4 text-center hover:border-accent/50 transition-colors cursor-pointer bg-elevated/50">
-                <svg class="w-8 h-8 mx-auto text-muted mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              <div 
+                id="hp-file-upload-area" 
+                class="border-2 border-dashed border-theme rounded-xl p-6 text-center hover:border-accent/50 transition-colors cursor-pointer bg-elevated/50"
+              >
+                <svg class="w-10 h-10 mx-auto text-muted mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                 </svg>
-                <p class="text-sm text-muted mb-2">Przeciągnij pliki lub kliknij</p>
-                <button type="button" id="hp-upload-btn" class="px-4 py-2 bg-accent text-dark-950 rounded-lg hover:bg-accent/90 transition-colors text-sm font-medium">
-                  Wybierz pliki
-                </button>
+                <p class="text-sm text-muted mb-1">Przeciągnij pliki lub kliknij aby wybrać</p>
+                <p class="text-xs text-faint">JPG, PNG, PDF, DOC (max. 10MB)</p>
               </div>
               <div id="hp-uploaded-files" class="mt-3 space-y-2"></div>
               <input type="hidden" id="hp_attachment_urls" name="attachment_urls" />
@@ -235,7 +236,7 @@ const budgets = [
   
   const HP_EMAILJS_PUBLIC_KEY = "gjau8dneW58l9l3tz";
   const HP_EMAILJS_SERVICE_ID = "service_y4gw1yd";
-  const HP_EMAILJS_TEMPLATE_ID = "template_XXXXX"; // TODO: Uzupełnij po upgrade EmailJS
+  const HP_EMAILJS_TEMPLATE_ID = "template_x90lsb5";
   
   const HP_CLOUDINARY_CLOUD_NAME = "drpll3ho2";
   const HP_CLOUDINARY_UPLOAD_PRESET = "torweb";
@@ -254,7 +255,7 @@ const budgets = [
   // CLOUDINARY WIDGET
   // ========================================
   
-  let hpWidget;
+  let hpWidget = null;
   
   function initHpCloudinary() {
     if (typeof cloudinary !== 'undefined' && !hpWidget) {
@@ -348,38 +349,54 @@ const budgets = [
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   }
 
+  function openHpUploadWidget() {
+    if (hpWidget) {
+      hpWidget.open();
+    } else {
+      // Retry initialization
+      initHpCloudinary();
+      setTimeout(() => {
+        if (hpWidget) hpWidget.open();
+      }, 200);
+    }
+  }
+
   // ========================================
   // EVENT LISTENERS
   // ========================================
   
   document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Cloudinary
     initHpCloudinary();
     
-    // Upload button
-    const uploadBtn = document.getElementById('hp-upload-btn');
-    if (uploadBtn) {
-      uploadBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (hpWidget) hpWidget.open();
-      });
+    // Retry if cloudinary wasn't loaded yet
+    if (!hpWidget) {
+      setTimeout(initHpCloudinary, 500);
     }
-
-    // Drag and drop
+    
+    // Upload area - CAŁY OBSZAR KLIKALNY
     const uploadArea = document.getElementById('hp-file-upload-area');
     if (uploadArea) {
+      uploadArea.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openHpUploadWidget();
+      });
+
+      // Drag and drop
       uploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
-        uploadArea.classList.add('border-accent');
+        uploadArea.classList.add('border-accent', 'bg-accent/5');
       });
       
       uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('border-accent');
+        uploadArea.classList.remove('border-accent', 'bg-accent/5');
       });
       
       uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
-        uploadArea.classList.remove('border-accent');
-        if (hpWidget) hpWidget.open();
+        uploadArea.classList.remove('border-accent', 'bg-accent/5');
+        openHpUploadWidget();
       });
     }
 

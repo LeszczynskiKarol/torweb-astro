@@ -7,7 +7,6 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 const contactInfo = {
   phone: "+48 509 370 772",
   email: "kontakt@torweb.pl",
-  location: "Toruń, Kujawsko-Pomorskie",
   hours: "Pon-Pt: 9:00 - 17:00"
 };
 ---
@@ -80,22 +79,6 @@ const contactInfo = {
                   </div>
                 </a>
 
-                <!-- Location -->
-                <div class="flex items-start gap-4">
-                  <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                    <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="text-sm text-muted mb-1">Lokalizacja</div>
-                    <div class="text-lg font-semibold text-heading">
-                      {contactInfo.location}
-                    </div>
-                  </div>
-                </div>
-
                 <!-- Hours -->
                 <div class="flex items-start gap-4">
                   <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
@@ -110,7 +93,8 @@ const contactInfo = {
                     </div>
                   </div>
                 </div>
-             <!-- NIP & REGON -->
+
+                <!-- NIP & REGON -->
                 <div class="flex items-start gap-4">
                   <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +111,7 @@ const contactInfo = {
                     </div>
                   </div>
                 </div>
-               </div>
+              </div>
             </div>
 
             <!-- Info Box -->
@@ -261,20 +245,20 @@ const contactInfo = {
                   ></textarea>
                 </div>
 
-                <!-- File Upload -->
+                <!-- File Upload - POPRAWIONY -->
                 <div>
                   <label class="block text-sm font-medium text-body mb-2">
                     Załączniki <span class="text-muted font-normal">(max. 5 plików, 10MB każdy)</span>
                   </label>
-                  <div id="file-upload-area" class="border-2 border-dashed border-theme rounded-xl p-6 text-center hover:border-accent/50 transition-colors cursor-pointer bg-elevated">
+                  <div 
+                    id="file-upload-area" 
+                    class="border-2 border-dashed border-theme rounded-xl p-6 text-center hover:border-accent/50 transition-colors cursor-pointer bg-elevated"
+                  >
                     <svg class="w-10 h-10 mx-auto text-muted mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                     </svg>
                     <p class="text-body mb-1">Przeciągnij pliki lub kliknij aby wybrać</p>
                     <p class="text-sm text-muted">JPG, PNG, PDF, DOC (max. 10MB)</p>
-                    <button type="button" id="upload-btn" class="mt-3 px-4 py-2 bg-accent text-dark-950 rounded-lg hover:bg-accent/90 transition-colors font-medium">
-                      Wybierz pliki
-                    </button>
                   </div>
                   <div id="uploaded-files" class="mt-3 space-y-2"></div>
                   <input type="hidden" id="attachment_urls" name="attachment_urls" />
@@ -343,12 +327,10 @@ const contactInfo = {
   // KONFIGURACJA TORWEB.PL
   // ========================================
   
-  // EmailJS
   const EMAILJS_PUBLIC_KEY = "gjau8dneW58l9l3tz";
   const EMAILJS_SERVICE_ID = "service_y4gw1yd";
-  const EMAILJS_TEMPLATE_ID = "template_XXXXX"; // TODO: Uzupełnij po upgrade EmailJS
+  const EMAILJS_TEMPLATE_ID = "template_x90lsb5";
   
-  // Cloudinary
   const CLOUDINARY_CLOUD_NAME = "drpll3ho2";
   const CLOUDINARY_UPLOAD_PRESET = "torweb";
 
@@ -356,70 +338,65 @@ const contactInfo = {
   // INICJALIZACJA
   // ========================================
   
-  emailjs.init(EMAILJS_PUBLIC_KEY);
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+  
   let uploadedFiles = [];
+  let myWidget = null;
 
   // ========================================
   // CLOUDINARY UPLOAD WIDGET
   // ========================================
   
-  const myWidget = cloudinary.createUploadWidget(
-    {
-      cloudName: CLOUDINARY_CLOUD_NAME,
-      uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-      sources: ['local', 'url', 'camera'],
-      multiple: true,
-      maxFiles: 5,
-      maxFileSize: 10485760,
-      resourceType: 'auto',
-      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
-      showPoweredBy: false,
-      language: 'pl',
-      text: {
-        pl: {
-          or: 'Lub',
-          back: 'Wstecz',
-          close: 'Zamknij',
-          upload_files: 'Wybierz pliki',
-          drag_files: 'Przeciągnij pliki',
-          browse: 'Przeglądaj',
-          uploading: 'Przesyłanie...',
-          max_files_title: 'Przekroczono limit',
-          max_files_text: 'Maksymalnie 5 plików'
+  function initCloudinary() {
+    if (typeof cloudinary !== 'undefined' && !myWidget) {
+      myWidget = cloudinary.createUploadWidget(
+        {
+          cloudName: CLOUDINARY_CLOUD_NAME,
+          uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+          sources: ['local', 'url', 'camera'],
+          multiple: true,
+          maxFiles: 5,
+          maxFileSize: 10485760,
+          resourceType: 'auto',
+          clientAllowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+          showPoweredBy: false,
+          language: 'pl',
+          styles: {
+            palette: {
+              window: "#0d0e10",
+              windowBorder: "#00ff88",
+              tabIcon: "#00ff88",
+              menuIcons: "#00ff88",
+              textDark: "#ffffff",
+              textLight: "#ffffff",
+              link: "#00ff88",
+              action: "#00ff88",
+              inactiveTabIcon: "#666666",
+              error: "#ef4444",
+              inProgress: "#00ff88",
+              complete: "#10b981",
+              sourceBg: "#1a1b1e"
+            }
+          }
+        },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            const fileInfo = {
+              url: result.info.secure_url,
+              name: result.info.original_filename,
+              size: result.info.bytes,
+              format: result.info.format
+            };
+            uploadedFiles.push(fileInfo);
+            document.getElementById('attachment_urls').value = uploadedFiles.map(f => f.url).join(',');
+            displayUploadedFile(fileInfo);
+          }
         }
-      },
-      styles: {
-        palette: {
-          window: "#0d0e10",
-          windowBorder: "#00ff88",
-          tabIcon: "#00ff88",
-          menuIcons: "#00ff88",
-          textDark: "#ffffff",
-          textLight: "#ffffff",
-          link: "#00ff88",
-          action: "#00ff88",
-          inactiveTabIcon: "#666666",
-          error: "#ef4444",
-          inProgress: "#00ff88",
-          complete: "#10b981",
-          sourceBg: "#1a1b1e"
-        }
-      }
-    },
-    (error, result) => {
-      if (!error && result && result.event === "success") {
-        const fileInfo = {
-          url: result.info.secure_url,
-          name: result.info.original_filename,
-          size: result.info.bytes,
-          format: result.info.format
-        };
-        uploadedFiles.push(fileInfo);
-        document.getElementById('attachment_urls').value = uploadedFiles.map(f => f.url).join(',');
-        displayUploadedFile(fileInfo);
-      }
+      );
     }
-  );
+  }
 
   // ========================================
   // FUNKCJE POMOCNICZE
@@ -464,116 +441,140 @@ const contactInfo = {
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   }
 
+  function openUploadWidget() {
+    if (myWidget) {
+      myWidget.open();
+    } else {
+      initCloudinary();
+      setTimeout(() => {
+        if (myWidget) myWidget.open();
+      }, 200);
+    }
+  }
+
   // ========================================
   // EVENT LISTENERS
   // ========================================
   
   document.addEventListener('DOMContentLoaded', function() {
-    // Upload button
-    document.getElementById('upload-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      myWidget.open();
-    });
-
-    // Drag and drop
+    // Initialize Cloudinary
+    initCloudinary();
+    
+    // Retry if not loaded yet
+    if (!myWidget) {
+      setTimeout(initCloudinary, 500);
+    }
+    
+    // CAŁY OBSZAR UPLOADU KLIKALNY
     const uploadArea = document.getElementById('file-upload-area');
-    
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.classList.add('border-accent');
-    });
-    
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('border-accent');
-    });
-    
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove('border-accent');
-      myWidget.open();
-    });
+    if (uploadArea) {
+      uploadArea.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openUploadWidget();
+      });
+
+      // Drag and drop
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('border-accent', 'bg-accent/5');
+      });
+      
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('border-accent', 'bg-accent/5');
+      });
+      
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('border-accent', 'bg-accent/5');
+        openUploadWidget();
+      });
+    }
 
     // Form submission
     const form = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnLoading = document.getElementById('btn-loading');
-    const formStatus = document.getElementById('form-status');
+    if (form) {
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnLoading = document.getElementById('btn-loading');
+      const formStatus = document.getElementById('form-status');
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      // Loading state
-      btnText.classList.add('hidden');
-      btnLoading.classList.remove('hidden');
-      btnLoading.classList.add('flex');
-      submitBtn.disabled = true;
-      formStatus.classList.add('hidden');
-      
-      // Prepare data
-      const formData = new FormData(this);
-      const templateParams = {
-        user_name: formData.get('user_name'),
-        user_email: formData.get('user_email'),
-        user_phone: formData.get('user_phone') || 'Nie podano',
-        project_type: formData.get('project_type') || 'Nie wybrano',
-        budget: formData.get('budget') || 'Nie podano',
-        message: formData.get('message'),
-        attachments: uploadedFiles.length > 0 
-          ? uploadedFiles.map(f => `${f.name}.${f.format}: ${f.url}`).join('\n')
-          : 'Brak załączników'
-      };
-      
-      // Send via EmailJS
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-        .then(function() {
-          // Success message
-          formStatus.innerHTML = `
-            <div class="p-4 bg-accent/10 border border-accent/30 rounded-xl flex items-start gap-3">
-              <svg class="w-6 h-6 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <div>
-                <p class="font-semibold text-accent">Wiadomość wysłana!</p>
-                <p class="text-sm text-muted">Dziękujemy za kontakt. Odpowiemy w ciągu 24 godzin.</p>
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Loading state
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        btnLoading.classList.add('flex');
+        submitBtn.disabled = true;
+        formStatus.classList.add('hidden');
+        
+        // Prepare data
+        const formData = new FormData(this);
+        const templateParams = {
+          user_name: formData.get('user_name'),
+          user_email: formData.get('user_email'),
+          user_phone: formData.get('user_phone') || 'Nie podano',
+          project_type: formData.get('project_type') || 'Nie wybrano',
+          budget: formData.get('budget') || 'Nie podano',
+          message: formData.get('message'),
+          attachments: uploadedFiles.length > 0 
+            ? uploadedFiles.map(f => `${f.name}.${f.format}: ${f.url}`).join('\n')
+            : 'Brak załączników',
+          source: 'Strona /kontakt'
+        };
+        
+        // Send via EmailJS
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+          .then(function() {
+            // Success message
+            formStatus.innerHTML = `
+              <div class="p-4 bg-accent/10 border border-accent/30 rounded-xl flex items-start gap-3">
+                <svg class="w-6 h-6 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                  <p class="font-semibold text-accent">Wiadomość wysłana!</p>
+                  <p class="text-sm text-muted">Dziękujemy za kontakt. Odpowiemy w ciągu 24 godzin.</p>
+                </div>
               </div>
-            </div>
-          `;
-          formStatus.classList.remove('hidden');
-          
-          // Reset form
-          form.reset();
-          uploadedFiles = [];
-          document.getElementById('uploaded-files').innerHTML = '';
-          document.getElementById('attachment_urls').value = '';
-          
-          btnText.classList.remove('hidden');
-          btnLoading.classList.add('hidden');
-          submitBtn.disabled = false;
-          
-          setTimeout(() => formStatus.classList.add('hidden'), 8000);
-        })
-        .catch(function(error) {
-          // Error message
-          formStatus.innerHTML = `
-            <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
-              <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <div>
-                <p class="font-semibold text-red-500">Wystąpił błąd</p>
-                <p class="text-sm text-muted">Spróbuj ponownie lub napisz na: kontakt@torweb.pl</p>
+            `;
+            formStatus.classList.remove('hidden');
+            
+            // Reset form
+            form.reset();
+            uploadedFiles = [];
+            document.getElementById('uploaded-files').innerHTML = '';
+            document.getElementById('attachment_urls').value = '';
+            
+            btnText.classList.remove('hidden');
+            btnLoading.classList.add('hidden');
+            submitBtn.disabled = false;
+            
+            setTimeout(() => formStatus.classList.add('hidden'), 8000);
+          })
+          .catch(function(error) {
+            // Error message
+            formStatus.innerHTML = `
+              <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-3">
+                <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                  <p class="font-semibold text-red-500">Wystąpił błąd</p>
+                  <p class="text-sm text-muted">Spróbuj ponownie lub napisz na: kontakt@torweb.pl</p>
+                </div>
               </div>
-            </div>
-          `;
-          formStatus.classList.remove('hidden');
-          
-          btnText.classList.remove('hidden');
-          btnLoading.classList.add('hidden');
-          submitBtn.disabled = false;
-          
-          console.error('EmailJS error:', error);
-        });
-    });
+            `;
+            formStatus.classList.remove('hidden');
+            
+            btnText.classList.remove('hidden');
+            btnLoading.classList.add('hidden');
+            submitBtn.disabled = false;
+            
+            console.error('EmailJS error:', error);
+          });
+      });
+    }
   });
 </script>
