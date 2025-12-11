@@ -1,0 +1,145 @@
+---
+// src/pages/blog/tag/index.astro
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+// Pobierz wszystkie posty
+const allPosts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+// Zbierz wszystkie tagi z licznikiem
+const tagCounts = new Map<string, number>();
+allPosts.forEach(post => {
+  post.data.tags.forEach(tag => {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  });
+});
+
+// Posortuj tagi alfabetycznie
+const sortedTags = Array.from(tagCounts.entries()).sort((a, b) => 
+  a[0].localeCompare(b[0], 'pl')
+);
+
+// Oblicz rozmiary tagów (dla tag cloud effect)
+const maxCount = Math.max(...Array.from(tagCounts.values()));
+const getTagSize = (count: number) => {
+  const ratio = count / maxCount;
+  if (ratio > 0.7) return 'text-2xl font-bold';
+  if (ratio > 0.4) return 'text-lg font-semibold';
+  return 'text-base font-medium';
+};
+---
+
+<Layout 
+  title="Tagi | Blog TorWeb.pl"
+  description="Przeglądaj artykuły według tagów - znajdź treści na interesujące Cię tematy związane z tworzeniem stron, sklepów i aplikacji webowych."
+>
+<Navbar />
+  <main class="pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Breadcrumbs -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 text-sm text-muted">
+          <li><a href="/" class="hover:text-accent transition-colors">Strona główna</a></li>
+          <li class="text-faint">/</li>
+          <li><a href="/blog" class="hover:text-accent transition-colors">Blog</a></li>
+          <li class="text-faint">/</li>
+          <li class="text-heading">Tagi</li>
+        </ol>
+      </nav>
+      
+      <!-- Header -->
+      <header class="text-center mb-16">
+        <div class="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-4">
+          Przeglądaj według tagów
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-heading mb-6">
+          Wszystkie <span class="text-gradient">tagi</span>
+        </h1>
+        <p class="text-lg text-muted max-w-2xl mx-auto">
+          Znajdź artykuły na interesujące Cię tematy. Kliknij tag, aby zobaczyć powiązane wpisy.
+        </p>
+        <div class="mt-4 text-sm text-muted">
+          {sortedTags.length} {sortedTags.length === 1 ? 'tag' : sortedTags.length < 5 ? 'tagi' : 'tagów'} • {allPosts.length} {allPosts.length === 1 ? 'artykuł' : allPosts.length < 5 ? 'artykuły' : 'artykułów'}
+        </div>
+      </header>
+      
+      <!-- Tags Cloud -->
+      {sortedTags.length === 0 ? (
+        <div class="text-center py-16 bg-card border border-theme rounded-2xl">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-heading mb-2">Brak tagów</h3>
+          <p class="text-muted">Tagi pojawią się po dodaniu artykułów.</p>
+        </div>
+      ) : (
+        <div class="bg-card border border-theme rounded-2xl p-8 sm:p-12">
+          <div class="flex flex-wrap justify-center gap-3">
+            {sortedTags.map(([tag, count]) => (
+              <a 
+                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                class={`group inline-flex items-center gap-2 px-4 py-2 bg-elevated border border-theme rounded-full hover:border-accent hover:bg-accent/10 transition-all ${getTagSize(count)}`}
+              >
+                <span class="text-accent">#</span>
+                <span class="text-heading group-hover:text-accent transition-colors">{tag}</span>
+                <span class="text-xs text-muted bg-page px-2 py-0.5 rounded-full">
+                  {count}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      <!-- Tags List (alternative view) -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-heading mb-8 text-center">Lista tagów</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {sortedTags.map(([tag, count]) => (
+            <a 
+              href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+              class="group flex items-center justify-between p-4 bg-card border border-theme rounded-xl hover:border-accent/50 transition-all"
+            >
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                </svg>
+                <span class="font-medium text-heading group-hover:text-accent transition-colors">
+                  {tag}
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-muted">
+                  {count} {count === 1 ? 'wpis' : count < 5 ? 'wpisy' : 'wpisów'}
+                </span>
+                <span class="text-accent group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Back to Blog -->
+      <div class="mt-12 text-center">
+        <a 
+          href="/blog" 
+          class="inline-flex items-center gap-2 text-accent hover:underline"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+          </svg>
+          Wróć do bloga
+        </a>
+      </div>
+      
+    </div>
+  </main>
+  <Footer />
+</Layout>
