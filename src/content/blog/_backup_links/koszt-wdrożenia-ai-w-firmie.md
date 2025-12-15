@@ -52,21 +52,21 @@ draft: false
 </thead>
 <tbody>
 <tr>
-<td><a href="https://smart-copy.ai">Smart-Copy.AI</a></td>
+<td>Smart-Copy.AI</td>
 <td>Platforma do generowania treści marketingowych, optymalizacja SEO, wielojęzyczność</td>
 <td>GPT-4, Claude, własne modele NLP</td>
 <td>45000-55000 zł</td>
 <td>3-4 miesiące</td>
 </tr>
 <tr>
-<td><a href="https://maturapolski.pl">MaturaPolski.pl</a></td>
+<td>MaturaPolski.pl</td>
 <td>System sprawdzania prac maturalnych, analiza stylistyczna, feedback dla uczniów</td>
 <td>GPT-4, RAG, baza wiedzy edukacyjnej</td>
 <td>35000-42000 zł</td>
 <td>2-3 miesiące</td>
 </tr>
 <tr>
-<td><a href="https://smart-edu.ai">Smart-Edu.AI</a></td>
+<td>Smart-Edu.AI</td>
 <td>Asystent edukacyjny, personalizacja ścieżek nauki, quizy adaptacyjne</td>
 <td>GPT-4, algorytmy ML, integracja LMS</td>
 <td>38000-48000 zł</td>
