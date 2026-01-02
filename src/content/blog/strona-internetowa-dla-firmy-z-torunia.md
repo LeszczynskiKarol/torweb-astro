@@ -70,7 +70,7 @@ draft: false
 <td>Zaufanie użytkowników, wymagane przez Google</td>
 </tr>
 <tr>
-<td>SEO lokalne</td>
+<td>Pozycjonowanie</td>
 <td>Podstawowe meta tagi</td>
 <td>Pełna optymalizacja + Google Moja Firma</td>
 <td>Widoczność w lokalnych wyszukiwaniach</td>

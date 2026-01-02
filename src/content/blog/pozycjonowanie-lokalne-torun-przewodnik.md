@@ -3,7 +3,7 @@ title: "Pozycjonowanie lokalne firmy z Torunia - praktyczny przewodnik"
 description: "Kompleksowy poradnik dla firm i osób zainteresowanych skutecznym pozycjonowaniem lokalny w Toruniu. Dowiedz się, jak promować działalność w grodzie Kopernika!"
 publishDate: 2025-12-10
 author: "Karol Leszczyński"
-category: "SEO lokalne"
+category: "Pozycjonowanie"
 tags: ["pozycjonowanie", "SEO", "marketing", "promocja"]
 image: "/blog/pozycjonowanie-lokalne-torun-przewodnik.jpg"
 imageAlt: "Pozycjonowanie lokalne firmy z Torunia - praktyczny przewodnik"

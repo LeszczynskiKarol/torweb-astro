@@ -15,7 +15,7 @@ const blogCollection = defineCollection({
       "Aplikacje webowe",
       "Integracje AI",
       "Automatyzacja",
-      "SEO lokalne",
+      "Pozycjonowanie",
       "Hosting i infrastruktura",
     ]),
     tags: z.array(z.string()).default([]),
