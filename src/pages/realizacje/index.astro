@@ -319,7 +319,62 @@ const projects = [
     urlDisplay: "by-interior.pl",
     year: "2025",
     stats: { sections: "9 sekcji", hosting: "AWS CDN", backend: "Serverless" }
-  }
+  },
+  {
+  id: 13,
+  title: "Interpunkcja.com.pl",
+  category: "SaaS / AI Tools",
+  categorySlug: "saas",
+  description: "Profesjonalny korektor interpunkcji AI z wyjaśnieniami zasad polskiej pisowni",
+  fullDescription: "Profesjonalna platforma SaaS do sprawdzania interpunkcji w tekstach polskich wykorzystująca sztuczną inteligencję Claude. System analizuje tekst, wykrywa brakujące przecinki i inne błędy interpunkcyjne, a następnie wyjaśnia zastosowane zasady polskiej pisowni. Każda poprawka zawiera odniesienie do konkretnej reguły interpunkcyjnej, dzięki czemu użytkownik uczy się na bieżąco. Platforma oferuje trzy plany: FREE (5 sprawdzeń dziennie, do 500 znaków), Premium (29 zł/mies, 100 sprawdzeń, do 10 000 znaków) oraz unikalny plan Lifetime za 299 zł - jednorazowa opłata za dożywotni dostęp. System zawiera również rozbudowaną bazę wiedzy z artykułami o zasadach polskiej interpunkcji.",
+  image: "/projects/interpunkcja.jpg",
+  technologies: ["React 18", "TypeScript", "Vite", "Fastify", "Prisma ORM", "PostgreSQL", "Anthropic Claude AI", "Stripe", "AWS EC2", "AWS S3", "AWS SES", "Zustand", "TanStack Query", "Zod", "TailwindCSS", "reCAPTCHA v3", "JWT", "Google OAuth 2.0"],
+  features: [
+    "Sprawdzanie interpunkcji przez AI Claude",
+    "Wyjaśnienia każdej poprawki z regułą",
+    "Analiza tekstu w 3 sekundy",
+    "Plan Lifetime 299 zł (dożywotni dostęp)",
+    "Plany: FREE, Premium (29 zł/mies), Lifetime",
+    "Do 10 000 znaków na sprawdzenie (Premium)",
+    "Baza wiedzy o polskiej interpunkcji",
+    "Artykuły: przecinek przed że, który, gdy",
+    "Dark/light mode z persystencją",
+    "JWT authentication + Google OAuth",
+    "reCAPTCHA v3 protection",
+    "Stripe payments (Przelewy24, BLIK)"
+  ],
+  link: "https://interpunkcja.com.pl",
+  urlDisplay: "interpunkcja.com.pl",
+  year: "2025",
+  stats: { accuracy: "99%", speed: "3 sek", lifetime: "299 zł" }
+},
+{
+  id: 14,
+  title: "ArtKuchnie.pl",
+  category: "Strona firmowa",
+  categorySlug: "strony",
+  description: "Elegancka strona dla producenta kuchni na wymiar z Torunia z hero carousel i integracją Google Reviews",
+  fullDescription: "Profesjonalna strona internetowa dla studia kuchni na wymiar ArtKuchnie z Torunia. Strona prezentuje 6 kategorii kuchni (płyta laminowana, MDF lakierowany, akrylowe, fornir, blaty HPL), rozbudowane portfolio realizacji z galerią, oraz dynamiczne opinie klientów pobierane z Google Reviews. Hero section z automatycznym karuzelą zdjęć, sekcja procesu współpracy, wartości firmy i CTA. Zbudowana w Astro ze statyczną generacją dla maksymalnej wydajności. Hosting na AWS S3 + CloudFront CDN.",
+  image: "/projects/artkuchnie.jpg",
+  technologies: ["Astro 4", "TypeScript", "Tailwind CSS", "AWS S3", "AWS CloudFront", "Google Places API"],
+  features: [
+    "Hero carousel z automatyczną rotacją",
+    "6 kategorii kuchni z dedykowanymi podstronami",
+    "Integracja Google Reviews (dynamiczne opinie)",
+    "Galeria realizacji z filtrowaniem",
+    "Sekcja procesu współpracy (4 kroki)",
+    "Responsive design mobile-first",
+    "Statyczna generacja stron (SSG)",
+    "Hosting na AWS S3 + CloudFront CDN",
+    "Optymalizacja Core Web Vitals",
+    "Schema.org structured data",
+    "Formularz kontaktowy"
+  ],
+  link: "https://artkuchnie.pl",
+  urlDisplay: "artkuchnie.pl",
+  year: "2025",
+  stats: { lighthouse: "97/100", categories: "6 typów kuchni", reviews: "Google API" }
+},
 ];
 
 const categories = [
