@@ -1,4 +1,5 @@
 ---
+// komponent Portfolio dla Torweb
 const projects = [  
   {
     title: 'Smart-Copy.AI',
@@ -195,7 +196,49 @@ const projects = [
     url: 'https://by-interior.pl',
     urlDisplay: 'by-interior.pl',
     featured: false
-  }
+  },
+  {
+  title: 'Licencjackie.pl',
+  category: 'Content / EdTech',
+  description: 'Portal edukacyjny z kompleksowymi poradnikami o pisaniu pracy licencjackiej. Treści autorskie.',
+  image: '/projects/licencjackie.jpg',
+  tech: ['Astro 4', 'TypeScript', 'Tailwind', 'AWS CDN'],
+  results: [
+    { label: 'Typ', value: 'EdTech' },
+    { label: 'Hosting', value: 'AWS CDN' },
+  ],
+  url: 'https://licencjackie.pl',
+  urlDisplay: 'licencjackie.pl',
+  featured: false
+},
+{
+  title: 'Praca-Magisterska.pl',
+  category: 'Content / EdTech',
+  description: 'Kompleksowy portal z poradnikami dla magistrantów - od wyboru tematu po obronę pracy.',
+  image: '/projects/praca-magisterska.jpg',
+  tech: ['Astro 4', 'TypeScript', 'Tailwind', 'AWS CDN'],
+  results: [
+    { label: 'Typ', value: 'EdTech' },
+    { label: 'SEO', value: 'Sitemap' },
+  ],
+  url: 'https://praca-magisterska.pl',
+  urlDisplay: 'praca-magisterska.pl',
+  featured: false
+},
+{
+  title: 'Prace-Magisterskie.pl',
+  category: 'Content / EdTech',
+  description: 'Portal edukacyjny z bazą wiedzy o pisaniu prac dyplomowych i naukowych.',
+  image: '/projects/prace-magisterskie.jpg',
+  tech: ['Astro 4', 'TypeScript', 'Tailwind', 'AWS CDN'],
+  results: [
+    { label: 'Typ', value: 'EdTech' },
+    { label: 'Content', value: 'Autorski' },
+  ],
+  url: 'https://prace-magisterskie.pl',
+  urlDisplay: 'prace-magisterskie.pl',
+  featured: false
+},
 ];
 
 const featuredProjects = projects.filter(p => p.featured);
