@@ -61,25 +61,25 @@ const schema = {
   "@type": "BlogPosting",
   "headline": title,
   "description": description,
-  "image": image ? `https://torweb.pl${image}` : "https://torweb.pl/og-default.jpg",
+  "image": image ? `https://www.torweb.pl${image}` : "https://www.torweb.pl/og-default.jpg",
   "author": {
     "@type": "Person",
     "name": author,
-    "url": "https://torweb.pl"
+    "url": "https://www.torweb.pl"
   },
   "publisher": {
     "@type": "Organization",
     "name": "TorWeb.pl",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://torweb.pl/logo.png"
+      "url": "https://www.torweb.pl/logo.png"
     }
   },
   "datePublished": publishDate.toISOString(),
   "dateModified": (updateDate || publishDate).toISOString(),
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://torweb.pl/blog/${post.slug}`
+    "@id": `https://www.torweb.pl/blog/${post.slug}`
   }
 };
 
@@ -92,19 +92,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 1,
       "name": "Strona główna",
-      "item": "https://torweb.pl"
+      "item": "https://www.torweb.pl"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": "https://torweb.pl/blog"
+      "item": "https://www.torweb.pl/blog"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": title,
-      "item": `https://torweb.pl/blog/${post.slug}`
+      "item": `https://www.torweb.pl/blog/${post.slug}`
     }
   ]
 };

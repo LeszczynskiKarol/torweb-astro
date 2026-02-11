@@ -3,7 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://torweb.pl",
+  site: "https://www.torweb.pl",
   integrations: [tailwind(), sitemap()],
   compressHTML: true,
 });

@@ -1,13 +1,13 @@
 # Robots.txt for TorWeb.pl
 
-# https://torweb.pl/robots.txt
+# https://www.torweb.pl/robots.txt
 
 User-agent: \*
 Allow: /
 
 # Sitemap location
 
-Sitemap: https://torweb.pl/sitemap-index.xml
+Sitemap: https://www.torweb.pl/sitemap-index.xml
 
 # Crawl delay (optional, be nice to bots)
 
