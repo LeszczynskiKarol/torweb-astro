@@ -33,9 +33,10 @@ const getTagSize = (count: number) => {
 };
 ---
 
-<Layout 
+<Layout
   title="Tagi | Blog TorWeb.pl"
   description="Przeglądaj artykuły według tagów - znajdź treści na interesujące Cię tematy związane z tworzeniem stron, sklepów i aplikacji webowych."
+  noindex={true}
 >
 <Navbar />
   <main class="pt-32 pb-20">
@@ -46,7 +47,7 @@ const getTagSize = (count: number) => {
         <ol class="flex items-center gap-2 text-sm text-muted">
           <li><a href="/" class="hover:text-accent transition-colors">Strona główna</a></li>
           <li class="text-faint">/</li>
-          <li><a href="/blog" class="hover:text-accent transition-colors">Blog</a></li>
+          <li><a href="/blog/" class="hover:text-accent transition-colors">Blog</a></li>
           <li class="text-faint">/</li>
           <li class="text-heading">Tagi</li>
         </ol>
@@ -129,7 +130,7 @@ const getTagSize = (count: number) => {
       <!-- Back to Blog -->
       <div class="mt-12 text-center">
         <a 
-          href="/blog" 
+          href="/blog/" 
           class="inline-flex items-center gap-2 text-accent hover:underline"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

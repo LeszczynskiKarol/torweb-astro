@@ -1,6 +1,6 @@
 ---
-title: "Optymalizacja SEO lokalnej strony internetowej firmy z Torunia - praktyczny przewodnik"
-description: "Kompleksowy poradnik dla firm i osób zainteresowanych skuteczną optymalizacją lokalnej strony WWW firmy z Torunia. Dowiedz się, jak promować działalność w grodzie Kopernika!"
+title: "Optymalizacja SEO lokalnej strony WWW — Toruń"
+description: "Praktyczny przewodnik po lokalnym SEO dla firm z Torunia: profil Google, dane NAP, treści lokalne, linki i mobile. Sprawdzone metody, krok po kroku."
 publishDate: 2026-01-02
 author: "Karol Leszczyński"
 category: "Pozycjonowanie"

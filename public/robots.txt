@@ -1,45 +1,24 @@
 # Robots.txt for TorWeb.pl
-
 # https://www.torweb.pl/robots.txt
 
-User-agent: \*
+User-agent: *
 Allow: /
-
-# Sitemap location
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /admin/
+Disallow: /*.json$
 
 Sitemap: https://www.torweb.pl/sitemap-index.xml
 
-# Crawl delay (optional, be nice to bots)
-
-Crawl-delay: 1
-
-# Block common bot traps and non-essential paths
-
-Disallow: /api/
-Disallow: /\_astro/
-Disallow: /admin/
-Disallow: /\*.json$
-
-# Allow important resources
-
-Allow: /sitemap*.xml
-Allow: /*.css
-Allow: /_.js
-Allow: /_.png
-Allow: /_.jpg
-Allow: /_.svg
-Allow: /\*.webp
-
 # Specific bot rules
-
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+# Block AI scrapers
 User-agent: GPTBot
 Disallow: /
 
@@ -52,8 +31,13 @@ Disallow: /
 User-agent: anthropic-ai
 Disallow: /
 
-# Block bad bots
+User-agent: Claude-Web
+Disallow: /
 
+User-agent: Google-Extended
+Disallow: /
+
+# Block SEO scrapers
 User-agent: AhrefsBot
 Disallow: /
 

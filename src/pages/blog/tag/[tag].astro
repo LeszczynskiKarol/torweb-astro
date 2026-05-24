@@ -34,6 +34,10 @@ export async function getStaticPaths() {
 
 const { tag, posts } = Astro.props;
 
+// Noindex thin tag pages: tags with <3 posts are too close to the single article
+// they link to — kept crawlable for link flow but excluded from SERP.
+const isThin = posts.length < 3;
+
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('pl-PL', {
     year: 'numeric',
@@ -48,9 +52,10 @@ const getReadingTime = (content: string) => {
 };
 ---
 
-<Layout 
+<Layout
   title={`#${tag} - artykuły, poradniki, wskazówki | Blog TorWeb.pl`}
   description={`Artykuły oznaczone tagiem "${tag}" - praktyczna wiedza o tworzeniu stron i aplikacji webowych.`}
+  noindex={isThin}
 >
 <Navbar />
   <main class="pt-32 pb-20">
@@ -61,7 +66,7 @@ const getReadingTime = (content: string) => {
         <ol class="flex items-center gap-2 text-sm text-muted">
           <li><a href="/" class="hover:text-accent transition-colors">Strona główna</a></li>
           <li class="text-faint">/</li>
-          <li><a href="/blog" class="hover:text-accent transition-colors">Blog</a></li>
+          <li><a href="/blog/" class="hover:text-accent transition-colors">Blog</a></li>
           <li class="text-faint">/</li>
           <li class="text-heading">#{tag}</li>
         </ol>
@@ -87,7 +92,7 @@ const getReadingTime = (content: string) => {
       {posts.length === 0 ? (
         <div class="text-center py-16 bg-card border border-theme rounded-2xl">
           <p class="text-muted">Brak artykułów z tym tagiem.</p>
-          <a href="/blog" class="text-accent hover:underline mt-2 inline-block">
+          <a href="/blog/" class="text-accent hover:underline mt-2 inline-block">
             ← Wróć do wszystkich artykułów
           </a>
         </div>
@@ -142,7 +147,7 @@ const getReadingTime = (content: string) => {
       <!-- Back to Blog -->
       <div class="mt-12 text-center">
         <a 
-          href="/blog" 
+          href="/blog/" 
           class="inline-flex items-center gap-2 text-accent hover:underline"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

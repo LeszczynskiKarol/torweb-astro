@@ -46,8 +46,8 @@ const {
 
 const siteUrl = 'https://www.torweb.pl';
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
-// URL BEZ /uslugi/ - bezpośrednio /{serviceSlug}
-const serviceUrl = `${siteUrl}/${serviceSlug}`;
+// URL BEZ /uslugi/ - bezpośrednio /{serviceSlug}/ (trailing slash zgodne z trailingSlash: 'always')
+const serviceUrl = `${siteUrl}/${serviceSlug}/`;
 
 // Schema: Organization
 const organizationSchema = {
@@ -113,13 +113,6 @@ const serviceSchema = {
         }
       }
     ]
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "47",
-    "bestRating": "5",
-    "worstRating": "1"
   }
 };
 
@@ -322,7 +315,7 @@ const relatedServices = allServices.filter(s => s.slug !== serviceSlug);
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {relatedServices.map(service => (
             <a 
-              href={`/${service.slug}`}
+              href={`/${service.slug}/`}
               class="group p-4 rounded-xl border border-theme bg-card hover:border-accent/50 transition-all duration-300"
             >
               <span class="text-body group-hover:text-accent transition-colors">{service.short}</span>
@@ -342,7 +335,7 @@ const relatedServices = allServices.filter(s => s.slug !== serviceSlug);
           Skontaktuj się z nami i otrzymaj bezpłatną wycenę projektu w ciągu 24 godzin.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/kontakt" class="btn-primary">
+          <a href="/kontakt/" class="btn-primary">
             Bezpłatna wycena
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

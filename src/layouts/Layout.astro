@@ -7,13 +7,15 @@ interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
-const { 
-  title, 
-  description, 
+const {
+  title,
+  description,
   canonical = Astro.url.href,
-  ogImage = '/og-image.jpg'
+  ogImage = '/og-image.jpg',
+  noindex = false
 } = Astro.props;
 
 const siteUrl = 'https://www.torweb.pl';
@@ -117,8 +119,8 @@ const websiteSchema = {
   <meta name="description" content={description} />
   <meta name="keywords" content="tworzenie stron internetowych Toruń, sklepy internetowe, programista Toruń, agencja interaktywna, web development, aplikacje webowe, SEO, e-commerce Toruń" />
   <meta name="author" content="TorWeb.pl - Karol Leszczyński" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href={canonical} />
+  <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+  {!noindex && <link rel="canonical" href={canonical} />}
   
   <meta name="geo.region" content="PL-KP" />
   <meta name="geo.placename" content="Toruń" />
@@ -153,7 +155,10 @@ const websiteSchema = {
   
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-  
+
+  <!-- Per-page extra <head> content (e.g. BlogPosting / BreadcrumbList JSON-LD from BlogLayout) -->
+  <slot name="head" />
+
   <meta name="theme-color" content="#050506" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="msapplication-TileColor" content="#050506" />

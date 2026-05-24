@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const popular = [
+  { href: '/strony-internetowe/', label: 'Strony internetowe' },
+  { href: '/sklepy-internetowe/', label: 'Sklepy internetowe' },
+  { href: '/aplikacje-webowe/', label: 'Aplikacje webowe' },
+  { href: '/integracje-ai/', label: 'Integracje AI' },
+  { href: '/realizacje/', label: 'Portfolio realizacji' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+---
+
+<Layout
+  title="404 — strona nie znaleziona | TorWeb.pl"
+  description="Strona, której szukasz, nie istnieje lub została przeniesiona. Sprawdź popularne sekcje serwisu TorWeb.pl."
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="min-h-[70vh] pt-32 pb-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-sky-500/20 border border-accent/30 mb-8">
+        <span class="text-5xl font-bold bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text text-transparent">404</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-heading mb-4">
+        Strona nie znaleziona
+      </h1>
+
+      <p class="text-lg text-muted mb-10 max-w-xl mx-auto">
+        Adres, który wpisałeś/aś, nie istnieje lub strona została przeniesiona.
+        Wróć na stronę główną albo skorzystaj z popularnych sekcji poniżej.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+        <a href="/" class="btn-primary">
+          Strona główna
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+        </a>
+        <a href="/kontakt/" class="btn-secondary">
+          Napisz do nas
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="border-t border-theme pt-10">
+        <h2 class="text-sm font-mono uppercase tracking-widest text-muted mb-6">Popularne sekcje</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {popular.map(item => (
+            <a
+              href={item.href}
+              class="px-4 py-3 rounded-xl border border-theme bg-card text-body hover:text-accent hover:border-accent/50 transition-all duration-200"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

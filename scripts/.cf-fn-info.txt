@@ -1,0 +1,1 @@
+arn:aws:cloudfront::381492300277:function/torweb-redirects|ETVPDKIKX0DER

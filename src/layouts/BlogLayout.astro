@@ -79,7 +79,7 @@ const schema = {
   "dateModified": (updateDate || publishDate).toISOString(),
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://www.torweb.pl/blog/${post.slug}`
+    "@id": `https://www.torweb.pl/blog/${post.slug}/`
   }
 };
 
@@ -92,19 +92,19 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 1,
       "name": "Strona główna",
-      "item": "https://www.torweb.pl"
+      "item": "https://www.torweb.pl/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": "https://www.torweb.pl/blog"
+      "item": "https://www.torweb.pl/blog/"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": title,
-      "item": `https://www.torweb.pl/blog/${post.slug}`
+      "item": `https://www.torweb.pl/blog/${post.slug}/`
     }
   ]
 };
@@ -131,7 +131,7 @@ const breadcrumbSchema = {
           </li>
           <li class="text-faint">/</li>
           <li>
-            <a href="/blog" class="hover:text-accent transition-colors">Blog</a>
+            <a href="/blog/" class="hover:text-accent transition-colors">Blog</a>
           </li>
           <li class="text-faint">/</li>
           <li class="text-heading truncate max-w-[200px]">{title}</li>
@@ -142,7 +142,7 @@ const breadcrumbSchema = {
       <header class="mb-12">
         <!-- Category -->
         <a 
-          href={`/blog/kategoria/${category.toLowerCase().replace(/\s+/g, '-')}`}
+          href={`/blog/kategoria/${category.toLowerCase().replace(/\s+/g, '-')}/`}
           class="inline-block px-3 py-1 text-sm font-medium bg-accent/10 text-accent rounded-full hover:bg-accent/20 transition-colors mb-4"
         >
           {category}
@@ -233,7 +233,7 @@ const breadcrumbSchema = {
             <span class="text-sm text-muted mr-2">Tagi:</span>
             {tags.map(tag => (
               <a 
-                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}/`}
                 class="px-3 py-1 text-sm bg-elevated border border-theme rounded-full text-muted hover:text-accent hover:border-accent transition-colors"
               >
                 #{tag}
@@ -257,10 +257,10 @@ const breadcrumbSchema = {
               budować skuteczną obecność online.
             </p>
             <div class="flex gap-3">
-              <a href="/kontakt" class="text-sm font-medium text-accent hover:underline">
+              <a href="/kontakt/" class="text-sm font-medium text-accent hover:underline">
                 Skontaktuj się →
               </a>
-              <a href="/realizacje" class="text-sm font-medium text-muted hover:text-accent transition-colors">
+              <a href="/realizacje/" class="text-sm font-medium text-muted hover:text-accent transition-colors">
                 Zobacz projekty
               </a>
             </div>
@@ -278,7 +278,7 @@ const breadcrumbSchema = {
           Bezpłatna wycena w ciągu 24 godzin.
         </p>
         <a 
-          href="/kontakt" 
+          href="/kontakt/" 
           class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-sky-500 dark:from-neon-green dark:to-neon-blue text-dark-950 font-semibold rounded-xl hover:opacity-90 transition-opacity"
         >
           Darmowa wycena
@@ -297,7 +297,7 @@ const breadcrumbSchema = {
         <div class="grid sm:grid-cols-2 gap-6">
           {relatedPosts.map(relatedPost => (
             <a 
-              href={`/blog/${relatedPost.slug}`}
+              href={`/blog/${relatedPost.slug}/`}
               class="group block bg-card border border-theme rounded-xl overflow-hidden hover:border-accent/50 transition-all duration-300"
             >
               {relatedPost.data.image ? (
